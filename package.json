@@ -1,0 +1,24 @@
+{
+  "name": "ved-dhobi-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "build": "echo 'Build complete'",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [
+    "portfolio",
+    "web-development",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Ved Dhobi",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "gh-pages": "^6.0.0"
+  }
+}
