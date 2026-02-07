@@ -343,4 +343,119 @@ document.addEventListener('DOMContentLoaded', () => {
             bar.style.transition = 'width 1.5s ease-in-out';
         });
     }, 500);
+    // Initialize Resume Request System
+    const resumeRequestSystem = new ResumeRequestSystem();
+
+    // Add animation to download buttons
+    document.querySelectorAll('.btn-download-resume, #resumeTrigger').forEach(btn => {
+        btn.classList.add('pulse-animation');
+        
+        // Add click animation
+        btn.addEventListener('click', function() {
+            this.classList.add('pulse-animation');
+            setTimeout(() => {
+                this.classList.remove('pulse-animation');
+            }, 1000);
+        });
+    });
+
+    // Add download stats to hero section
+    function addDownloadStats() {
+        const count = localStorage.getItem('resumeDownloadCount') || 0;
+        if (count > 0) {
+            const statsBadge = document.createElement('div');
+            statsBadge.className = 'download-stats-badge';
+            statsBadge.innerHTML = `
+                <i class="fas fa-download"></i>
+                <span>${count} downloads</span>
+            `;
+            statsBadge.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: var(--card-bg);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                box-shadow: var(--shadow);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.875rem;
+                z-index: 100;
+                animation: slideUp 0.6s ease-out;
+            `;
+            
+            document.body.appendChild(statsBadge);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                statsBadge.style.opacity = '0';
+                statsBadge.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    if (statsBadge.parentNode) {
+                        statsBadge.parentNode.removeChild(statsBadge);
+                    }
+                }, 300);
+            }, 5000);
+        }
+    }
+
+    // Show stats after page loads
+    setTimeout(addDownloadStats, 2000);
+        // Initialize Drive Access Request System
+    const driveAccessSystem = new DriveAccessRequestSystem();
+
+    // Add pulse animation to request buttons
+    document.querySelectorAll('#resumeTrigger, .btn-download-resume').forEach(btn => {
+        btn.classList.add('pulse-animation');
+        
+        // Add click animation
+        btn.addEventListener('click', function() {
+            this.classList.add('pulse-animation');
+            setTimeout(() => {
+                this.classList.remove('pulse-animation');
+            }, 1000);
+        });
+    });
+
+    // Show request stats after page loads
+    setTimeout(() => {
+        const count = localStorage.getItem('resumeRequestCount') || 0;
+        if (count > 0) {
+            const statsBadge = document.createElement('div');
+            statsBadge.className = 'request-badge';
+            statsBadge.innerHTML = `
+                <i class="fas fa-envelope"></i>
+                <span>${count} access requests</span>
+            `;
+            statsBadge.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: var(--card-bg);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                box-shadow: var(--shadow);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.875rem;
+                z-index: 100;
+                animation: slideUp 0.6s ease-out;
+            `;
+            
+            document.body.appendChild(statsBadge);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                statsBadge.style.opacity = '0';
+                statsBadge.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    if (statsBadge.parentNode) {
+                        statsBadge.parentNode.removeChild(statsBadge);
+                    }
+                }, 300);
+            }, 5000);
+        }
+    }, 2000);
 });
