@@ -42,164 +42,80 @@
     </style>
 </head>
 <body>
-    <!-- 3D Animated Intro -->
-    <div class="intro-3d" id="intro3D">
-        <!-- 3D Background -->
-        <div class="bg-3d">
-            <canvas id="bgCanvas"></canvas>
-            <div class="gradient-mesh"></div>
-            <div class="light-rays"></div>
-        </div>
-        
-        <!-- 3D Content Container -->
-        <div class="intro-container">
-            <!-- Floating 3D Elements -->
-            <div class="floating-3d">
-                <div class="cube-3d" id="cube3D">
-                    <div class="cube-face front"></div>
-                    <div class="cube-face back"></div>
-                    <div class="cube-face right"></div>
-                    <div class="cube-face left"></div>
-                    <div class="cube-face top"></div>
-                    <div class="cube-face bottom"></div>
-                </div>
-                
-                <div class="sphere-3d" id="sphere3D"></div>
-                <div class="pyramid-3d" id="pyramid3D"></div>
-                <div class="torus-3d" id="torus3D"></div>
-            </div>
-            
-            <!-- Main Content -->
-            <div class="intro-content">
-                <!-- Animated Logo -->
-                <div class="intro-logo">
-                    <div class="logo-3d">
-                        <span class="logo-char" data-char="V">V</span>
-                        <span class="logo-char" data-char="E">E</span>
-                        <span class="logo-char" data-char="D">D</span>
-                    </div>
-                    <div class="logo-ring"></div>
-                </div>
-                
-                <!-- 3D Text -->
-                <div class="intro-text">
-                    <h1 class="text-3d" id="text3D">
-                        <span class="text-layer layer-1">Hello World</span>
-                        <span class="text-layer layer-2">Hello World</span>
-                        <span class="text-layer layer-3">Hello World</span>
-                    </h1>
-                    
-                    <div class="subtitle-container">
-                        <p class="subtitle-3d" id="subtitle3D">
-                            <span class="subtitle-char">I</span>
-                            <span class="subtitle-char">T</span>
-                            <span class="subtitle-char space"></span>
-                            <span class="subtitle-char">S</span>
-                            <span class="subtitle-char">t</span>
-                            <span class="subtitle-char">u</span>
-                            <span class="subtitle-char">d</span>
-                            <span class="subtitle-char">e</span>
-                            <span class="subtitle-char">n</span>
-                            <span class="subtitle-char">t</span>
-                            <span class="subtitle-char space"></span>
-                            <span class="subtitle-char">&</span>
-                            <span class="subtitle-char space"></span>
-                            <span class="subtitle-char">D</span>
-                            <span class="subtitle-char">e</span>
-                            <span class="subtitle-char">v</span>
-                            <span class="subtitle-char">e</span>
-                            <span class="subtitle-char">l</span>
-                            <span class="subtitle-char">o</span>
-                            <span class="subtitle-char">p</span>
-                            <span class="subtitle-char">e</span>
-                            <span class="subtitle-char">r</span>
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Interactive Elements -->
-                <div class="intro-interactive">
-                    <div class="progress-3d">
-                        <div class="progress-track"></div>
-                        <div class="progress-fill" id="progressFill"></div>
-                        <div class="progress-glow"></div>
-                    </div>
-                    
-                    <div class="control-3d">
-                        <button class="control-btn explore-btn" id="exploreBtn">
-                            <span class="btn-text">Explore Portfolio</span>
-                            <div class="btn-hover"></div>
-                            <div class="btn-arrow">→</div>
-                        </button>
-                        
-                        <button class="control-btn skip-btn" id="skipIntro">
-                            <span class="btn-text">Skip Intro</span>
-                            <div class="btn-pulse"></div>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Sound Toggle -->
-                <div class="sound-toggle" id="soundToggle">
-                    <div class="sound-icon">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                    <div class="sound-waves">
-                        <span class="wave"></span>
-                        <span class="wave"></span>
-                        <span class="wave"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Mouse Guide -->
-            <div class="mouse-guide">
-                <div class="mouse-scroll">
-                    <div class="mouse-wheel"></div>
-                </div>
-                <p>Scroll or Drag to Explore</p>
-            </div>
-        </div>
-        
-        <!-- Audio Elements -->
-        <audio id="bgMusic" loop>
-            <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="hoverSound">
-            <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
-        </audio>
+    <!-- 3D Intro Screen -->
+    <title>3D Welcome</title>
+
+    <style>
+    /* ===== 3D Welcome Screen ===== */
+    #welcome3d{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle,#0f172a,#020617);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    perspective:1000px;
+    transition:opacity .6s ease;
+    }
+
+    /* 3D Text */
+    #welcome3d h1{
+    color:white;
+    font-size:clamp(40px,8vw,90px);
+    font-family:sans-serif;
+    letter-spacing:4px;
+    text-transform:uppercase;
+
+    background:linear-gradient(90deg,#60a5fa,#a78bfa,#34d399);
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:zoom3d 1.4s ease forwards;
+    }
+
+    /* 3D Animation */
+    @keyframes zoom3d{
+    0%{
+        opacity:0;
+        transform:rotateX(60deg) translateZ(-400px) scale(.5);
+        filter:blur(10px);
+    }
+    100%{
+        opacity:1;
+        transform:rotateX(0) translateZ(0) scale(1);
+        filter:blur(0);
+    }
+    }
+
+    /* Hide */
+    .hide{
+    opacity:0;
+    pointer-events:none;
+    }
+    </style>
+
+    </head>
+
+    <body>
+
+    <!-- 3D Intro -->
+    <div id="welcome3d">
+    <h1>Welcome</h1>
     </div>
 
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="gradient-bg"></div>
-    </div>
-    
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <span class="logo-text">Ved Dhobi</span>
-                <span class="logo-tag">IT Student</span>
-            </div>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
-                <a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a>
-                <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a>
-                <a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a>
-                <a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
-                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-            </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- Site Content -->
+    <h2 style="text-align:center;margin-top:200px;">
+    Your Website Content
+    </h2>
+
+    <script>
+    window.onload = () => {
+    setTimeout(()=>{
+        document.getElementById("welcome3d").classList.add("hide");
+    },2000); // 2 sec intro
+    };
+    </script>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">

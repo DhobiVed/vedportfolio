@@ -1581,3 +1581,393 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auto-hide after 10 seconds max
     setTimeout(hideIntro, 10000);
 });
+/* ========== 3D CUBE ANIMATION SCRIPT ========== */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const cubeIntro = document.getElementById('cubeIntro');
+    const enterBtn = document.getElementById('enterSite');
+    const skipBtn = document.getElementById('skipIntro');
+    const musicToggle = document.getElementById('musicToggle');
+    const bgAudio = document.getElementById('bgAudio');
+    const clickSound = document.getElementById('clickSound');
+    const hoverSound = document.getElementById('hoverSound');
+    
+    const rotateXBtn = document.getElementById('rotateX');
+    const rotateYBtn = document.getElementById('rotateY');
+    const rotateZBtn = document.getElementById('rotateZ');
+    const toggleOrbitBtn = document.getElementById('toggleOrbit');
+    
+    const cube = document.querySelector('.cube');
+    const cubeContainer = document.querySelector('.cube-container');
+    const orbitPath = document.querySelector('.orbit-path');
+    const statValues = document.querySelectorAll('.stat-value');
+    const skipProgress = document.querySelector('.skip-progress');
+    const skipTime = document.querySelector('.skip-time');
+    
+    let isMusicPlaying = true;
+    let isOrbiting = true;
+    let isDragging = false;
+    let mouseX = 0;
+    let mouseY = 0;
+    let rotationX = -15;
+    let rotationY = 0;
+    let rotationZ = 0;
+    let timeLeft = 7;
+    let countdownInterval;
+    let skipProgressInterval;
+    
+    // Initialize
+    initCubeAnimation();
+    startCountdown();
+    startStatCounter();
+    
+    // Event Listeners
+    enterBtn.addEventListener('click', enterPortfolio);
+    skipBtn.addEventListener('click', skipAnimation);
+    musicToggle.addEventListener('click', toggleMusic);
+    
+    // Cube Controls
+    rotateXBtn.addEventListener('click', () => rotateCube('x'));
+    rotateYBtn.addEventListener('click', () => rotateCube('y'));
+    rotateZBtn.addEventListener('click', () => rotateCube('z'));
+    toggleOrbitBtn.addEventListener('click', toggleOrbit);
+    
+    // Hover Sounds
+    [enterBtn, skipBtn, rotateXBtn, rotateYBtn, rotateZBtn, toggleOrbitBtn].forEach(btn => {
+        btn.addEventListener('mouseenter', playHoverSound);
+    });
+    
+    // Mouse/Touch Interactions
+    cube.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', dragCube);
+    document.addEventListener('mouseup', stopDrag);
+    
+    cube.addEventListener('touchstart', startDragTouch);
+    document.addEventListener('touchmove', dragCubeTouch);
+    document.addEventListener('touchend', stopDrag);
+    
+    // Keyboard Controls
+    document.addEventListener('keydown', handleKeyPress);
+    
+    // Mouse Wheel Zoom
+    document.addEventListener('wheel', handleWheel);
+    
+    // Initialize Cube Animation
+    function initCubeAnimation() {
+        // Start background music
+        bgAudio.volume = 0.3;
+        bgAudio.play().catch(e => console.log('Audio play failed:', e));
+        
+        // Add particles
+        createParticles();
+        
+        // Initial rotation
+        updateCubeRotation();
+    }
+    
+    // Enter Portfolio
+    function enterPortfolio() {
+        playClickSound();
+        hideIntro();
+    }
+    
+    // Skip Animation
+    function skipAnimation() {
+        playClickSound();
+        hideIntro();
+    }
+    
+    // Hide Intro
+    function hideIntro() {
+        // Stop audio
+        bgAudio.pause();
+        bgAudio.currentTime = 0;
+        
+        // Stop intervals
+        clearInterval(countdownInterval);
+        clearInterval(skipProgressInterval);
+        
+        // Hide intro
+        cubeIntro.classList.add('hidden');
+        
+        // Enable scroll
+        document.body.style.overflow = 'auto';
+        
+        // Save session
+        sessionStorage.setItem('cubeIntroShown', 'true');
+        
+        // Start page animations
+        setTimeout(() => {
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        }, 300);
+    }
+    
+    // Toggle Music
+    function toggleMusic() {
+        playClickSound();
+        
+        if (isMusicPlaying) {
+            bgAudio.pause();
+            musicToggle.querySelector('i').className = 'fas fa-volume-mute';
+            musicToggle.querySelector('.music-text').textContent = 'Muted';
+        } else {
+            bgAudio.play().catch(e => console.log('Audio play failed:', e));
+            musicToggle.querySelector('i').className = 'fas fa-volume-up';
+            musicToggle.querySelector('.music-text').textContent = 'Ambient';
+        }
+        
+        isMusicPlaying = !isMusicPlaying;
+    }
+    
+    // Rotate Cube
+    function rotateCube(axis) {
+        playClickSound();
+        
+        switch(axis) {
+            case 'x':
+                rotationX += 90;
+                break;
+            case 'y':
+                rotationY += 90;
+                break;
+            case 'z':
+                rotationZ += 90;
+                break;
+        }
+        
+        updateCubeRotation();
+        
+        // Add visual feedback
+        const btn = document.getElementById(`rotate${axis.toUpperCase()}`);
+        btn.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            btn.style.transform = 'scale(1)';
+        }, 150);
+    }
+    
+    // Update Cube Rotation
+    function updateCubeRotation() {
+        cubeContainer.style.animation = 'none';
+        cubeContainer.style.transform = `
+            rotateX(${rotationX}deg) 
+            rotateY(${rotationY}deg) 
+            rotateZ(${rotationZ}deg)
+        `;
+        
+        // Restart animation after a delay
+        setTimeout(() => {
+            if (isOrbiting) {
+                cubeContainer.style.animation = 'rotateCube 40s infinite linear';
+            }
+        }, 10);
+    }
+    
+    // Toggle Orbit
+    function toggleOrbit() {
+        playClickSound();
+        isOrbiting = !isOrbiting;
+        
+        if (isOrbiting) {
+            cubeContainer.style.animation = 'rotateCube 40s infinite linear';
+            orbitPath.style.animation = 'rotateOrbit 30s linear infinite';
+            toggleOrbitBtn.innerHTML = '<i class="fas fa-satellite"></i><span>Stop Orbit</span>';
+        } else {
+            cubeContainer.style.animation = 'none';
+            orbitPath.style.animation = 'none';
+            toggleOrbitBtn.innerHTML = '<i class="fas fa-satellite"></i><span>Start Orbit</span>';
+        }
+    }
+    
+    // Start Countdown
+    function startCountdown() {
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            
+            // Update time display
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            skipTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update progress bar
+            const progress = ((7 - timeLeft) / 7) * 100;
+            skipProgress.style.width = `${progress}%`;
+            
+            // Auto skip when time runs out
+            if (timeLeft <= 0) {
+                hideIntro();
+            }
+        }, 1000);
+    }
+    
+    // Start Stat Counter
+    function startStatCounter() {
+        statValues.forEach(stat => {
+            const target = parseFloat(stat.dataset.value);
+            const duration = 2000;
+            const steps = 60;
+            const increment = target / steps;
+            let current = 0;
+            let step = 0;
+            
+            const counter = setInterval(() => {
+                current += increment;
+                step++;
+                
+                if (step >= steps) {
+                    current = target;
+                    clearInterval(counter);
+                }
+                
+                if (target % 1 === 0) {
+                    stat.textContent = Math.floor(current);
+                } else {
+                    stat.textContent = current.toFixed(2);
+                }
+            }, duration / steps);
+        });
+    }
+    
+    // Create Particles
+    function createParticles() {
+        const particlesContainer = document.querySelector('.cube-particles');
+        
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 4 + 2;
+            const duration = Math.random() * 10 + 10;
+            const delay = Math.random() * 5;
+            
+            particle.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${i % 3 === 0 ? 'var(--primary-color)' : 
+                            i % 3 === 1 ? 'var(--secondary-color)' : 
+                            'var(--accent-color)'};
+                border-radius: 50%;
+                animation: particleFloat ${duration}s infinite linear ${delay}s;
+                opacity: ${Math.random() * 0.5 + 0.3};
+            `;
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Drag Functions
+    function startDrag(e) {
+        isDragging = true;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cube.style.cursor = 'grabbing';
+    }
+    
+    function startDragTouch(e) {
+        if (e.touches.length === 1) {
+            isDragging = true;
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        }
+    }
+    
+    function dragCube(e) {
+        if (!isDragging) return;
+        
+        const deltaX = e.clientX - mouseX;
+        const deltaY = e.clientY - mouseY;
+        
+        rotationY += deltaX * 0.5;
+        rotationX -= deltaY * 0.5;
+        
+        updateCubeRotation();
+        
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    }
+    
+    function dragCubeTouch(e) {
+        if (!isDragging || e.touches.length !== 1) return;
+        
+        const deltaX = e.touches[0].clientX - mouseX;
+        const deltaY = e.touches[0].clientY - mouseY;
+        
+        rotationY += deltaX * 0.5;
+        rotationX -= deltaY * 0.5;
+        
+        updateCubeRotation();
+        
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+    }
+    
+    function stopDrag() {
+        isDragging = false;
+        cube.style.cursor = 'grab';
+    }
+    
+    // Handle Keyboard
+    function handleKeyPress(e) {
+        switch(e.code) {
+            case 'Space':
+                e.preventDefault();
+                rotateCube('y');
+                break;
+            case 'Enter':
+            case 'Escape':
+                hideIntro();
+                break;
+            case 'KeyX':
+                rotateCube('x');
+                break;
+            case 'KeyY':
+                rotateCube('y');
+                break;
+            case 'KeyZ':
+                rotateCube('z');
+                break;
+            case 'KeyO':
+                toggleOrbit();
+                break;
+        }
+    }
+    
+    // Handle Mouse Wheel Zoom
+    function handleWheel(e) {
+        e.preventDefault();
+        
+        const cubeWrapper = document.querySelector('.cube-wrapper');
+        const currentScale = parseFloat(getComputedStyle(cubeWrapper).transform.split(',')[3]) || 1;
+        let newScale = currentScale - (e.deltaY * 0.001);
+        
+        // Clamp scale between 0.5 and 2
+        newScale = Math.max(0.5, Math.min(2, newScale));
+        
+        cubeWrapper.style.transform = `translate(-50%, -50%) scale(${newScale})`;
+    }
+    
+    // Sound Functions
+    function playClickSound() {
+        clickSound.currentTime = 0;
+        clickSound.play().catch(e => console.log('Click sound failed:', e));
+    }
+    
+    function playHoverSound() {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(e => console.log('Hover sound failed:', e));
+    }
+    
+    // Check if intro was shown
+    if (sessionStorage.getItem('cubeIntroShown')) {
+        cubeIntro.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    } else {
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Auto-hide after 15 seconds max
+    setTimeout(hideIntro, 15000);
+});
