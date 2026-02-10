@@ -1107,4 +1107,212 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(animationStyles);
+    
 });
+// Add this at the end of your main.js
+
+/* ========== ENHANCEMENTS ========== */
+
+// 1. Network Status Detection
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+
+function updateNetworkStatus() {
+    const statusEl = document.createElement('div');
+    statusEl.className = 'network-status';
+    statusEl.textContent = navigator.onLine ? 'Back online' : 'You are offline';
+    
+    document.body.appendChild(statusEl);
+    
+    if (!navigator.onLine) {
+        statusEl.classList.add('offline');
+    }
+    
+    setTimeout(() => {
+        statusEl.remove();
+    }, 3000);
+}
+
+// 2. PWA Install Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    const installBtn = document.createElement('button');
+    installBtn.textContent = '📱 Install App';
+    installBtn.className = 'btn btn-primary';
+    installBtn.style.marginTop = '1rem';
+    
+    installBtn.addEventListener('click', async () => {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            installBtn.remove();
+        }
+        deferredPrompt = null;
+    });
+    
+    document.querySelector('.hero-actions')?.appendChild(installBtn);
+});
+
+// 3. Page Transition
+function smoothPageTransition(url) {
+    const transition = document.createElement('div');
+    transition.className = 'page-transition';
+    document.body.appendChild(transition);
+    
+    setTimeout(() => {
+        transition.classList.add('active');
+        setTimeout(() => {
+            window.location.href = url;
+        }, 500);
+    }, 50);
+}
+
+// 4. Toast Notification
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <p>${message}</p>
+            <button class="toast-close">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    });
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
+
+// 5. Lazy Loading Images
+const lazyImages = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+lazyImages.forEach(img => imageObserver.observe(img));
+
+// 6. Custom Cursor (Optional)
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    document.body.appendChild(dot);
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+        dot.style.transform = `translate(${e.clientX - 2}px, ${e.clientY - 2}px)`;
+    });
+}
+
+// 7. Performance Monitoring
+if (location.hostname === 'localhost') {
+    const perfMetrics = document.createElement('div');
+    perfMetrics.className = 'perf-metrics';
+    document.body.appendChild(perfMetrics);
+    
+    function updatePerfMetrics() {
+        const now = performance.now();
+        const memory = performance.memory;
+        const metrics = `
+            FPS: ${Math.round(1000 / (now - (window.lastTime || now)))}
+            ${memory ? `Memory: ${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB` : ''}
+        `;
+        perfMetrics.textContent = metrics;
+        window.lastTime = now;
+        requestAnimationFrame(updatePerfMetrics);
+    }
+    
+    requestAnimationFrame(updatePerfMetrics);
+}
+
+// 8. Copy Email to Clipboard
+document.querySelectorAll('[data-copy]').forEach(button => {
+    button.addEventListener('click', async () => {
+        const text = button.dataset.copy;
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast('Copied to clipboard!', 'success');
+        } catch (err) {
+            showToast('Failed to copy', 'error');
+        }
+    });
+});
+
+// 9. Auto-theme based on time
+function setThemeByTime() {
+    const hour = new Date().getHours();
+    const isNight = hour >= 18 || hour < 6;
+    
+    if (isNight && !localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+}
+
+setThemeByTime();
+
+// 10. Easter Egg 😊
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+                    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
+                    'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            showToast('🎉 You found the secret!', 'success');
+            document.body.classList.add('party-mode');
+            setTimeout(() => {
+                document.body.classList.remove('party-mode');
+            }, 3000);
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+// FINAL: Initialize all enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Portfolio loaded with enhancements!');
+    
+    // Add skip to content link
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main';
+    skipLink.className = 'skip-to-content';
+    skipLink.textContent = 'Skip to main content';
+    document.body.prepend(skipLink);
+    
+    // Add watermark
+    const watermark = document.createElement('div');
+    watermark.className = 'watermark';
+    watermark.textContent = 'Ved Dhobi © 2024';
+    document.body.appendChild(watermark);
+});
+
+/* ========== END OF ENHANCEMENTS ========== */
