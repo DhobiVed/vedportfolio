@@ -1316,3 +1316,268 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ========== END OF ENHANCEMENTS ========== */
+/* ========== 3D INTRO SCRIPT ========== */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const intro3D = document.getElementById('intro3D');
+    const exploreBtn = document.getElementById('exploreBtn');
+    const skipIntro = document.getElementById('skipIntro');
+    const soundToggle = document.getElementById('soundToggle');
+    const progressFill = document.getElementById('progressFill');
+    const bgMusic = document.getElementById('bgMusic');
+    const hoverSound = document.getElementById('hoverSound');
+    
+    let isMusicPlaying = false;
+    let progress = 0;
+    let progressInterval;
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    // Initialize 3D Canvas
+    init3DCanvas();
+    
+    // Initialize 3D Elements Parallax
+    initParallax();
+    
+    // Start Progress Animation
+    startProgress();
+    
+    // Event Listeners
+    exploreBtn.addEventListener('click', hideIntro);
+    skipIntro.addEventListener('click', hideIntro);
+    
+    exploreBtn.addEventListener('mouseenter', playHoverSound);
+    skipIntro.addEventListener('mouseenter', playHoverSound);
+    
+    soundToggle.addEventListener('click', toggleMusic);
+    
+    // Mouse Move Parallax
+    document.addEventListener('mousemove', handleMouseMove);
+    
+    // Touch Support
+    document.addEventListener('touchmove', handleTouchMove);
+    
+    // Keyboard Controls
+    document.addEventListener('keydown', handleKeyPress);
+    
+    // Hide intro function
+    function hideIntro() {
+        // Stop music
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        
+        // Stop progress
+        clearInterval(progressInterval);
+        
+        // Hide intro
+        intro3D.classList.add('hidden');
+        
+        // Enable body scroll
+        document.body.style.overflow = 'auto';
+        
+        // Save session
+        sessionStorage.setItem('intro3DShown', 'true');
+        
+        // Start page entrance animations
+        setTimeout(() => {
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        }, 300);
+    }
+    
+    // Initialize 3D Canvas
+    function init3DCanvas() {
+        const canvas = document.getElementById('bgCanvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = 100;
+        
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 0.5,
+                speedX: Math.random() * 0.5 - 0.25,
+                speedY: Math.random() * 0.5 - 0.25,
+                color: `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, ${Math.random() * 0.3 + 0.1})`
+            });
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw particles
+            particles.forEach(particle => {
+                particle.x += particle.speedX + mouseX * 0.01;
+                particle.y += particle.speedY + mouseY * 0.01;
+                
+                // Boundary check
+                if (particle.x < 0) particle.x = canvas.width;
+                if (particle.x > canvas.width) particle.x = 0;
+                if (particle.y < 0) particle.y = canvas.height;
+                if (particle.y > canvas.height) particle.y = 0;
+                
+                // Draw particle
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                
+                // Draw connections
+                particles.forEach(otherParticle => {
+                    const dx = particle.x - otherParticle.x;
+                    const dy = particle.y - otherParticle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(otherParticle.x, otherParticle.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+            
+            // Draw gradient overlay
+            const gradient = ctx.createRadialGradient(
+                canvas.width * 0.3, canvas.height * 0.3, 0,
+                canvas.width * 0.3, canvas.height * 0.3, canvas.width * 0.5
+            );
+            gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)');
+            gradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }
+    
+    // Initialize Parallax Effect
+    function initParallax() {
+        const cube = document.getElementById('cube3D');
+        const sphere = document.getElementById('sphere3D');
+        const pyramid = document.getElementById('pyramid3D');
+        const torus = document.getElementById('torus3D');
+        
+        if (cube) cube.style.transform = `rotateX(20deg) rotateY(45deg)`;
+        if (sphere) sphere.style.transform = `translate(0, 0)`;
+        if (pyramid) pyramid.style.transform = `rotate(45deg)`;
+    }
+    
+    // Handle Mouse Move
+    function handleMouseMove(e) {
+        mouseX = (e.clientX - window.innerWidth / 2) / 100;
+        mouseY = (e.clientY - window.innerHeight / 2) / 100;
+        
+        updateParallax();
+    }
+    
+    // Handle Touch Move
+    function handleTouchMove(e) {
+        if (e.touches.length > 0) {
+            mouseX = (e.touches[0].clientX - window.innerWidth / 2) / 100;
+            mouseY = (e.touches[0].clientY - window.innerHeight / 2) / 100;
+            
+            updateParallax();
+        }
+    }
+    
+    // Update Parallax
+    function updateParallax() {
+        const cube = document.getElementById('cube3D');
+        const sphere = document.getElementById('sphere3D');
+        const pyramid = document.getElementById('pyramid3D');
+        const torus = document.getElementById('torus3D');
+        
+        if (cube) {
+            cube.style.transform = `translate(${mouseX * 10}px, ${mouseY * 10}px) 
+                                   rotateX(${20 + mouseY * 5}deg) 
+                                   rotateY(${45 + mouseX * 5}deg)`;
+        }
+        
+        if (sphere) {
+            sphere.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px)`;
+        }
+        
+        if (pyramid) {
+            pyramid.style.transform = `translate(${mouseX * 15}px, ${mouseY * 15}px) 
+                                       rotate(${45 + mouseX * 10}deg)`;
+        }
+        
+        if (torus) {
+            torus.style.transform = `rotateX(60deg) rotateY(${mouseX * 20}deg)`;
+        }
+    }
+    
+    // Start Progress Animation
+    function startProgress() {
+        progressInterval = setInterval(() => {
+            progress += 1;
+            if (progress > 100) {
+                progress = 100;
+                clearInterval(progressInterval);
+                setTimeout(hideIntro, 500);
+            }
+            progressFill.style.width = `${progress}%`;
+        }, 70); // Total 7 seconds
+    }
+    
+    // Toggle Music
+    function toggleMusic() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            soundToggle.querySelector('i').className = 'fas fa-volume-mute';
+        } else {
+            bgMusic.play().catch(e => console.log('Music play failed:', e));
+            soundToggle.querySelector('i').className = 'fas fa-volume-up';
+        }
+        isMusicPlaying = !isMusicPlaying;
+    }
+    
+    // Play Hover Sound
+    function playHoverSound() {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(e => console.log('Hover sound failed:', e));
+    }
+    
+    // Handle Keyboard
+    function handleKeyPress(e) {
+        if (e.code === 'Space' || e.code === 'Enter' || e.code === 'Escape') {
+            hideIntro();
+        }
+    }
+    
+    // Check if intro was shown
+    if (sessionStorage.getItem('intro3DShown')) {
+        intro3D.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    } else {
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            bgMusic.play().catch(e => console.log('Auto-play failed:', e));
+            isMusicPlaying = true;
+        }, 1000);
+    }
+    
+    // Auto-hide after 10 seconds max
+    setTimeout(hideIntro, 10000);
+});
