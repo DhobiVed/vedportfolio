@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Other meta tags and links -->
-    <link rel="stylesheet" href="css/animations.css">
-    <script src="js/resume-request.js" defer></script>
-    <!-- Your other scripts -->
-     <!-- Add this anywhere to test -->
-    <button id="resumeTrigger" class="btn btn-primary pulse-animation">
-        <i class="fas fa-download"></i> Download Resume
-    </button>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ved Dhobi | IT Student & Developer</title>
     <meta name="description" content="Diploma in IT student with 8.87 CGPA. Skilled in Python, Android Development, Firebase, and Machine Learning. Passionate about building innovative solutions.">
     <meta name="keywords" content="Ved Dhobi, IT Student, Android Developer, Python Developer, Firebase, Machine Learning, Web Development">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-secondary);
+        }
+    </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-bg"></div>
+    </div>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -29,12 +55,12 @@
                 <span class="logo-tag">IT Student</span>
             </div>
             <div class="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a>
+                <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a>
+                <a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a>
+                <a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
             </div>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -49,64 +75,66 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" class="mobile-nav-link">Home</a>
-        <a href="#about" class="mobile-nav-link">About</a>
-        <a href="#education" class="mobile-nav-link">Education</a>
-        <a href="#skills" class="mobile-nav-link">Skills</a>
-        <a href="#projects" class="mobile-nav-link">Projects</a>
-        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <a href="#home" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a>
+        <a href="#about" class="mobile-nav-link"><i class="fas fa-user"></i> About</a>
+        <a href="#education" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Education</a>
+        <a href="#skills" class="mobile-nav-link"><i class="fas fa-code"></i> Skills</a>
+        <a href="#projects" class="mobile-nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
+        <a href="#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
     </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
-                    <span class="hero-badge">CGPA: 8.87</span>
-                    <h1 class="fade-in">Hello, I'm <span class="highlight">Ved Dhobi</span></h1>
-                    <h2 class="fade-in delay-1">Diploma in IT Student & Developer</h2>
-                    <p class="fade-in delay-2">Motivated IT student specializing in Python, Android Development, and Machine Learning. Passionate about creating innovative solutions that solve real-world problems.</p>
-                    <div class="hero-actions fade-in delay-3">
-                        <a href="assets/resume.pdf" download="Ved_Dhobi_Resume.pdf" class="btn btn-primary">
+                <div class="hero-text scroll-reveal">
+                    <span class="hero-badge float-animation">CGPA: 8.87</span>
+                    <h1 class="typewriter-text">Hello, I'm <span class="highlight text-gradient-animate">Ved Dhobi</span></h1>
+                    <h2 class="typing-animation">Diploma in IT Student & Developer</h2>
+                    <p class="fade-in delay-1">Motivated IT student specializing in Python, Android Development, and Machine Learning. Passionate about creating innovative solutions that solve real-world problems.</p>
+                    <div class="hero-actions fade-in delay-2">
+                        <a href="assets/resume.pdf" download="Ved_Dhobi_Resume.pdf" class="btn btn-primary ripple-effect">
                             <i class="fas fa-download"></i> Download CV
                         </a>
-                        <a href="#projects" class="btn btn-secondary">
+                        <a href="#projects" class="btn btn-secondary ripple-effect">
                             <i class="fas fa-code"></i> View Projects
                         </a>
                     </div>
-                    <div class="hero-contact fade-in delay-4">
-                        <div class="contact-info">
+                    <div class="hero-contact fade-in delay-3">
+                        <div class="contact-info magnetic">
                             <i class="fas fa-phone"></i>
                             <a href="tel:+917043362186">+91 70433 62186</a>
                         </div>
-                        <div class="contact-info">
+                        <div class="contact-info magnetic">
                             <i class="fas fa-envelope"></i>
                             <a href="mailto:veddhobi252@gmail.com">veddhobi252@gmail.com</a>
                         </div>
-                        <div class="contact-info">
+                        <div class="contact-info magnetic">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>Modasa, Arravalli, Gujarat</span>
                         </div>
                     </div>
                 </div>
-                <div class="hero-profile fade-in">
-                    <div class="profile-card">
-                        <div class="profile-image">
-                            <!-- Add your photo in assets/images/profile.jpg -->
-<img id="profileImg" src="assets/images/profile.jpg" alt="Ved Dhobi">
+                <div class="hero-profile scroll-reveal" data-parallax="0.3">
+                    <div class="profile-card glass-effect">
+                        <div class="profile-image morphing-shape">
+                            <img id="profileImg" src="assets/images/profile.jpg" alt="Ved Dhobi" onerror="this.src='https://via.placeholder.com/200x200/2563eb/ffffff?text=VD'">
                         </div>
                         <div class="profile-details">
-                            <h3>Ved Dhobi</h3>
+                            <h3 class="animated-gradient-text">Ved Dhobi</h3>
                             <p class="profile-role">IT Student & Developer</p>
                             <div class="profile-links">
-                                <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-link">
+                                <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-link magnetic">
                                     <i class="fab fa-linkedin"></i>
                                 </a>
-                                <a href="https://github.com/veddhobi" target="_blank" class="social-link">
+                                <a href="https://github.com/veddhobi" target="_blank" class="social-link magnetic">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="mailto:veddhobi252@gmail.com" class="social-link">
+                                <a href="mailto:veddhobi252@gmail.com" class="social-link magnetic">
                                     <i class="fas fa-envelope"></i>
+                                </a>
+                                <a href="https://wa.me/917043362186" target="_blank" class="social-link magnetic">
+                                    <i class="fab fa-whatsapp"></i>
                                 </a>
                             </div>
                         </div>
@@ -117,36 +145,36 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
+    <section id="about" class="section pattern-dots">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title scroll-reveal">About Me</h2>
             <div class="about-content">
-                <div class="about-text fade-in">
+                <div class="about-text scroll-reveal">
                     <p>Motivated and detail-oriented Diploma student in Information Technology with a strong academic record (CGPA: 8.87) from Gujarat Technological University. Currently studying BTech in Computer Engineering.</p>
                     <p>Proficient in Python (basic to intermediate), Java (OOP), and Android development with Firebase integration. Completed internships focused on Machine Learning and gained academic exposure to Cyber Security, Cloud Computing, and Blockchain technologies.</p>
                     <div class="about-highlights">
-                        <div class="highlight-item">
+                        <div class="highlight-item hover-card">
                             <i class="fas fa-graduation-cap"></i>
                             <span>8.87 CGPA</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-item hover-card">
                             <i class="fas fa-code"></i>
                             <span>Python Developer</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-item hover-card">
                             <i class="fas fa-mobile-alt"></i>
                             <span>Android Developer</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-item hover-card">
                             <i class="fas fa-cloud"></i>
                             <span>Firebase Expert</span>
                         </div>
                     </div>
                 </div>
-                <div class="languages fade-in delay-1">
-                    <h3>Languages</h3>
+                <div class="languages scroll-reveal delay-1 glass-effect">
+                    <h3><i class="fas fa-language"></i> Languages</h3>
                     <div class="language-list">
-                        <div class="language-item">
+                        <div class="language-item hover-card">
                             <span>English</span>
                             <div class="language-level">
                                 <div class="level-dot active"></div>
@@ -157,7 +185,7 @@
                             </div>
                             <span class="level-text">Fluent</span>
                         </div>
-                        <div class="language-item">
+                        <div class="language-item hover-card">
                             <span>Hindi</span>
                             <div class="language-level">
                                 <div class="level-dot active"></div>
@@ -168,7 +196,7 @@
                             </div>
                             <span class="level-text">Fluent</span>
                         </div>
-                        <div class="language-item">
+                        <div class="language-item hover-card">
                             <span>Gujarati</span>
                             <div class="language-level">
                                 <div class="level-dot active"></div>
@@ -188,19 +216,25 @@
     <!-- Education Section -->
     <section id="education" class="section bg-light">
         <div class="container">
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title scroll-reveal">Education</h2>
             <div class="education-timeline">
-                <div class="education-item fade-in">
+                <div class="education-item scroll-reveal">
                     <div class="education-date">Currently</div>
-                    <div class="education-content">
+                    <div class="education-content hover-card">
+                        <div class="education-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
                         <h3>BTech in Computer Engineering</h3>
                         <p class="education-institute">Pursuing Bachelor's Degree</p>
                         <p class="education-desc">Currently studying Computer Engineering to enhance technical skills and knowledge.</p>
                     </div>
                 </div>
-                <div class="education-item fade-in delay-1">
+                <div class="education-item scroll-reveal delay-1">
                     <div class="education-date">2022 - 2025</div>
-                    <div class="education-content">
+                    <div class="education-content hover-card">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
                         <h3>Diploma in Information Technology</h3>
                         <p class="education-institute">Government Polytechnic College, Himatnagar</p>
                         <p class="education-desc">Gujarat Technological University (GTU) | CGPA: 8.87</p>
@@ -210,9 +244,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="education-item fade-in delay-2">
+                <div class="education-item scroll-reveal delay-2">
                     <div class="education-date">2022</div>
-                    <div class="education-content">
+                    <div class="education-content hover-card">
+                        <div class="education-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
                         <h3>Secondary School Certificate (SSC)</h3>
                         <p class="education-institute">Shri K N Shah Modasa High School</p>
                         <p class="education-desc">Gujarat Secondary Education Board (GSEB)</p>
@@ -223,11 +260,11 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section">
+    <section id="skills" class="section pattern-grid">
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2 class="section-title scroll-reveal">Technical Skills</h2>
             <div class="skills-container">
-                <div class="skill-category fade-in">
+                <div class="skill-category scroll-reveal glass-effect">
                     <h3><i class="fas fa-code"></i> Programming Languages</h3>
                     <div class="skill-list">
                         <div class="skill-item">
@@ -252,74 +289,76 @@
                             <span class="skill-percent">Basic</span>
                         </div>
                         <div class="skill-item">
-                            <span class="skill-name">css</span>
+                            <span class="skill-name">CSS</span>
                             <div class="skill-bar">
                                 <div class="skill-level" style="width: 65%"></div>
                             </div>
-                            <span class="skill-percent">intermediate</span>
+                            <span class="skill-percent">Intermediate</span>
                         </div>
                         <div class="skill-item">
-                            <span class="skill-name">html</span>
+                            <span class="skill-name">HTML</span>
                             <div class="skill-bar">
                                 <div class="skill-level" style="width: 65%"></div>
                             </div>
-                            <span class="skill-percent">intermediate</span>
+                            <span class="skill-percent">Intermediate</span>
                         </div>
-                    
                     </div>
                 </div>
 
-                <div class="skill-category fade-in delay-1">
+                <div class="skill-category scroll-reveal delay-1 glass-effect">
                     <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Android Studio</span>
-                        <span class="skill-tag">ML Kit</span>
-                        <span class="skill-tag">TFLite</span>
-                        <span class="skill-tag">Firebase Auth</span>
-                        <span class="skill-tag">Firestore</span>
-                        <span class="skill-tag">Realtime Database</span>
+                        <span class="skill-tag magnetic">Android Studio</span>
+                        <span class="skill-tag magnetic">ML Kit</span>
+                        <span class="skill-tag magnetic">TFLite</span>
+                        <span class="skill-tag magnetic">Firebase Auth</span>
+                        <span class="skill-tag magnetic">Firestore</span>
+                        <span class="skill-tag magnetic">Realtime Database</span>
                     </div>
                 </div>
 
-                <div class="skill-category fade-in delay-2">
+                <div class="skill-category scroll-reveal delay-2 glass-effect">
                     <h3><i class="fas fa-cloud"></i> Cloud & Databases</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Firebase</span>
-                        <span class="skill-tag">Google Cloud</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag magnetic">Firebase</span>
+                        <span class="skill-tag magnetic">Google Cloud</span>
+                        <span class="skill-tag magnetic">MongoDB</span>
+                        <span class="skill-tag magnetic">SQL</span>
+                        <span class="skill-tag magnetic">MySQL</span>
                     </div>
                 </div>
 
-                <div class="skill-category fade-in">
+                <div class="skill-category scroll-reveal glass-effect">
                     <h3><i class="fas fa-laptop-code"></i> Core CS Concepts</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Data Structures</span>
-                        <span class="skill-tag">DBMS</span>
-                        <span class="skill-tag">Operating Systems</span>
-                        <span class="skill-tag">SDLC</span>
-                        <span class="skill-tag">OOP Concepts</span>
+                        <span class="skill-tag magnetic">Data Structures</span>
+                        <span class="skill-tag magnetic">DBMS</span>
+                        <span class="skill-tag magnetic">Operating Systems</span>
+                        <span class="skill-tag magnetic">SDLC</span>
+                        <span class="skill-tag magnetic">OOP Concepts</span>
                     </div>
                 </div>
 
-                <div class="skill-category fade-in delay-1">
+                <div class="skill-category scroll-reveal delay-1 glass-effect">
                     <h3><i class="fas fa-brain"></i> Emerging Technologies</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Machine Learning</span>
-                        <span class="skill-tag">LLM Chatbots</span>
-                        <span class="skill-tag">Blockchain</span>
-                        <span class="skill-tag">AI Concepts</span>
+                        <span class="skill-tag magnetic">Machine Learning</span>
+                        <span class="skill-tag magnetic">LLM Chatbots</span>
+                        <span class="skill-tag magnetic">Blockchain</span>
+                        <span class="skill-tag magnetic">AI Concepts</span>
+                        <span class="skill-tag magnetic">NLP</span>
                     </div>
                 </div>
 
-                <div class="skill-category fade-in delay-2">
+                <div class="skill-category scroll-reveal delay-2 glass-effect">
                     <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">Canva</span>
-                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag magnetic">Git</span>
+                        <span class="skill-tag magnetic">GitHub</span>
+                        <span class="skill-tag magnetic">VS Code</span>
+                        <span class="skill-tag magnetic">Canva</span>
+                        <span class="skill-tag magnetic">Figma</span>
+                        <span class="skill-tag magnetic">Android Studio</span>
                     </div>
                 </div>
             </div>
@@ -329,18 +368,18 @@
     <!-- Projects Section -->
     <section id="projects" class="section bg-light">
         <div class="container">
-            <h2 class="section-title">Projects & Internships</h2>
+            <h2 class="section-title scroll-reveal">Projects & Internships</h2>
             <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="android">Android</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="ai">AI/ML</button>
-                <button class="filter-btn" data-filter="internship">Internship</button>
+                <button class="filter-btn active ripple-effect" data-filter="all">All</button>
+                <button class="filter-btn ripple-effect" data-filter="android">Android</button>
+                <button class="filter-btn ripple-effect" data-filter="web">Web</button>
+                <button class="filter-btn ripple-effect" data-filter="ai">AI/ML</button>
+                <button class="filter-btn ripple-effect" data-filter="internship">Internship</button>
             </div>
             
             <div class="projects-grid">
                 <!-- Smart Attendance System -->
-                <div class="project-card fade-in" data-category="android">
+                <div class="project-card scroll-reveal hover-card" data-category="android">
                     <div class="project-badge">Final Year Project</div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -360,15 +399,15 @@
                         <span><i class="fas fa-check"></i> Proxy Prevention</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Android Studio</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">ML Kit</span>
+                        <span class="tech-tag magnetic">Android Studio</span>
+                        <span class="tech-tag magnetic">Java</span>
+                        <span class="tech-tag magnetic">Firebase</span>
+                        <span class="tech-tag magnetic">ML Kit</span>
                     </div>
                 </div>
 
                 <!-- LLM Chatbot System -->
-                <div class="project-card fade-in delay-1" data-category="ai internship">
+                <div class="project-card scroll-reveal delay-1 hover-card" data-category="ai internship">
                     <div class="project-badge">Internship Project</div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -388,15 +427,15 @@
                         <span><i class="fas fa-check"></i> Fast Information Retrieval</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">LLM</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag magnetic">Python</span>
+                        <span class="tech-tag magnetic">LLM</span>
+                        <span class="tech-tag magnetic">Flask</span>
+                        <span class="tech-tag magnetic">NLP</span>
                     </div>
                 </div>
 
                 <!-- Amazon Review Analysis -->
-                <div class="project-card fade-in delay-2" data-category="ai internship">
+                <div class="project-card scroll-reveal delay-2 hover-card" data-category="ai internship">
                     <div class="project-badge">Internship Project</div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -416,15 +455,15 @@
                         <span><i class="fas fa-check"></i> Sales Correlation</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">Matplotlib</span>
-                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag magnetic">Python</span>
+                        <span class="tech-tag magnetic">Pandas</span>
+                        <span class="tech-tag magnetic">Matplotlib</span>
+                        <span class="tech-tag magnetic">NLP</span>
                     </div>
                 </div>
 
                 <!-- Academix WebApp -->
-                <div class="project-card fade-in" data-category="web">
+                <div class="project-card scroll-reveal hover-card" data-category="web">
                     <div class="project-header">
                         <div class="project-icon">
                             <i class="fas fa-graduation-cap"></i>
@@ -443,15 +482,15 @@
                         <span><i class="fas fa-check"></i> User-friendly Design</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag magnetic">HTML/CSS</span>
+                        <span class="tech-tag magnetic">JavaScript</span>
+                        <span class="tech-tag magnetic">Firebase</span>
+                        <span class="tech-tag magnetic">Bootstrap</span>
                     </div>
                 </div>
 
                 <!-- DDQuest Mobile App -->
-                <div class="project-card fade-in delay-1" data-category="android">
+                <div class="project-card scroll-reveal delay-1 hover-card" data-category="android">
                     <div class="project-badge">In Progress</div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -471,10 +510,38 @@
                         <span><i class="fas fa-check"></i> Clean UI/UX Design</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Android Studio</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">Material Design</span>
+                        <span class="tech-tag magnetic">Android Studio</span>
+                        <span class="tech-tag magnetic">Java</span>
+                        <span class="tech-tag magnetic">Firebase</span>
+                        <span class="tech-tag magnetic">Material Design</span>
+                    </div>
+                </div>
+
+                <!-- Portfolio Website -->
+                <div class="project-card scroll-reveal delay-2 hover-card" data-category="web">
+                    <div class="project-badge">Personal Project</div>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag tag-web">Web</span>
+                            <span class="tag tag-portfolio">Portfolio</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Interactive Portfolio</h3>
+                    <p class="project-description">Responsive portfolio website with modern animations, dark/light theme, and interactive elements showcasing my skills and projects.</p>
+                    <div class="project-features">
+                        <span><i class="fas fa-check"></i> Responsive Design</span>
+                        <span><i class="fas fa-check"></i> Modern Animations</span>
+                        <span><i class="fas fa-check"></i> Theme Toggle</span>
+                        <span><i class="fas fa-check"></i> Contact Form</span>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag magnetic">HTML/CSS</span>
+                        <span class="tech-tag magnetic">JavaScript</span>
+                        <span class="tech-tag magnetic">GSAP</span>
+                        <span class="tech-tag magnetic">Responsive Design</span>
                     </div>
                 </div>
             </div>
@@ -484,13 +551,13 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">
-            <h2 class="section-title">Contact Me</h2>
+            <h2 class="section-title scroll-reveal">Contact Me</h2>
             <div class="contact-wrapper">
-                <div class="contact-info fade-in">
-                    <h3>Get In Touch</h3>
+                <div class="contact-info scroll-reveal glass-effect">
+                    <h3><i class="fas fa-comment-dots"></i> Get In Touch</h3>
                     <p>I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology!</p>
                     <div class="contact-details">
-                        <div class="contact-item">
+                        <div class="contact-item magnetic">
                             <div class="contact-icon">
                                 <i class="fas fa-phone"></i>
                             </div>
@@ -499,7 +566,7 @@
                                 <a href="tel:+917043362186">+91 70433 62186</a>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item magnetic">
                             <div class="contact-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
@@ -508,7 +575,7 @@
                                 <a href="mailto:veddhobi252@gmail.com">veddhobi252@gmail.com</a>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item magnetic">
                             <div class="contact-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
@@ -517,7 +584,7 @@
                                 <span>Modasa, Arravalli, Gujarat</span>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item magnetic">
                             <div class="contact-icon">
                                 <i class="fab fa-linkedin"></i>
                             </div>
@@ -526,24 +593,37 @@
                                 <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank">linkedin.com/in/ved-dhobi</a>
                             </div>
                         </div>
+                        <div class="contact-item magnetic">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/veddhobi" target="_blank">github.com/veddhobi</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-form fade-in delay-1">
-                    <h3>Send Message</h3>
+                <div class="contact-form scroll-reveal delay-1 glass-effect">
+                    <h3><i class="fas fa-paper-plane"></i> Send Message</h3>
                     <form id="contactForm">
                         <div class="form-group">
                             <input type="text" id="name" placeholder="Your Name" required>
+                            <label for="name">Your Name</label>
                         </div>
                         <div class="form-group">
                             <input type="email" id="email" placeholder="Your Email" required>
+                            <label for="email">Your Email</label>
                         </div>
                         <div class="form-group">
                             <input type="text" id="subject" placeholder="Subject" required>
+                            <label for="subject">Subject</label>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="message" placeholder="Your Message" rows="5" required maxlength="500"></textarea>
+                            <label for="message">Your Message</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary ripple-effect">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
@@ -557,39 +637,50 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <h3>Ved Dhobi</h3>
+                    <h3 class="animated-gradient-text">Ved Dhobi</h3>
                     <p>Diploma in IT Student | Developer | Problem Solver</p>
-                    <p class="footer-email">veddhobi252@gmail.com</p>
+                    <p class="footer-email"><i class="fas fa-envelope"></i> veddhobi252@gmail.com</p>
+                    <p class="footer-phone"><i class="fas fa-phone"></i> +91 70433 62186</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#education">Education</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#home" class="magnetic"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="#about" class="magnetic"><i class="fas fa-chevron-right"></i> About</a>
+                    <a href="#education" class="magnetic"><i class="fas fa-chevron-right"></i> Education</a>
+                    <a href="#projects" class="magnetic"><i class="fas fa-chevron-right"></i> Projects</a>
+                    <a href="#contact" class="magnetic"><i class="fas fa-chevron-right"></i> Contact</a>
                 </div>
                 <div class="footer-social">
-                    <h4>Connect</h4>
+                    <h4>Connect With Me</h4>
                     <div class="social-icons">
-                        <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-icon">
+                        <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-icon magnetic" title="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/veddhobi" target="_blank" class="social-icon">
+                        <a href="https://github.com/veddhobi" target="_blank" class="social-icon magnetic" title="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:veddhobi252@gmail.com" class="social-icon">
+                        <a href="mailto:veddhobi252@gmail.com" class="social-icon magnetic" title="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
-                        <a href="tel:+917043362186" class="social-icon">
+                        <a href="https://wa.me/917043362186" target="_blank" class="social-icon magnetic" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="tel:+917043362186" class="social-icon magnetic" title="Phone">
                             <i class="fas fa-phone"></i>
                         </a>
+                    </div>
+                    <div class="footer-newsletter">
+                        <p>Subscribe to my newsletter for updates</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email" required>
+                            <button type="submit" class="btn-subscribe">Subscribe</button>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Ved Dhobi. All rights reserved.</p>
-                
+                <p>&copy; 2024 Ved Dhobi. All rights reserved. <span class="footer-heart"><i class="fas fa-heart"></i></span></p>
+                <p class="footer-note">Built with passion using HTML, CSS, and JavaScript</p>
             </div>
         </div>
     </footer>
@@ -599,7 +690,15 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="js/main.js"></script>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner"></div>
 
+    <!-- Resume Request Button (Hidden by default) -->
+    <button id="resumeTrigger" class="btn btn-primary pulse-animation" style="display: none;">
+        <i class="fas fa-download"></i> Download Resume
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/resume-request.js" defer></script>
 </body>
 </html>
