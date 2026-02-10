@@ -42,77 +42,136 @@
     </style>
 </head>
 <body>
-    <!-- 3D Intro Screen -->
-    <title>3D Welcome</title>
+    <!DOCTYPE html>
 
-    <style>
-    /* ===== 3D Welcome Screen ===== */
-    #welcome3d{
-    position:fixed;
-    inset:0;
-    background:radial-gradient(circle,#0f172a,#020617);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    perspective:1000px;
-    transition:opacity .6s ease;
-    }
 
-    /* 3D Text */
-    #welcome3d h1{
-    color:white;
-    font-size:clamp(40px,8vw,90px);
-    font-family:sans-serif;
-    letter-spacing:4px;
-    text-transform:uppercase;
+<title>3D Welcome</title>
 
-    background:linear-gradient(90deg,#60a5fa,#a78bfa,#34d399);
-    -webkit-background-clip:text;
-    color:transparent;
+<style>
+/* ===== 3D Welcome Screen ===== */
+#welcome3d{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#0f172a,#020617);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  perspective:1000px;
+  transition:opacity .6s ease;
+}
 
-    animation:zoom3d 1.4s ease forwards;
-    }
+/* 3D Text */
+#welcome3d h1{
+  color:white;
+  font-size:clamp(40px,8vw,90px);
+  font-family:sans-serif;
+  letter-spacing:4px;
+  text-transform:uppercase;
 
-    /* 3D Animation */
-    @keyframes zoom3d{
-    0%{
-        opacity:0;
-        transform:rotateX(60deg) translateZ(-400px) scale(.5);
-        filter:blur(10px);
-    }
-    100%{
-        opacity:1;
-        transform:rotateX(0) translateZ(0) scale(1);
-        filter:blur(0);
-    }
-    }
+  background:linear-gradient(90deg,#60a5fa,#a78bfa,#34d399);
+  -webkit-background-clip:text;
+  color:transparent;
 
-    /* Hide */
-    .hide{
+  animation:zoom3d 1.4s ease forwards;
+}
+
+/* 3D Animation */
+@keyframes zoom3d{
+  0%{
     opacity:0;
-    pointer-events:none;
-    }
-    </style>
+    transform:rotateX(60deg) translateZ(-400px) scale(.5);
+    filter:blur(10px);
+  }
+  100%{
+    opacity:1;
+    transform:rotateX(0) translateZ(0) scale(1);
+    filter:blur(0);
+  }
+}
 
-    </head>
+/* Hide */
+.hide{
+  opacity:0;
+  pointer-events:none;
+}
+</style>
 
-    <body>
+</head>
 
-    <!-- 3D Intro -->
-    <div id="welcome3d">
-    <h1>Welcome</h1>
+<body>
+
+<!-- 3D Intro -->
+<div id="welcome3d">
+  <h1>Welcome</h1>
+</div>
+
+
+<script>
+window.onload = () => {
+  setTimeout(()=>{
+    document.getElementById("welcome3d").classList.add("hide");
+  },2000); // 2 sec intro
+};
+</script>
+
+
+
+    <!-- Navigation -->
+<nav class="navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="logo">
+            <span class="logo-text">Ved Dhobi</span>
+            <span class="logo-tag">IT Student</span>
+        </div>
+
+        <!-- Page Switch Links -->
+        <div class="nav-menu">
+            <a href="#home" class="nav-link active">
+                <i class="fas fa-home"></i> Home
+            </a>
+
+            <a href="#about" class="nav-link">
+                <i class="fas fa-user"></i> About
+            </a>
+
+            <a href="#education" class="nav-link">
+                <i class="fas fa-graduation-cap"></i> Education
+            </a>
+
+            <a href="#skills" class="nav-link">
+                <i class="fas fa-code"></i> Skills
+            </a>
+
+            <a href="#projects" class="nav-link">
+                <i class="fas fa-project-diagram"></i> Projects
+            </a>
+
+            <a href="#contact" class="nav-link">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+        </div>
+
+        <!-- Actions -->
+        <div class="nav-actions">
+
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <!-- Mobile Menu -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </div>
+
     </div>
+</nav>
 
-    
-
-    <script>
-    window.onload = () => {
-    setTimeout(()=>{
-        document.getElementById("welcome3d").classList.add("hide");
-    },2000); // 2 sec intro
-    };
-    </script>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
