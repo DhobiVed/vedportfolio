@@ -464,23 +464,23 @@ window.onload = () => {
             </div>
         </div>
     </section>
-
-    <!-- Projects Section -->
+    <!-- ===== PROJECTS SECTION ===== -->
     <section id="projects" class="section bg-light">
         <div class="container">
-            <h2 class="section-title scroll-reveal">Projects & Internships</h2>
+            <h2 class="section-title scroll-reveal">My Projects</h2>
+
+            <!-- Filter buttons (adjust categories as needed) -->
             <div class="projects-filter">
-                <button class="filter-btn active ripple-effect" data-filter="all">All</button>
-                <button class="filter-btn ripple-effect" data-filter="android">Android</button>
-                <button class="filter-btn ripple-effect" data-filter="web">Web</button>
-                <button class="filter-btn ripple-effect" data-filter="ai">AI/ML</button>
-                <button class="filter-btn ripple-effect" data-filter="internship">Internship</button>
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai">AI/ML</button>
+                <button class="filter-btn" data-filter="android">Android</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="django">Django</button>
             </div>
-            
+
             <div class="projects-grid">
-                <!-- Smart Attendance System -->
-                <div class="project-card scroll-reveal hover-card" data-category="android">
-                    <div class="project-badge">Final Year Project</div>
+                <!-- 1. Smart Attendance System (No GitHub/ Live) -->
+                <div class="project-card scroll-reveal" data-category="android ai">
                     <div class="project-header">
                         <div class="project-icon">
                             <i class="fas fa-user-check"></i>
@@ -491,107 +491,36 @@ window.onload = () => {
                         </div>
                     </div>
                     <h3 class="project-title">Smart Attendance System</h3>
-                    <p class="project-description">Android app with face recognition for automated attendance tracking using Firebase. Replaces traditional roll-call with secure, automated solution.</p>
+                    <p class="project-description">
+                        Android app with face recognition for automated attendance tracking using Firebase. Replaces traditional roll-call with a secure, automated solution.
+                    </p>
+                    <!-- What problem it solves -->
                     <div class="project-features">
-                        <span><i class="fas fa-check"></i> Face Recognition</span>
+                        <span><i class="fas fa-check"></i> Face Recognition login</span>
                         <span><i class="fas fa-check"></i> Firebase Cloud Storage</span>
                         <span><i class="fas fa-check"></i> Excel Report Generation</span>
                         <span><i class="fas fa-check"></i> Proxy Prevention</span>
                     </div>
+                    <!-- Tech stack badges -->
                     <div class="project-tech">
-                        <span class="tech-tag magnetic">Android Studio</span>
-                        <span class="tech-tag magnetic">Java</span>
-                        <span class="tech-tag magnetic">Firebase</span>
-                        <span class="tech-tag magnetic">ML Kit</span>
+                        <span class="tech-tag">Android Studio</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">ML Kit</span>
+                    </div>
+                    <!-- Links (not available) -->
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">Live Demo (private)</span>
+                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">GitHub (not uploaded)</span>
+                    </div>
+                    <!-- Screenshot placeholder (add your own) -->
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/smart-attendance.jpg" alt="Smart Attendance screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
                     </div>
                 </div>
 
-                <!-- LLM Chatbot System -->
-                <div class="project-card scroll-reveal delay-1 hover-card" data-category="ai internship">
-                    <div class="project-badge">Internship Project</div>
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-ai">AI</span>
-                            <span class="tag tag-web">Web</span>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Chatbot System using LLM</h3>
-                    <p class="project-description">Intelligent chatbot using Large Language Model concepts for dynamic query responses with PDF document processing capabilities.</p>
-                    <div class="project-features">
-                        <span><i class="fas fa-check"></i> PDF Upload & Query</span>
-                        <span><i class="fas fa-check"></i> Context Understanding</span>
-                        <span><i class="fas fa-check"></i> Dynamic Responses</span>
-                        <span><i class="fas fa-check"></i> Fast Information Retrieval</span>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag magnetic">Python</span>
-                        <span class="tech-tag magnetic">LLM</span>
-                        <span class="tech-tag magnetic">Flask</span>
-                        <span class="tech-tag magnetic">NLP</span>
-                    </div>
-                </div>
-
-                <!-- Amazon Review Analysis -->
-                <div class="project-card scroll-reveal delay-2 hover-card" data-category="ai internship">
-                    <div class="project-badge">Internship Project</div>
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-ai">AI</span>
-                            <span class="tag tag-data">Data Analysis</span>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Amazon Review Analysis System</h3>
-                    <p class="project-description">Analyzed customer reviews to identify product preferences and trends, providing insights for better product decisions.</p>
-                    <div class="project-features">
-                        <span><i class="fas fa-check"></i> Sentiment Analysis</span>
-                        <span><i class="fas fa-check"></i> Trend Identification</span>
-                        <span><i class="fas fa-check"></i> Data Visualization</span>
-                        <span><i class="fas fa-check"></i> Sales Correlation</span>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag magnetic">Python</span>
-                        <span class="tech-tag magnetic">Pandas</span>
-                        <span class="tech-tag magnetic">Matplotlib</span>
-                        <span class="tech-tag magnetic">NLP</span>
-                    </div>
-                </div>
-
-                <!-- Academix WebApp -->
-                <div class="project-card scroll-reveal hover-card" data-category="web">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-web">Web</span>
-                            <span class="tag tag-education">Education</span>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Academix WebApp</h3>
-                    <p class="project-description">Single platform for assignments, notes, and academic updates with communication tools for students and teachers.</p>
-                    <div class="project-features">
-                        <span><i class="fas fa-check"></i> Assignment Management</span>
-                        <span><i class="fas fa-check"></i> Progress Tracking</span>
-                        <span><i class="fas fa-check"></i> Teacher-Student Communication</span>
-                        <span><i class="fas fa-check"></i> User-friendly Design</span>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag magnetic">HTML/CSS</span>
-                        <span class="tech-tag magnetic">JavaScript</span>
-                        <span class="tech-tag magnetic">Firebase</span>
-                        <span class="tech-tag magnetic">Bootstrap</span>
-                    </div>
-                </div>
-
-                <!-- DDQuest Mobile App -->
-                <div class="project-card scroll-reveal delay-1 hover-card" data-category="android">
-                    <div class="project-badge">In Progress</div>
+                <!-- 2. DDQuest Mobile App (No GitHub/ Live) -->
+                <div class="project-card scroll-reveal" data-category="android education">
                     <div class="project-header">
                         <div class="project-icon">
                             <i class="fas fa-tasks"></i>
@@ -602,52 +531,443 @@ window.onload = () => {
                         </div>
                     </div>
                     <h3 class="project-title">DDQuest Mobile App</h3>
-                    <p class="project-description">Platform for assignments, notes, and academic updates with enhanced communication features for students and teachers.</p>
+                    <p class="project-description">
+                        Platform for assignments, notes, and academic updates with enhanced communication features for students and teachers. Designed to streamline educational workflows.
+                    </p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Assignment Tracking</span>
                         <span><i class="fas fa-check"></i> Learning Progress</span>
                         <span><i class="fas fa-check"></i> Seamless Communication</span>
-                        <span><i class="fas fa-check"></i> Clean UI/UX Design</span>
+                        <span><i class="fas fa-check"></i> Clean UI/UX</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag magnetic">Android Studio</span>
-                        <span class="tech-tag magnetic">Java</span>
-                        <span class="tech-tag magnetic">Firebase</span>
-                        <span class="tech-tag magnetic">Material Design</span>
+                        <span class="tech-tag">Android Studio</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Material Design</span>
+                    </div>
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">Live Demo (private)</span>
+                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">GitHub (not uploaded)</span>
+                    </div>
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/ddquest.jpg" alt="DDQuest screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
                     </div>
                 </div>
 
-                <!-- Portfolio Website -->
-                <div class="project-card scroll-reveal delay-2 hover-card" data-category="web">
-                    <div class="project-badge">Personal Project</div>
+                <!-- 3. Advanced AI Chatbot Suite (from GitHub) -->
+                <div class="project-card scroll-reveal" data-category="ai">
                     <div class="project-header">
                         <div class="project-icon">
-                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag tag-ai">AI</span>
+                            <span class="tag tag-web">Web</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Advanced AI Chatbot Suite</h3>
+                    <p class="project-description">
+                        An advanced AI chatbot supporting text conversations, PDF document analysis, semantic search, and document summarization. Includes model selection, real-time processing, and detailed analytics.
+                    </p>
+                    <div class="project-features">
+                        <span><i class="fas fa-check"></i> One platform for chat & document Q&A</span>
+                        <span><i class="fas fa-check"></i> Extract insights from PDFs instantly</span>
+                        <span><i class="fas fa-check"></i> Summarize long documents with AI</span>
+                        <span><i class="fas fa-check"></i> Semantic search within documents</span>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">OpenAI/Groq</span>
+                        <span class="tech-tag">NLP</span>
+                    </div>
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/advanced-AI-chatbot" target="_blank" class="btn-small github-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/advanced-chatbot.jpg" alt="Advanced AI Chatbot screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <!-- 4. Simple Chatbot (GPT Clone) -->
+                <div class="project-card scroll-reveal" data-category="ai">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag tag-ai">AI</span>
+                            <span class="tag tag-web">Web</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Simple Chatbot – ChatGPT Clone</h3>
+                    <p class="project-description">
+                        A ChatGPT clone built with Flask and OpenAI API. Features interactive conversations, MongoDB for storing chat history, and a TailwindCSS frontend.
+                    </p>
+                    <div class="project-features">
+                        <span><i class="fas fa-check"></i> Real‑time AI responses</span>
+                        <span><i class="fas fa-check"></i> Conversation history saved in MongoDB</span>
+                        <span><i class="fas fa-check"></i> Clean UI with TailwindCSS</span>
+                        <span><i class="fas fa-check"></i> Easy integration with OpenAI</span>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">OpenAI API</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">TailwindCSS</span>
+                    </div>
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/simple-chatbot" target="_blank" class="btn-small github-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/simple-chatbot.jpg" alt="Simple Chatbot screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <!-- 5. Academix – Class Management System -->
+                <div class="project-card scroll-reveal" data-category="django web">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div class="project-tags">
                             <span class="tag tag-web">Web</span>
-                            <span class="tag tag-portfolio">Portfolio</span>
+                            <span class="tag tag-education">Education</span>
                         </div>
                     </div>
-                    <h3 class="project-title">Interactive Portfolio</h3>
-                    <p class="project-description">Responsive portfolio website with modern animations, dark/light theme, and interactive elements showcasing my skills and projects.</p>
+                    <h3 class="project-title">Academix – Class Manager</h3>
+                    <p class="project-description">
+                        A Django‑based web application to manage classes, assignments, and student progress. Ready for deployment on Render.
+                    </p>
                     <div class="project-features">
-                        <span><i class="fas fa-check"></i> Responsive Design</span>
-                        <span><i class="fas fa-check"></i> Modern Animations</span>
-                        <span><i class="fas fa-check"></i> Theme Toggle</span>
-                        <span><i class="fas fa-check"></i> Contact Form</span>
+                        <span><i class="fas fa-check"></i> Centralized course material</span>
+                        <span><i class="fas fa-check"></i> Assignment tracking</span>
+                        <span><i class="fas fa-check"></i> Student progress monitoring</span>
+                        <span><i class="fas fa-check"></i> Render deployment ready</span>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag magnetic">HTML/CSS</span>
-                        <span class="tech-tag magnetic">JavaScript</span>
-                        <span class="tech-tag magnetic">GSAP</span>
-                        <span class="tech-tag magnetic">Responsive Design</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">Render</span>
+                    </div>
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/Academix" target="_blank" class="btn-small github-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/academix.jpg" alt="Academix screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <!-- 6. Interactive Portfolio Website -->
+                <div class="project-card scroll-reveal" data-category="web">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag tag-web">Web</span>
+                            <span class="tag-portfolio">Portfolio</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Interactive Portfolio Website</h3>
+                    <p class="project-description">
+                        A modern, fully responsive portfolio with dark/light mode, smooth animations (GSAP), and project showcase. Designed to highlight my skills and work.
+                    </p>
+                    <div class="project-features">
+                        <span><i class="fas fa-check"></i> Dark/light theme toggle</span>
+                        <span><i class="fas fa-check"></i> Smooth GSAP animations</span>
+                        <span><i class="fas fa-check"></i> Project filtering & modals</span>
+                        <span><i class="fas fa-check"></i> Mobile‑friendly design</span>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">GSAP</span>
+                        <span class="tech-tag">Netlify</span>
+                    </div>
+                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <a href="https://silver-flan-71ce5f.netlify.app/" target="_blank" class="btn-small live-link">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/DhobiVed/vedportfolio" target="_blank" class="btn-small github-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
+                        <img src="assets/images/portfolio-screenshot.jpg" alt="Portfolio screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+        <!-- Results Section -->
+    <section id="results" class="section">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">📊 Academic Results</h2>
+            <div class="results-grid">
+                
+                <!-- Semester 1 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 1</h3>
+                        <p>CGPA: 7.16 · jul 2023</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1JfVrS-yz-Mrn2bapsPXIAF71OX4eYnV1/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
 
+                <!-- Semester 2 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 2</h3>
+                        <p>CGPA: 8.00 · may 2023</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1F2nQ35em6oe3ISeXa4PwXfWALZyVDIJG/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Semester 3 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 3</h3>
+                        <p>CGPA: 8.86 · DEC 2024</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1rYt-L-geXFizEiYtpqo7AZS3ZrmVb__g/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Semester 4 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 4</h3>
+                        <p>CGPA: 8.74 · MAY 2024</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1LPecuxFKA0W2Ctj28fPNhOWMThJsEHzC/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Semester 5 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 5</h3>
+                        <p>CGPA: 8.65 · DEC 2024</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1KLLN21M5_evkDDAUs1t94Akv-t-WLyAR/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Semester 6 -->
+                <div class="result-card scroll-reveal hover-card">
+                    <div class="result-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="result-info">
+                        <h3>Diploma IT – Semester 6</h3>
+                        <p>CGPA: 9.26 · MAY 2025</p>
+                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1z7QRQlNirl1qozroA7bFzT5D2AeSZAF7/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Result
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">📜 Certifications & Achievements</h2>
+            
+            <div class="cert-grid">
+                <!-- 1. GTU Diploma Final Certificate (Your Degree) -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Diploma in Information Technology</h3>
+                        <p class="cert-issuer">Gujarat Technological University (GTU)</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1otFyHeff4gP9z0MN275cEb1hdFNCLJ81/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Infosys Springboard Certificate 1 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Infosys Springboard - Certificate 1</h3>
+                        <p class="cert-issuer">Infosys</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H5BXxQCGehTAnQYO7LxW1vR82Tu2u5rG/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Infosys Springboard Certificate 2 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Infosys Springboard - Certificate 2</h3>
+                        <p class="cert-issuer">Infosys</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H7S-k283pdXhVD32jQNTrjMQsAOFKdD6/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. IBM Certificate 1 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-ibm"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>IBM Certification - 1</h3>
+                        <p class="cert-issuer">IBM</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1ZTUupOdGGdu_WPURDlf11xKFpIp6l_4e/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. IBM Certificate 2 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-ibm"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>IBM Certification - 2</h3>
+                        <p class="cert-issuer">IBM</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1vXDjs0WlBdeNGXGWe8_VMnfN4V82VqL5/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6. IBM Certificate 3 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-ibm"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>IBM Certification - 3</h3>
+                        <p class="cert-issuer">IBM</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1B9tZ8vjevA7xz6AMIkcq-69L0Mg63G3G/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7. B-school E-commerce Certificate -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>E-commerce Certification</h3>
+                        <p class="cert-issuer">B-school</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1SL0tnkjAMqatMETdT7o8WiFzoyNL-cNs/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8. IIT Bombay Spoken Tutorial -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Spoken Tutorial Certification</h3>
+                        <p class="cert-issuer">IIT Bombay</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H81NwTtXHcX68drSWHelypHeGVuD8DsO/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 9. Internship Certificate 1 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Internship Certificate - 1</h3>
+                        <p class="cert-issuer">Internship Organization</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1XPYvFFEMx55eGkN1Ye0o39vbTddR_anL/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 10. Internship Certificate 2 -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Internship Certificate - 2</h3>
+                        <p class="cert-issuer">Internship Organization</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1lssOJip7I9rttPdbngDf1eijnA0-oBKy/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 11. Java Certificate from Jagrut Awaaz -->
+                <div class="cert-card scroll-reveal hover-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Java Certification</h3>
+                        <p class="cert-issuer">Jagrut Awaaz</p>
+                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1LSXHFOKES4Aq7IXBpWutcwFcgc-uvMAF/preview?rm=minimal">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">

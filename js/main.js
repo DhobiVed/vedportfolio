@@ -1971,3 +1971,101 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auto-hide after 15 seconds max
     setTimeout(hideIntro, 15000);
 });
+/* ========== RESULTS MODAL ========== */
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Result Viewer</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const modalIframe = modal.querySelector('iframe');
+    const closeBtn = modal.querySelector('.modal-close');
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    closeBtn.addEventListener('click', closeModal);
+
+    function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(() => modalIframe.src = '', 300);
+    }
+
+    document.querySelectorAll('.btn-view-result').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pdfUrl = btn.dataset.pdf;
+            modalIframe.src = pdfUrl;
+            modal.classList.add('show');
+        });
+    });
+});
+// Reuse the same modal from your results section
+// Make sure the modal HTML is already in your document
+document.addEventListener('DOMContentLoaded', function() {
+    // If you already have a modal from results section, reuse it
+    // Otherwise, create it
+    if (!document.querySelector('.modal')) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Certificate Viewer</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    const modal = document.querySelector('.modal');
+    const modalIframe = modal.querySelector('iframe');
+    const closeBtn = modal.querySelector('.modal-close');
+
+    // Close modal functions
+    function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(() => modalIframe.src = '', 300);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    closeBtn.addEventListener('click', closeModal);
+
+    // Attach to certificate view buttons
+    document.querySelectorAll('.btn-view-cert').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pdfUrl = btn.dataset.pdf;
+            modalIframe.src = pdfUrl;
+            modal.classList.add('show');
+        });
+    });
+
+    // View All Certificates button (optional)
+    const viewAllBtn = document.getElementById('viewAllCerts');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // You can open a gallery view or redirect to a separate page
+            // For now, we'll just show a message
+            alert('All certificates will be displayed here. You can create a dedicated gallery page later.');
+        });
+    }
+});
