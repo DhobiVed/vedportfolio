@@ -11,167 +11,587 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
     <style>
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 80px;
         }
-        
-        body {
+        body { overflow-x: hidden; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gradient-secondary); }
+
+        /* ══════════════════════════════════════
+           3D CUBE INTRO — ALL STYLES
+        ══════════════════════════════════════ */
+
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at 50% 60%, #0a0f2e 0%, #000005 70%);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        #intro-overlay.exit {
+            opacity: 0;
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        /* Stars */
+        #intro-stars { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+        .i-star {
+            position: absolute; border-radius: 50%; background: white;
+            animation: iTwinkle var(--d) ease-in-out var(--delay) infinite alternate;
+        }
+        @keyframes iTwinkle { 0%{opacity:.1;} 100%{opacity:.9;} }
+
+        /* Scan line */
+        #intro-scan {
+            position: fixed; left:0; right:0; height:2px;
+            background: linear-gradient(90deg, transparent, rgba(56,189,248,.6), transparent);
+            pointer-events:none; z-index:10001;
+            animation: iScan 4s linear infinite;
+        }
+        @keyframes iScan { 0%{top:-2px;opacity:0;} 5%{opacity:1;} 95%{opacity:.3;} 100%{top:100%;opacity:0;} }
+
+        /* HUD lines */
+        .i-hud-h {
+            position: fixed; left:0; right:0; height:1px;
+            background: rgba(56,189,248,.05); z-index:10000; pointer-events:none;
+        }
+        .i-hud-v {
+            position: fixed; top:0; bottom:0; width:1px;
+            background: rgba(56,189,248,.05); z-index:10000; pointer-events:none;
+        }
+
+        /* Corner brackets */
+        .i-bracket { position:fixed; width:50px; height:50px; z-index:10001; pointer-events:none; opacity:0; animation: iFadeIn .5s ease .8s forwards; }
+        .i-bracket svg { width:100%; height:100%; }
+        .i-btl { top:20px; left:20px; }
+        .i-btr { top:20px; right:20px; transform:scaleX(-1); }
+        .i-bbl { bottom:20px; left:20px; transform:scaleY(-1); }
+        .i-bbr { bottom:20px; right:20px; transform:scale(-1,-1); }
+
+        /* Orbit rings */
+        .i-orbit {
+            position:fixed; border-radius:50%; border:1px solid;
+            pointer-events:none; top:50%; left:50%;
+            transform: translate(-50%,-50%) rotateX(75deg) rotateZ(0deg);
+            animation: iOrbit var(--speed) linear infinite;
+            z-index:9999;
+        }
+        @keyframes iOrbit { to { transform: translate(-50%,-50%) rotateX(75deg) rotateZ(360deg); } }
+        .i-orbit-rev { animation: iOrbitRev var(--speed) linear infinite !important; }
+        @keyframes iOrbitRev { to { transform: translate(-50%,-50%) rotateX(75deg) rotateZ(-360deg); } }
+
+        /* Floating particles */
+        .i-fp {
+            position:fixed; border-radius:50%; pointer-events:none; z-index:10000;
+            animation: iFP var(--d) ease-in-out var(--dl) infinite;
+        }
+        @keyframes iFP { 0%{opacity:0;transform:translateY(0) scale(1);} 20%{opacity:.6;} 80%{opacity:.2;} 100%{opacity:0;transform:translateY(-180px) scale(.2);} }
+
+        /* ── Cube wrap ── */
+        #intro-content {
+            position:relative; z-index:10001;
+            display:flex; flex-direction:column; align-items:center;
+            animation: iEntryDrop 1.2s cubic-bezier(.17,.67,.35,1.3) .2s both;
+        }
+        @keyframes iEntryDrop {
+            0%  { opacity:0; transform:translateY(-200px) scale(.3); }
+            100%{ opacity:1; transform:translateY(0) scale(1); }
+        }
+
+        /* ── 3D Cube ── */
+        .i-cube-scene { width:160px; height:160px; perspective:600px; margin-bottom:40px; position:relative; }
+        .i-cube { width:100%; height:100%; position:relative; transform-style:preserve-3d; animation:iRotate 8s ease-in-out infinite; }
+        @keyframes iRotate {
+            0%  { transform:rotateX(-20deg) rotateY(0deg)   rotateZ(0deg); }
+            25% { transform:rotateX(10deg)  rotateY(90deg)  rotateZ(5deg); }
+            50% { transform:rotateX(-15deg) rotateY(180deg) rotateZ(-3deg); }
+            75% { transform:rotateX(8deg)   rotateY(270deg) rotateZ(4deg); }
+            100%{ transform:rotateX(-20deg) rotateY(360deg) rotateZ(0deg); }
+        }
+        .i-face {
+            position:absolute; width:160px; height:160px;
+            border:1.5px solid rgba(255,255,255,.15);
+            display:flex; flex-direction:column; align-items:center; justify-content:center;
+            font-family:'Bebas Neue', sans-serif; font-size:34px; letter-spacing:3px;
+            backdrop-filter:blur(2px); backface-visibility:visible;
+        }
+        .i-face-icon { font-size:20px; margin-bottom:4px; }
+        .i-front  { transform:translateZ(80px);           background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(99,102,241,.12)); color:#38bdf8; border-color:rgba(56,189,248,.4);  box-shadow:inset 0 0 40px rgba(56,189,248,.1),  0 0 30px rgba(56,189,248,.2); }
+        .i-back   { transform:rotateY(180deg) translateZ(80px); background:linear-gradient(135deg,rgba(129,140,248,.18),rgba(56,189,248,.1));  color:#818cf8; border-color:rgba(129,140,248,.4); box-shadow:inset 0 0 40px rgba(129,140,248,.1); }
+        .i-right  { transform:rotateY(90deg)  translateZ(80px); background:linear-gradient(135deg,rgba(52,211,153,.18),rgba(56,189,248,.1));   color:#34d399; border-color:rgba(52,211,153,.4);  box-shadow:inset 0 0 40px rgba(52,211,153,.1); }
+        .i-left   { transform:rotateY(-90deg) translateZ(80px); background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(249,115,22,.1));    color:#fbbf24; border-color:rgba(251,191,36,.4);  box-shadow:inset 0 0 40px rgba(251,191,36,.1); }
+        .i-top    { transform:rotateX(90deg)  translateZ(80px); background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(129,140,248,.1));   color:#ec4899; border-color:rgba(236,72,153,.4);  box-shadow:inset 0 0 40px rgba(236,72,153,.1); }
+        .i-bottom { transform:rotateX(-90deg) translateZ(80px); background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(52,211,153,.1));    color:#10b981; border-color:rgba(16,185,129,.3);  box-shadow:inset 0 0 40px rgba(16,185,129,.08); }
+
+        .i-cube-glow {
+            position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+            width:140px; height:20px;
+            background:radial-gradient(ellipse, rgba(56,189,248,.5) 0%, transparent 70%);
+            border-radius:50%; filter:blur(8px);
+            animation:iGlowPulse 3s ease-in-out infinite alternate;
+        }
+        @keyframes iGlowPulse { 0%{opacity:.4;width:120px;} 100%{opacity:.9;width:160px;} }
+
+        /* ── Name ── */
+        .i-name-wrap { text-align:center; opacity:0; animation:iRiseFade 1s ease .9s forwards; }
+        @keyframes iRiseFade { 0%{opacity:0;transform:translateY(30px);} 100%{opacity:1;transform:translateY(0);} }
+
+        .i-name-ved {
+            display:block; font-family:'Orbitron', sans-serif; font-weight:900;
+            font-size:clamp(36px,7vw,72px); letter-spacing:16px; color:#f1f5f9;
+            text-shadow:0 0 40px rgba(56,189,248,.5), 0 0 80px rgba(56,189,248,.2);
+            animation:iNameGlow 2s ease-in-out 2s infinite alternate;
+        }
+        @keyframes iNameGlow {
+            0%  { text-shadow:0 0 20px rgba(56,189,248,.4),0 0 60px rgba(56,189,248,.1); }
+            100%{ text-shadow:0 0 50px rgba(56,189,248,.8),0 0 100px rgba(56,189,248,.3),0 0 150px rgba(129,140,248,.2); }
+        }
+        .i-name-dhobi {
+            display:block; font-family:'Orbitron', sans-serif; font-weight:400;
+            font-size:clamp(14px,2.5vw,22px); letter-spacing:12px; margin-top:6px;
+            background:linear-gradient(90deg,#38bdf8,#818cf8,#34d399,#38bdf8);
+            background-size:300% 100%;
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            animation:iFlowGrad 3s linear 1.5s infinite;
+        }
+        @keyframes iFlowGrad { 0%{background-position:0%} 100%{background-position:300%} }
+
+        /* ── Divider ── */
+        .i-divider {
+            width:0; height:1px;
+            background:linear-gradient(90deg,transparent,#38bdf8,#818cf8,#34d399,transparent);
+            margin:20px auto;
+            animation:iExpandLine .8s ease 1.4s forwards;
+        }
+        @keyframes iExpandLine { to { width:280px; } }
+
+        /* ── Tagline ── */
+        .i-tagline {
+            font-family:'DM Sans', sans-serif; font-size:11px;
+            letter-spacing:5px; text-transform:uppercase;
+            color:rgba(241,245,249,.35);
+            opacity:0; animation:iFadeIn .8s ease 1.6s forwards; margin-bottom:24px;
+        }
+
+        /* ── Chips ── */
+        .i-chips { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; opacity:0; animation:iFadeIn .8s ease 1.9s forwards; margin-bottom:32px; }
+        .i-chip {
+            font-family:'Orbitron', sans-serif; font-size:9px; letter-spacing:2px;
+            text-transform:uppercase; padding:5px 14px; border-radius:2px; border:1px solid;
+            position:relative; overflow:hidden;
+        }
+        .i-chip::before {
+            content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+            animation:iChipShine 3s ease-in-out var(--d) infinite;
+        }
+        @keyframes iChipShine { 0%{left:-100%} 30%{left:100%} 100%{left:100%} }
+        .ic1{border-color:rgba(56,189,248,.5);color:#38bdf8;background:rgba(56,189,248,.06);}
+        .ic2{border-color:rgba(129,140,248,.5);color:#818cf8;background:rgba(129,140,248,.06);}
+        .ic3{border-color:rgba(52,211,153,.5);color:#34d399;background:rgba(52,211,153,.06);}
+        .ic4{border-color:rgba(251,191,36,.5);color:#fbbf24;background:rgba(251,191,36,.06);}
+        .ic5{border-color:rgba(236,72,153,.5);color:#ec4899;background:rgba(236,72,153,.06);}
+
+        /* ── CGPA ── */
+        .i-cgpa-row { display:flex; align-items:center; gap:16px; opacity:0; animation:iFadeIn .8s ease 2.1s forwards; margin-bottom:36px; }
+        .i-cgpa-val {
+            font-family:'Orbitron', sans-serif; font-size:44px; font-weight:900;
+            background:linear-gradient(135deg,#38bdf8,#34d399);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            filter:drop-shadow(0 0 16px rgba(56,189,248,.5));
+        }
+        .i-cgpa-info strong { display:block; font-family:'Orbitron', sans-serif; font-size:10px; letter-spacing:3px; color:rgba(241,245,249,.7); text-transform:uppercase; }
+        .i-cgpa-info span   { font-size:10px; letter-spacing:2px; color:rgba(241,245,249,.3); text-transform:uppercase; }
+
+        /* ── Progress ── */
+        .i-progress-wrap { width:260px; opacity:0; animation:iFadeIn .6s ease 2.3s forwards; }
+        .i-progress-track { height:2px; background:rgba(255,255,255,.06); border-radius:2px; overflow:hidden; position:relative; }
+        .i-progress-fill {
+            height:100%; width:0%;
+            background:linear-gradient(90deg,#38bdf8,#818cf8,#34d399);
+            border-radius:2px; position:relative; transition:width .04s linear;
+        }
+        .i-progress-fill::after {
+            content:''; position:absolute; right:0; top:-3px;
+            width:8px; height:8px; border-radius:50%; background:#38bdf8;
+            box-shadow:0 0 10px #38bdf8,0 0 20px rgba(56,189,248,.5);
+        }
+        .i-progress-label { display:flex; justify-content:space-between; margin-top:8px; font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:2px; color:rgba(241,245,249,.25); text-transform:uppercase; }
+
+        @keyframes iFadeIn { to { opacity:1; } }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════
+         EXTRAORDINARY 3D CUBE INTRO
+    ════════════════════════════════════════════ -->
+
+    <!-- Stars layer -->
+    <div id="intro-stars"></div>
+
+    <!-- Scan line -->
+    <div id="intro-scan"></div>
+
+    <!-- HUD Lines -->
+    <div class="i-hud-h" style="top:20%"></div>
+    <div class="i-hud-h" style="top:80%"></div>
+    <div class="i-hud-v" style="left:15%"></div>
+    <div class="i-hud-v" style="right:15%"></div>
+
+    <!-- Corner Brackets -->
+    <div class="i-bracket i-btl"><svg viewBox="0 0 50 50" fill="none"><path d="M0 50 L0 0 L50 0" stroke="#38bdf8" stroke-width="2" opacity=".6"/><path d="M0 40 L0 0 L40 0" stroke="#38bdf8" stroke-width="1" opacity=".3"/></svg></div>
+    <div class="i-bracket i-btr"><svg viewBox="0 0 50 50" fill="none"><path d="M0 50 L0 0 L50 0" stroke="#818cf8" stroke-width="2" opacity=".6"/></svg></div>
+    <div class="i-bracket i-bbl"><svg viewBox="0 0 50 50" fill="none"><path d="M0 50 L0 0 L50 0" stroke="#34d399" stroke-width="2" opacity=".6"/></svg></div>
+    <div class="i-bracket i-bbr"><svg viewBox="0 0 50 50" fill="none"><path d="M0 50 L0 0 L50 0" stroke="#38bdf8" stroke-width="2" opacity=".4"/></svg></div>
+
+    <!-- Orbit Rings -->
+    <div class="i-orbit" style="width:500px;height:500px;border-color:rgba(56,189,248,.06);--speed:20s;"></div>
+    <div class="i-orbit i-orbit-rev" style="width:700px;height:700px;border-color:rgba(129,140,248,.04);--speed:30s;"></div>
+    <div class="i-orbit" style="width:320px;height:320px;border-color:rgba(52,211,153,.08);--speed:14s;"></div>
+
+    <!-- Floating Particles -->
+    <div id="intro-particles"></div>
+
+    <!-- MAIN INTRO SCREEN -->
+    <div id="intro-overlay">
+        <div id="intro-content">
+
+            <!-- 3D CUBE -->
+            <div class="i-cube-scene">
+                <div class="i-cube">
+                    <div class="i-face i-front"><span class="i-face-icon">💻</span>VD</div>
+                    <div class="i-face i-back"><span class="i-face-icon">🤖</span>ML</div>
+                    <div class="i-face i-right"><span class="i-face-icon">📱</span>APP</div>
+                    <div class="i-face i-left"><span class="i-face-icon">🔥</span>FB</div>
+                    <div class="i-face i-top"><span class="i-face-icon">🌐</span>WEB</div>
+                    <div class="i-face i-bottom"><span class="i-face-icon">🎓</span>GTU</div>
+                </div>
+                <div class="i-cube-glow"></div>
+            </div>
+
+            <!-- NAME -->
+            <div class="i-name-wrap">
+                <span class="i-name-ved">VED</span>
+                <span class="i-name-dhobi">DHOBI</span>
+            </div>
+
+            <!-- DIVIDER -->
+            <div class="i-divider"></div>
+
+            <!-- TAGLINE -->
+            <div class="i-tagline">IT Student &nbsp;·&nbsp; Developer &nbsp;·&nbsp; Problem Solver</div>
+
+            <!-- SKILL CHIPS -->
+            <div class="i-chips">
+                <span class="i-chip ic1" style="--d:0s">Python</span>
+                <span class="i-chip ic2" style="--d:.3s">Android</span>
+                <span class="i-chip ic3" style="--d:.6s">Machine Learning</span>
+                <span class="i-chip ic4" style="--d:.9s">Firebase</span>
+                <span class="i-chip ic5" style="--d:1.2s">Web Dev</span>
+            </div>
+
+            <!-- CGPA COUNTER -->
+            <div class="i-cgpa-row">
+                <div class="i-cgpa-val" id="introCgpa">0.00</div>
+                <div class="i-cgpa-info">
+                    <strong>CGPA</strong>
+                    <span>GTU · Diploma IT</span>
+                </div>
+            </div>
+
+            <!-- PROGRESS BAR -->
+            <div class="i-progress-wrap">
+                <div class="i-progress-track">
+                    <div class="i-progress-fill" id="introPgFill"></div>
+                </div>
+                <div class="i-progress-label">
+                    <span>Initializing Portfolio</span>
+                    <span id="introPgPct">0%</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- INTRO JAVASCRIPT -->
+    <script>
+    (function(){
+        // Stars
+        var starEl = document.getElementById('intro-stars');
+        for(var i=0;i<180;i++){
+            var s=document.createElement('div');
+            s.className='i-star';
+            var sz=Math.random()*2+.5;
+            s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;opacity:'+(Math.random()*.6+.1)+';--d:'+(2+Math.random()*4)+'s;--delay:'+(Math.random()*3)+'s;z-index:9999;position:fixed;border-radius:50%;background:white;animation:iTwinkle var(--d) ease-in-out var(--delay) infinite alternate;';
+            starEl.appendChild(s);
+        }
+
+        // Floating particles
+        var pWrap=document.getElementById('intro-particles');
+        var cols=['#38bdf8','#818cf8','#34d399','#ec4899','#fbbf24'];
+        for(var j=0;j<40;j++){
+            var p=document.createElement('div');
+            p.className='i-fp';
+            var psz=Math.random()*3+1;
+            p.style.cssText='width:'+psz+'px;height:'+psz+'px;left:'+Math.random()*100+'%;top:'+(20+Math.random()*70)+'%;background:'+cols[j%5]+';--d:'+(5+Math.random()*8)+'s;--dl:'+(Math.random()*5)+'s;';
+            pWrap.appendChild(p);
+        }
+
+        // CGPA counter
+        var cgpaEl=document.getElementById('introCgpa');
+        var cgpaTarget=8.87, cgpaStart=performance.now()+2200;
+        function tickCgpa(now){
+            var t=Math.max(0,now-cgpaStart);
+            var ease=1-Math.pow(1-Math.min(t/1800,1),4);
+            cgpaEl.textContent=(ease*cgpaTarget).toFixed(2);
+            if(ease*cgpaTarget<cgpaTarget) requestAnimationFrame(tickCgpa);
+            else cgpaEl.textContent='8.87';
+        }
+        requestAnimationFrame(tickCgpa);
+
+        // Progress bar → exit
+        var pgFill=document.getElementById('introPgFill');
+        var pgPct=document.getElementById('introPgPct');
+        var pgDuration=3600, pgStart=performance.now();
+        function tickPg(now){
+            var pg=Math.min(100,((now-pgStart)/pgDuration)*100);
+            pgFill.style.width=pg+'%';
+            pgPct.textContent=Math.floor(pg)+'%';
+            if(pg<100){ requestAnimationFrame(tickPg); }
+            else {
+                pgPct.textContent='100%';
+                setTimeout(function(){
+                    var overlay=document.getElementById('intro-overlay');
+                    overlay.style.transition='opacity 1s ease, transform 1s ease';
+                    overlay.style.opacity='0';
+                    overlay.style.transform='scale(1.08)';
+                    overlay.style.pointerEvents='none';
+                    // Also fade out all decorative intro elements
+                    ['intro-stars','intro-scan','intro-particles'].forEach(function(id){
+                        var el=document.getElementById(id);
+                        if(el){ el.style.transition='opacity 1s ease'; el.style.opacity='0'; el.style.pointerEvents='none'; }
+                    });
+                    document.querySelectorAll('.i-bracket,.i-orbit,.i-hud-h,.i-hud-v').forEach(function(el){
+                        el.style.transition='opacity 1s ease'; el.style.opacity='0'; el.style.pointerEvents='none';
+                    });
+                    // Remove from DOM after transition
+                    setTimeout(function(){
+                        ['intro-overlay','intro-stars','intro-scan','intro-particles'].forEach(function(id){
+                            var el=document.getElementById(id); if(el) el.remove();
+                        });
+                        document.querySelectorAll('.i-bracket,.i-orbit,.i-hud-h,.i-hud-v').forEach(function(el){ el.remove(); });
+                    }, 1100);
+                }, 300);
+            }
+        }
+        requestAnimationFrame(tickPg);
+    })();
+    </script>
+
+    <!-- ═══════════════════════════════════════════
+         PORTFOLIO CONTENT (hidden during intro)
+    ════════════════════════════════════════════ -->
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ved Dhobi | IT Student & Developer</title>
+    <meta name="description" content="Diploma in IT student with 8.87 CGPA. Skilled in Python, Android Development, Firebase, and Machine Learning. Passionate about building innovative solutions.">
+    <meta name="keywords" content="Ved Dhobi, IT Student, Android Developer, Python Developer, Firebase, Machine Learning, Web Development">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        body { 
             overflow-x: hidden;
+            background: #03050a; /* deeper base */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(129, 140, 248, 0.03) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 4px);
         }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gradient-secondary); }
+
+        /* ══════════════════════════════════════
+           3D CUBE INTRO — ALL STYLES
+        ══════════════════════════════════════ */
+        /* (keep all your existing intro styles here – unchanged) */
+        #intro-overlay { /* ... your existing intro styles ... */ }
+        /* ... all intro styles remain exactly as you had them ... */
+        /* For brevity I've omitted them, but keep them in your final file */
+
+        /* ══════════════════════════════════════
+           ENHANCED TITLES & BACKGROUND
+        ══════════════════════════════════════ */
+
+        /* Global title enhancements */
+        h1, h2, h3, .section-title, .hero-title, .project-title, .cert-title, .result-sem {
+            font-family: 'Orbitron', 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 15px rgba(56,189,248,0.5));
+            transition: filter 0.3s;
         }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-light);
+        .section-title:hover, .hero-title:hover {
+            filter: drop-shadow(0 0 25px rgba(56,189,248,0.8));
         }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-primary);
-            border-radius: 5px;
+
+        /* Section titles specifically */
+        .section-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-secondary);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+            border-radius: 2px;
+            box-shadow: 0 0 20px #38bdf8;
+        }
+
+        /* Hero title special */
+        .hero-title {
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .hero-title .name {
+            background: linear-gradient(135deg, #fff, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* Profile name */
+        .profile-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(56,189,248,0.6));
+        }
+
+        /* Section backgrounds */
+        .section {
+            background: rgba(3, 5, 10, 0.8);
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid rgba(56,189,248,0.1);
+        }
+        .bg-light {
+            background: rgba(8, 12, 20, 0.9);
+        }
+
+        /* Cards enhancement */
+        .project-card, .skill-category, .result-card, .cert-card, .contact-info, .contact-form {
+            background: rgba(15, 20, 30, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(56,189,248,0.15);
+            transition: all 0.3s ease;
+        }
+        .project-card:hover, .skill-category:hover, .result-card:hover, .cert-card:hover {
+            border-color: rgba(56,189,248,0.6);
+            box-shadow: 0 0 30px rgba(56,189,248,0.2);
+            background: rgba(20, 28, 40, 0.8);
+        }
+
+        /* Skill tags, tech tags */
+        .skill-tag, .tech-tag {
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.3);
+            color: #a5b4fc;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border: none;
+            box-shadow: 0 4px 20px rgba(56,189,248,0.3);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(56,189,248,0.6);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.9);
+            border-top: 1px solid rgba(56,189,248,0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!DOCTYPE html>
 
-
-<title>3D Welcome</title>
-
-<style>
-/* ===== 3D Welcome Screen ===== */
-#welcome3d{
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle,#0f172a,#020617);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  perspective:1000px;
-  transition:opacity .6s ease;
-}
-
-/* 3D Text */
-#welcome3d h1{
-  color:white;
-  font-size:clamp(40px,8vw,90px);
-  font-family:sans-serif;
-  letter-spacing:4px;
-  text-transform:uppercase;
-
-  background:linear-gradient(90deg,#60a5fa,#a78bfa,#34d399);
-  -webkit-background-clip:text;
-  color:transparent;
-
-  animation:zoom3d 1.4s ease forwards;
-}
-
-/* 3D Animation */
-@keyframes zoom3d{
-  0%{
-    opacity:0;
-    transform:rotateX(60deg) translateZ(-400px) scale(.5);
-    filter:blur(10px);
-  }
-  100%{
-    opacity:1;
-    transform:rotateX(0) translateZ(0) scale(1);
-    filter:blur(0);
-  }
-}
-
-/* Hide */
-.hide{
-  opacity:0;
-  pointer-events:none;
-}
-</style>
-
-</head>
-
-<body>
-
-<!-- 3D Intro -->
-<div id="welcome3d">
-  <h1>Welcome</h1>
-</div>
-
-
-<script>
-window.onload = () => {
-  setTimeout(()=>{
-    document.getElementById("welcome3d").classList.add("hide");
-  },2000); // 2 sec intro
-};
-</script>
-
-
+    <!-- ═══════════════════════════════════════════
+         EXTRAORDINARY 3D CUBE INTRO
+    ════════════════════════════════════════════ -->
+    <!-- (your complete intro code here – keep it exactly as you had) -->
+    <!-- For space, I'm not repeating it, but you must keep it. -->
 
     <!-- Navigation -->
-<nav class="navbar">
-    <div class="container">
-
-        <!-- Logo -->
-        <div class="logo">
-            <span class="logo-text">Ved Dhobi</span>
-            <span class="logo-tag">IT Student</span>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">Ved Dhobi</span>
+                <span class="logo-tag">IT Student</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a>
+                <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a>
+                <a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a>
+                <a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            </div>
         </div>
-
-        <!-- Page Switch Links -->
-        <div class="nav-menu">
-            <a href="#home" class="nav-link active">
-                <i class="fas fa-home"></i> Home
-            </a>
-
-            <a href="#about" class="nav-link">
-                <i class="fas fa-user"></i> About
-            </a>
-
-            <a href="#education" class="nav-link">
-                <i class="fas fa-graduation-cap"></i> Education
-            </a>
-
-            <a href="#skills" class="nav-link">
-                <i class="fas fa-code"></i> Skills
-            </a>
-
-            <a href="#projects" class="nav-link">
-                <i class="fas fa-project-diagram"></i> Projects
-            </a>
-
-            <a href="#contact" class="nav-link">
-                <i class="fas fa-envelope"></i> Contact
-            </a>
-        </div>
-
-        <!-- Actions -->
-        <div class="nav-actions">
-
-            <!-- Theme Toggle -->
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-
-            <!-- Mobile Menu -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-
-        </div>
-
-    </div>
-</nav>
-
+    </nav>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
@@ -189,7 +609,7 @@ window.onload = () => {
             <div class="hero-content">
                 <div class="hero-text scroll-reveal">
                     <span class="hero-badge float-animation">CGPA: 8.87</span>
-                    <h1 class="typewriter-text">Hello, I'm <span class="highlight text-gradient-animate">Ved Dhobi</span></h1>
+                    <h1 class="hero-title">Hello, I'm <span class="name">Ved Dhobi</span></h1>
                     <h2 class="typing-animation">Diploma in IT Student & Developer</h2>
                     <p class="fade-in delay-1">Motivated IT student specializing in Python, Android Development, and Machine Learning. Passionate about creating innovative solutions that solve real-world problems.</p>
                     <div class="hero-actions fade-in delay-2">
@@ -221,21 +641,13 @@ window.onload = () => {
                             <img id="profileImg" src="assets/images/profile.jpg" alt="Ved Dhobi" onerror="this.src='https://via.placeholder.com/200x200/2563eb/ffffff?text=VD'">
                         </div>
                         <div class="profile-details">
-                            <h3 class="animated-gradient-text">Ved Dhobi</h3>
+                            <h3 class="profile-name">Ved Dhobi</h3>
                             <p class="profile-role">IT Student & Developer</p>
                             <div class="profile-links">
-                                <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-link magnetic">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                                <a href="https://github.com/veddhobi" target="_blank" class="social-link magnetic">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="mailto:veddhobi252@gmail.com" class="social-link magnetic">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                                <a href="https://wa.me/917043362186" target="_blank" class="social-link magnetic">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
+                                <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-link magnetic"><i class="fab fa-linkedin"></i></a>
+                                <a href="https://github.com/veddhobi" target="_blank" class="social-link magnetic"><i class="fab fa-github"></i></a>
+                                <a href="mailto:veddhobi252@gmail.com" class="social-link magnetic"><i class="fas fa-envelope"></i></a>
+                                <a href="https://wa.me/917043362186" target="_blank" class="social-link magnetic"><i class="fab fa-whatsapp"></i></a>
                             </div>
                         </div>
                     </div>
@@ -253,22 +665,10 @@ window.onload = () => {
                     <p>Motivated and detail-oriented Diploma student in Information Technology with a strong academic record (CGPA: 8.87) from Gujarat Technological University. Currently studying BTech in Computer Engineering.</p>
                     <p>Proficient in Python (basic to intermediate), Java (OOP), and Android development with Firebase integration. Completed internships focused on Machine Learning and gained academic exposure to Cyber Security, Cloud Computing, and Blockchain technologies.</p>
                     <div class="about-highlights">
-                        <div class="highlight-item hover-card">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>8.87 CGPA</span>
-                        </div>
-                        <div class="highlight-item hover-card">
-                            <i class="fas fa-code"></i>
-                            <span>Python Developer</span>
-                        </div>
-                        <div class="highlight-item hover-card">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Android Developer</span>
-                        </div>
-                        <div class="highlight-item hover-card">
-                            <i class="fas fa-cloud"></i>
-                            <span>Firebase Expert</span>
-                        </div>
+                        <div class="highlight-item hover-card"><i class="fas fa-graduation-cap"></i><span>8.87 CGPA</span></div>
+                        <div class="highlight-item hover-card"><i class="fas fa-code"></i><span>Python Developer</span></div>
+                        <div class="highlight-item hover-card"><i class="fas fa-mobile-alt"></i><span>Android Developer</span></div>
+                        <div class="highlight-item hover-card"><i class="fas fa-cloud"></i><span>Firebase Expert</span></div>
                     </div>
                 </div>
                 <div class="languages scroll-reveal delay-1 glass-effect">
@@ -276,35 +676,17 @@ window.onload = () => {
                     <div class="language-list">
                         <div class="language-item hover-card">
                             <span>English</span>
-                            <div class="language-level">
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot"></div>
-                            </div>
+                            <div class="language-level"><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot"></div></div>
                             <span class="level-text">Fluent</span>
                         </div>
                         <div class="language-item hover-card">
                             <span>Hindi</span>
-                            <div class="language-level">
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot"></div>
-                            </div>
+                            <div class="language-level"><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot"></div></div>
                             <span class="level-text">Fluent</span>
                         </div>
                         <div class="language-item hover-card">
                             <span>Gujarati</span>
-                            <div class="language-level">
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                                <div class="level-dot active"></div>
-                            </div>
+                            <div class="language-level"><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div><div class="level-dot active"></div></div>
                             <span class="level-text">Native</span>
                         </div>
                     </div>
@@ -321,9 +703,7 @@ window.onload = () => {
                 <div class="education-item scroll-reveal">
                     <div class="education-date">Currently</div>
                     <div class="education-content hover-card">
-                        <div class="education-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
+                        <div class="education-icon"><i class="fas fa-laptop-code"></i></div>
                         <h3>BTech in Computer Engineering</h3>
                         <p class="education-institute">Pursuing Bachelor's Degree</p>
                         <p class="education-desc">Currently studying Computer Engineering to enhance technical skills and knowledge.</p>
@@ -332,9 +712,7 @@ window.onload = () => {
                 <div class="education-item scroll-reveal delay-1">
                     <div class="education-date">2022 - 2025</div>
                     <div class="education-content hover-card">
-                        <div class="education-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
+                        <div class="education-icon"><i class="fas fa-graduation-cap"></i></div>
                         <h3>Diploma in Information Technology</h3>
                         <p class="education-institute">Government Polytechnic College, Himatnagar</p>
                         <p class="education-desc">Gujarat Technological University (GTU) | CGPA: 8.87</p>
@@ -347,9 +725,7 @@ window.onload = () => {
                 <div class="education-item scroll-reveal delay-2">
                     <div class="education-date">2022</div>
                     <div class="education-content hover-card">
-                        <div class="education-icon">
-                            <i class="fas fa-school"></i>
-                        </div>
+                        <div class="education-icon"><i class="fas fa-school"></i></div>
                         <h3>Secondary School Certificate (SSC)</h3>
                         <p class="education-institute">Shri K N Shah Modasa High School</p>
                         <p class="education-desc">Gujarat Secondary Education Board (GSEB)</p>
@@ -367,109 +743,51 @@ window.onload = () => {
                 <div class="skill-category scroll-reveal glass-effect">
                     <h3><i class="fas fa-code"></i> Programming Languages</h3>
                     <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 75%"></div>
-                            </div>
-                            <span class="skill-percent">Intermediate</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Java</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 65%"></div>
-                            </div>
-                            <span class="skill-percent">Intermediate</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 60%"></div>
-                            </div>
-                            <span class="skill-percent">Basic</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">CSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 65%"></div>
-                            </div>
-                            <span class="skill-percent">Intermediate</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">HTML</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 65%"></div>
-                            </div>
-                            <span class="skill-percent">Intermediate</span>
-                        </div>
+                        <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-level" style="width:75%"></div></div><span class="skill-percent">Intermediate</span></div>
+                        <div class="skill-item"><span class="skill-name">Java</span><div class="skill-bar"><div class="skill-level" style="width:65%"></div></div><span class="skill-percent">Intermediate</span></div>
+                        <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-level" style="width:60%"></div></div><span class="skill-percent">Basic</span></div>
+                        <div class="skill-item"><span class="skill-name">CSS</span><div class="skill-bar"><div class="skill-level" style="width:65%"></div></div><span class="skill-percent">Intermediate</span></div>
+                        <div class="skill-item"><span class="skill-name">HTML</span><div class="skill-bar"><div class="skill-level" style="width:65%"></div></div><span class="skill-percent">Intermediate</span></div>
                     </div>
                 </div>
-
                 <div class="skill-category scroll-reveal delay-1 glass-effect">
                     <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag magnetic">Android Studio</span>
-                        <span class="skill-tag magnetic">ML Kit</span>
-                        <span class="skill-tag magnetic">TFLite</span>
-                        <span class="skill-tag magnetic">Firebase Auth</span>
-                        <span class="skill-tag magnetic">Firestore</span>
-                        <span class="skill-tag magnetic">Realtime Database</span>
+                        <span class="skill-tag magnetic">Android Studio</span><span class="skill-tag magnetic">ML Kit</span><span class="skill-tag magnetic">TFLite</span><span class="skill-tag magnetic">Firebase Auth</span><span class="skill-tag magnetic">Firestore</span><span class="skill-tag magnetic">Realtime Database</span>
                     </div>
                 </div>
-
                 <div class="skill-category scroll-reveal delay-2 glass-effect">
                     <h3><i class="fas fa-cloud"></i> Cloud & Databases</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag magnetic">Firebase</span>
-                        <span class="skill-tag magnetic">Google Cloud</span>
-                        <span class="skill-tag magnetic">MongoDB</span>
-                        <span class="skill-tag magnetic">SQL</span>
-                        <span class="skill-tag magnetic">MySQL</span>
+                        <span class="skill-tag magnetic">Firebase</span><span class="skill-tag magnetic">Google Cloud</span><span class="skill-tag magnetic">MongoDB</span><span class="skill-tag magnetic">SQL</span><span class="skill-tag magnetic">MySQL</span>
                     </div>
                 </div>
-
                 <div class="skill-category scroll-reveal glass-effect">
                     <h3><i class="fas fa-laptop-code"></i> Core CS Concepts</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag magnetic">Data Structures</span>
-                        <span class="skill-tag magnetic">DBMS</span>
-                        <span class="skill-tag magnetic">Operating Systems</span>
-                        <span class="skill-tag magnetic">SDLC</span>
-                        <span class="skill-tag magnetic">OOP Concepts</span>
+                        <span class="skill-tag magnetic">Data Structures</span><span class="skill-tag magnetic">DBMS</span><span class="skill-tag magnetic">Operating Systems</span><span class="skill-tag magnetic">SDLC</span><span class="skill-tag magnetic">OOP Concepts</span>
                     </div>
                 </div>
-
                 <div class="skill-category scroll-reveal delay-1 glass-effect">
                     <h3><i class="fas fa-brain"></i> Emerging Technologies</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag magnetic">Machine Learning</span>
-                        <span class="skill-tag magnetic">LLM Chatbots</span>
-                        <span class="skill-tag magnetic">Blockchain</span>
-                        <span class="skill-tag magnetic">AI Concepts</span>
-                        <span class="skill-tag magnetic">NLP</span>
+                        <span class="skill-tag magnetic">Machine Learning</span><span class="skill-tag magnetic">LLM Chatbots</span><span class="skill-tag magnetic">Blockchain</span><span class="skill-tag magnetic">AI Concepts</span><span class="skill-tag magnetic">NLP</span>
                     </div>
                 </div>
-
                 <div class="skill-category scroll-reveal delay-2 glass-effect">
                     <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag magnetic">Git</span>
-                        <span class="skill-tag magnetic">GitHub</span>
-                        <span class="skill-tag magnetic">VS Code</span>
-                        <span class="skill-tag magnetic">Canva</span>
-                        <span class="skill-tag magnetic">Figma</span>
-                        <span class="skill-tag magnetic">Android Studio</span>
+                        <span class="skill-tag magnetic">Git</span><span class="skill-tag magnetic">GitHub</span><span class="skill-tag magnetic">VS Code</span><span class="skill-tag magnetic">Canva</span><span class="skill-tag magnetic">Figma</span><span class="skill-tag magnetic">Android Studio</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ===== PROJECTS SECTION ===== -->
+
+    <!-- Projects Section -->
     <section id="projects" class="section bg-light">
         <div class="container">
             <h2 class="section-title scroll-reveal">My Projects</h2>
-
-            <!-- Filter buttons (adjust categories as needed) -->
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="ai">AI/ML</button>
@@ -477,497 +795,190 @@ window.onload = () => {
                 <button class="filter-btn" data-filter="web">Web</button>
                 <button class="filter-btn" data-filter="django">Django</button>
             </div>
-
             <div class="projects-grid">
-                <!-- 1. Smart Attendance System (No GitHub/ Live) -->
+                <!-- 1. Smart Attendance System -->
                 <div class="project-card scroll-reveal" data-category="android ai">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-android">Android</span>
-                            <span class="tag tag-ai">AI</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="project-tags"><span class="tag tag-android">Android</span><span class="tag tag-ai">AI</span></div>
                     </div>
                     <h3 class="project-title">Smart Attendance System</h3>
-                    <p class="project-description">
-                        Android app with face recognition for automated attendance tracking using Firebase. Replaces traditional roll-call with a secure, automated solution.
-                    </p>
-                    <!-- What problem it solves -->
+                    <p class="project-description">Android app with face recognition for automated attendance tracking using Firebase. Replaces traditional roll-call with a secure, automated solution.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Face Recognition login</span>
                         <span><i class="fas fa-check"></i> Firebase Cloud Storage</span>
                         <span><i class="fas fa-check"></i> Excel Report Generation</span>
                         <span><i class="fas fa-check"></i> Proxy Prevention</span>
                     </div>
-                    <!-- Tech stack badges -->
-                    <div class="project-tech">
-                        <span class="tech-tag">Android Studio</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">ML Kit</span>
+                    <div class="project-tech"><span class="tech-tag">Android Studio</span><span class="tech-tag">Java</span><span class="tech-tag">Firebase</span><span class="tech-tag">ML Kit</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <span class="btn-small" style="background:#ccc;pointer-events:none;opacity:0.6;">Live Demo (private)</span>
+                        <span class="btn-small" style="background:#ccc;pointer-events:none;opacity:0.6;">GitHub (not uploaded)</span>
                     </div>
-                    <!-- Links (not available) -->
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">Live Demo (private)</span>
-                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">GitHub (not uploaded)</span>
-                    </div>
-                    <!-- Screenshot placeholder (add your own) -->
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/smart-attendance.jpg" alt="Smart Attendance screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/smart-attendance.jpg" alt="Smart Attendance screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
-
-                <!-- 2. DDQuest Mobile App (No GitHub/ Live) -->
+                <!-- 2. DDQuest -->
                 <div class="project-card scroll-reveal" data-category="android education">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-android">Android</span>
-                            <span class="tag tag-education">Education</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="project-tags"><span class="tag tag-android">Android</span><span class="tag tag-education">Education</span></div>
                     </div>
                     <h3 class="project-title">DDQuest Mobile App</h3>
-                    <p class="project-description">
-                        Platform for assignments, notes, and academic updates with enhanced communication features for students and teachers. Designed to streamline educational workflows.
-                    </p>
+                    <p class="project-description">Platform for assignments, notes, and academic updates with enhanced communication features for students and teachers.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Assignment Tracking</span>
                         <span><i class="fas fa-check"></i> Learning Progress</span>
                         <span><i class="fas fa-check"></i> Seamless Communication</span>
                         <span><i class="fas fa-check"></i> Clean UI/UX</span>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Android Studio</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Firebase</span>
-                        <span class="tech-tag">Material Design</span>
+                    <div class="project-tech"><span class="tech-tag">Android Studio</span><span class="tech-tag">Java</span><span class="tech-tag">Firebase</span><span class="tech-tag">Material Design</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <span class="btn-small" style="background:#ccc;pointer-events:none;opacity:0.6;">Live Demo (private)</span>
+                        <span class="btn-small" style="background:#ccc;pointer-events:none;opacity:0.6;">GitHub (not uploaded)</span>
                     </div>
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">Live Demo (private)</span>
-                        <span class="btn-small" style="background: #ccc; pointer-events: none; opacity: 0.6;">GitHub (not uploaded)</span>
-                    </div>
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/ddquest.jpg" alt="DDQuest screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/ddquest.jpg" alt="DDQuest screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
-
-                <!-- 3. Advanced AI Chatbot Suite (from GitHub) -->
+                <!-- 3. Advanced AI Chatbot -->
                 <div class="project-card scroll-reveal" data-category="ai">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-ai">AI</span>
-                            <span class="tag tag-web">Web</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-robot"></i></div>
+                        <div class="project-tags"><span class="tag tag-ai">AI</span><span class="tag tag-web">Web</span></div>
                     </div>
                     <h3 class="project-title">Advanced AI Chatbot Suite</h3>
-                    <p class="project-description">
-                        An advanced AI chatbot supporting text conversations, PDF document analysis, semantic search, and document summarization. Includes model selection, real-time processing, and detailed analytics.
-                    </p>
+                    <p class="project-description">An advanced AI chatbot supporting text conversations, PDF document analysis, semantic search, and document summarization.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> One platform for chat & document Q&A</span>
                         <span><i class="fas fa-check"></i> Extract insights from PDFs instantly</span>
                         <span><i class="fas fa-check"></i> Summarize long documents with AI</span>
                         <span><i class="fas fa-check"></i> Semantic search within documents</span>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">OpenAI/Groq</span>
-                        <span class="tech-tag">NLP</span>
+                    <div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OpenAI/Groq</span><span class="tech-tag">NLP</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <a href="#" class="btn-small" style="pointer-events:none;opacity:0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/advanced-AI-chatbot" target="_blank" class="btn-small github-link"><i class="fab fa-github"></i> GitHub</a>
                     </div>
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
-                        <a href="https://github.com/DhobiVed/advanced-AI-chatbot" target="_blank" class="btn-small github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/advanced-chatbot.jpg" alt="Advanced AI Chatbot screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/advanced-chatbot.jpg" alt="Advanced AI Chatbot screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
-
-                <!-- 4. Simple Chatbot (GPT Clone) -->
+                <!-- 4. Simple Chatbot -->
                 <div class="project-card scroll-reveal" data-category="ai">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-comment-dots"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-ai">AI</span>
-                            <span class="tag tag-web">Web</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="project-tags"><span class="tag tag-ai">AI</span><span class="tag tag-web">Web</span></div>
                     </div>
                     <h3 class="project-title">Simple Chatbot – ChatGPT Clone</h3>
-                    <p class="project-description">
-                        A ChatGPT clone built with Flask and OpenAI API. Features interactive conversations, MongoDB for storing chat history, and a TailwindCSS frontend.
-                    </p>
+                    <p class="project-description">A ChatGPT clone built with Flask and OpenAI API. Features interactive conversations, MongoDB for storing chat history, and a TailwindCSS frontend.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Real‑time AI responses</span>
                         <span><i class="fas fa-check"></i> Conversation history saved in MongoDB</span>
                         <span><i class="fas fa-check"></i> Clean UI with TailwindCSS</span>
                         <span><i class="fas fa-check"></i> Easy integration with OpenAI</span>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">OpenAI API</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">TailwindCSS</span>
+                    <div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OpenAI API</span><span class="tech-tag">MongoDB</span><span class="tech-tag">TailwindCSS</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <a href="#" class="btn-small" style="pointer-events:none;opacity:0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/simple-chatbot" target="_blank" class="btn-small github-link"><i class="fab fa-github"></i> GitHub</a>
                     </div>
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
-                        <a href="https://github.com/DhobiVed/simple-chatbot" target="_blank" class="btn-small github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/simple-chatbot.jpg" alt="Simple Chatbot screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/simple-chatbot.jpg" alt="Simple Chatbot screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
-
-                <!-- 5. Academix – Class Management System -->
+                <!-- 5. Academix -->
                 <div class="project-card scroll-reveal" data-category="django web">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-web">Web</span>
-                            <span class="tag tag-education">Education</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="project-tags"><span class="tag tag-web">Web</span><span class="tag tag-education">Education</span></div>
                     </div>
                     <h3 class="project-title">Academix – Class Manager</h3>
-                    <p class="project-description">
-                        A Django‑based web application to manage classes, assignments, and student progress. Ready for deployment on Render.
-                    </p>
+                    <p class="project-description">A Django‑based web application to manage classes, assignments, and student progress. Ready for deployment on Render.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Centralized course material</span>
                         <span><i class="fas fa-check"></i> Assignment tracking</span>
                         <span><i class="fas fa-check"></i> Student progress monitoring</span>
                         <span><i class="fas fa-check"></i> Render deployment ready</span>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Django</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag">Render</span>
+                    <div class="project-tech"><span class="tech-tag">Django</span><span class="tech-tag">Python</span><span class="tech-tag">HTML/CSS</span><span class="tech-tag">Render</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <a href="#" class="btn-small" style="pointer-events:none;opacity:0.6;">Live Demo (soon)</a>
+                        <a href="https://github.com/DhobiVed/Academix" target="_blank" class="btn-small github-link"><i class="fab fa-github"></i> GitHub</a>
                     </div>
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <a href="#" class="btn-small" style="pointer-events: none; opacity: 0.6;">Live Demo (soon)</a>
-                        <a href="https://github.com/DhobiVed/Academix" target="_blank" class="btn-small github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/academix.jpg" alt="Academix screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/academix.jpg" alt="Academix screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
-
-                <!-- 6. Interactive Portfolio Website -->
+                <!-- 6. Portfolio -->
                 <div class="project-card scroll-reveal" data-category="web">
                     <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag tag-web">Web</span>
-                            <span class="tag-portfolio">Portfolio</span>
-                        </div>
+                        <div class="project-icon"><i class="fas fa-code"></i></div>
+                        <div class="project-tags"><span class="tag tag-web">Web</span><span class="tag-portfolio">Portfolio</span></div>
                     </div>
                     <h3 class="project-title">Interactive Portfolio Website</h3>
-                    <p class="project-description">
-                        A modern, fully responsive portfolio with dark/light mode, smooth animations (GSAP), and project showcase. Designed to highlight my skills and work.
-                    </p>
+                    <p class="project-description">A modern, fully responsive portfolio with dark/light mode, smooth animations (GSAP), and project showcase.</p>
                     <div class="project-features">
                         <span><i class="fas fa-check"></i> Dark/light theme toggle</span>
                         <span><i class="fas fa-check"></i> Smooth GSAP animations</span>
                         <span><i class="fas fa-check"></i> Project filtering & modals</span>
                         <span><i class="fas fa-check"></i> Mobile‑friendly design</span>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">GSAP</span>
-                        <span class="tech-tag">Netlify</span>
+                    <div class="project-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">GSAP</span><span class="tech-tag">Netlify</span></div>
+                    <div class="project-links" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <a href="https://silver-flan-71ce5f.netlify.app/" target="_blank" class="btn-small live-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/DhobiVed/vedportfolio" target="_blank" class="btn-small github-link"><i class="fab fa-github"></i> GitHub</a>
                     </div>
-                    <div class="project-links" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                        <a href="https://silver-flan-71ce5f.netlify.app/" target="_blank" class="btn-small live-link">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="https://github.com/DhobiVed/vedportfolio" target="_blank" class="btn-small github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                    <div style="margin-top: 1.5rem; border-radius: 8px; overflow: hidden;">
-                        <img src="assets/images/portfolio-screenshot.jpg" alt="Portfolio screenshot" style="width: 100%; display: block;" onerror="this.style.display='none'">
-                    </div>
+                    <div style="margin-top:1.5rem;border-radius:8px;overflow:hidden;"><img src="assets/images/portfolio-screenshot.jpg" alt="Portfolio screenshot" style="width:100%;display:block;" onerror="this.style.display='none'"></div>
                 </div>
             </div>
         </div>
     </section>
-        <!-- Results Section -->
+
+    <!-- Results Section -->
     <section id="results" class="section">
         <div class="container">
             <h2 class="section-title scroll-reveal">📊 Academic Results</h2>
             <div class="results-grid">
-                
-                <!-- Semester 1 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 1</h3>
-                        <p>CGPA: 7.16 · jul 2023</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1JfVrS-yz-Mrn2bapsPXIAF71OX4eYnV1/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 1</h3><p>CGPA: 7.16 · Jul 2023</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1JfVrS-yz-Mrn2bapsPXIAF71OX4eYnV1/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
-                <!-- Semester 2 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 2</h3>
-                        <p>CGPA: 8.00 · may 2023</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1F2nQ35em6oe3ISeXa4PwXfWALZyVDIJG/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 2</h3><p>CGPA: 8.00 · May 2023</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1F2nQ35em6oe3ISeXa4PwXfWALZyVDIJG/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
-                <!-- Semester 3 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 3</h3>
-                        <p>CGPA: 8.86 · DEC 2024</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1rYt-L-geXFizEiYtpqo7AZS3ZrmVb__g/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 3</h3><p>CGPA: 8.86 · Dec 2024</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1rYt-L-geXFizEiYtpqo7AZS3ZrmVb__g/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
-                <!-- Semester 4 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 4</h3>
-                        <p>CGPA: 8.74 · MAY 2024</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1LPecuxFKA0W2Ctj28fPNhOWMThJsEHzC/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 4</h3><p>CGPA: 8.74 · May 2024</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1LPecuxFKA0W2Ctj28fPNhOWMThJsEHzC/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
-                <!-- Semester 5 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 5</h3>
-                        <p>CGPA: 8.65 · DEC 2024</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1KLLN21M5_evkDDAUs1t94Akv-t-WLyAR/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 5</h3><p>CGPA: 8.65 · Dec 2024</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1KLLN21M5_evkDDAUs1t94Akv-t-WLyAR/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
-                <!-- Semester 6 -->
                 <div class="result-card scroll-reveal hover-card">
-                    <div class="result-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="result-info">
-                        <h3>Diploma IT – Semester 6</h3>
-                        <p>CGPA: 9.26 · MAY 2025</p>
-                        <button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1z7QRQlNirl1qozroA7bFzT5D2AeSZAF7/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Result
-                        </button>
-                    </div>
+                    <div class="result-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="result-info"><h3>Diploma IT – Semester 6</h3><p>CGPA: 9.26 · May 2025</p><button class="btn-view-result" data-pdf="https://drive.google.com/file/d/1z7QRQlNirl1qozroA7bFzT5D2AeSZAF7/preview?rm=minimal"><i class="fas fa-eye"></i> View Result</button></div>
                 </div>
-
             </div>
         </div>
     </section>
-        <!-- Certifications Section -->
+
+    <!-- Certifications Section -->
     <section id="certifications" class="section">
         <div class="container">
             <h2 class="section-title scroll-reveal">📜 Certifications & Achievements</h2>
-            
             <div class="cert-grid">
-                <!-- 1. GTU Diploma Final Certificate (Your Degree) -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Diploma in Information Technology</h3>
-                        <p class="cert-issuer">Gujarat Technological University (GTU)</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1otFyHeff4gP9z0MN275cEb1hdFNCLJ81/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 2. Infosys Springboard Certificate 1 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Infosys Springboard - Certificate 1</h3>
-                        <p class="cert-issuer">Infosys</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H5BXxQCGehTAnQYO7LxW1vR82Tu2u5rG/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 3. Infosys Springboard Certificate 2 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Infosys Springboard - Certificate 2</h3>
-                        <p class="cert-issuer">Infosys</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H7S-k283pdXhVD32jQNTrjMQsAOFKdD6/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 4. IBM Certificate 1 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fab fa-ibm"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>IBM Certification - 1</h3>
-                        <p class="cert-issuer">IBM</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1ZTUupOdGGdu_WPURDlf11xKFpIp6l_4e/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 5. IBM Certificate 2 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fab fa-ibm"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>IBM Certification - 2</h3>
-                        <p class="cert-issuer">IBM</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1vXDjs0WlBdeNGXGWe8_VMnfN4V82VqL5/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 6. IBM Certificate 3 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fab fa-ibm"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>IBM Certification - 3</h3>
-                        <p class="cert-issuer">IBM</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1B9tZ8vjevA7xz6AMIkcq-69L0Mg63G3G/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 7. B-school E-commerce Certificate -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>E-commerce Certification</h3>
-                        <p class="cert-issuer">B-school</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1SL0tnkjAMqatMETdT7o8WiFzoyNL-cNs/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 8. IIT Bombay Spoken Tutorial -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Spoken Tutorial Certification</h3>
-                        <p class="cert-issuer">IIT Bombay</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H81NwTtXHcX68drSWHelypHeGVuD8DsO/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 9. Internship Certificate 1 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Internship Certificate - 1</h3>
-                        <p class="cert-issuer">Internship Organization</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1XPYvFFEMx55eGkN1Ye0o39vbTddR_anL/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 10. Internship Certificate 2 -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Internship Certificate - 2</h3>
-                        <p class="cert-issuer">Internship Organization</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1lssOJip7I9rttPdbngDf1eijnA0-oBKy/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 11. Java Certificate from Jagrut Awaaz -->
-                <div class="cert-card scroll-reveal hover-card">
-                    <div class="cert-icon">
-                        <i class="fab fa-java"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Java Certification</h3>
-                        <p class="cert-issuer">Jagrut Awaaz</p>
-                        <button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1LSXHFOKES4Aq7IXBpWutcwFcgc-uvMAF/preview?rm=minimal">
-                            <i class="fas fa-eye"></i> View Certificate
-                        </button>
-                    </div>
-                </div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-graduation-cap"></i></div><div class="cert-content"><h3>Diploma in Information Technology</h3><p class="cert-issuer">Gujarat Technological University (GTU)</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1otFyHeff4gP9z0MN275cEb1hdFNCLJ81/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-building"></i></div><div class="cert-content"><h3>Infosys Springboard - Certificate 1</h3><p class="cert-issuer">Infosys</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H5BXxQCGehTAnQYO7LxW1vR82Tu2u5rG/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-building"></i></div><div class="cert-content"><h3>Infosys Springboard - Certificate 2</h3><p class="cert-issuer">Infosys</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H7S-k283pdXhVD32jQNTrjMQsAOFKdD6/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fab fa-ibm"></i></div><div class="cert-content"><h3>IBM Certification - 1</h3><p class="cert-issuer">IBM</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1ZTUupOdGGdu_WPURDlf11xKFpIp6l_4e/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fab fa-ibm"></i></div><div class="cert-content"><h3>IBM Certification - 2</h3><p class="cert-issuer">IBM</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1vXDjs0WlBdeNGXGWe8_VMnfN4V82VqL5/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fab fa-ibm"></i></div><div class="cert-content"><h3>IBM Certification - 3</h3><p class="cert-issuer">IBM</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1B9tZ8vjevA7xz6AMIkcq-69L0Mg63G3G/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-shopping-cart"></i></div><div class="cert-content"><h3>E-commerce Certification</h3><p class="cert-issuer">B-school</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1SL0tnkjAMqatMETdT7o8WiFzoyNL-cNs/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-university"></i></div><div class="cert-content"><h3>Spoken Tutorial Certification</h3><p class="cert-issuer">IIT Bombay</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1H81NwTtXHcX68drSWHelypHeGVuD8DsO/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-briefcase"></i></div><div class="cert-content"><h3>Internship Certificate - 1</h3><p class="cert-issuer">Internship Organization</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1XPYvFFEMx55eGkN1Ye0o39vbTddR_anL/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fas fa-briefcase"></i></div><div class="cert-content"><h3>Internship Certificate - 2</h3><p class="cert-issuer">Internship Organization</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1lssOJip7I9rttPdbngDf1eijnA0-oBKy/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
+                <div class="cert-card scroll-reveal hover-card"><div class="cert-icon"><i class="fab fa-java"></i></div><div class="cert-content"><h3>Java Certification</h3><p class="cert-issuer">Jagrut Awaaz</p><button class="btn-view-cert" data-pdf="https://drive.google.com/file/d/1LSXHFOKES4Aq7IXBpWutcwFcgc-uvMAF/preview?rm=minimal"><i class="fas fa-eye"></i> View Certificate</button></div></div>
             </div>
         </div>
     </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">
@@ -977,75 +988,21 @@ window.onload = () => {
                     <h3><i class="fas fa-comment-dots"></i> Get In Touch</h3>
                     <p>I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology!</p>
                     <div class="contact-details">
-                        <div class="contact-item magnetic">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Phone</h4>
-                                <a href="tel:+917043362186">+91 70433 62186</a>
-                            </div>
-                        </div>
-                        <div class="contact-item magnetic">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <a href="mailto:veddhobi252@gmail.com">veddhobi252@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-item magnetic">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <span>Modasa, Arravalli, Gujarat</span>
-                            </div>
-                        </div>
-                        <div class="contact-item magnetic">
-                            <div class="contact-icon">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>LinkedIn</h4>
-                                <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank">linkedin.com/in/ved-dhobi</a>
-                            </div>
-                        </div>
-                        <div class="contact-item magnetic">
-                            <div class="contact-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>GitHub</h4>
-                                <a href="https://github.com/veddhobi" target="_blank">github.com/veddhobi</a>
-                            </div>
-                        </div>
+                        <div class="contact-item magnetic"><div class="contact-icon"><i class="fas fa-phone"></i></div><div class="contact-text"><h4>Phone</h4><a href="tel:+917043362186">+91 70433 62186</a></div></div>
+                        <div class="contact-item magnetic"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-text"><h4>Email</h4><a href="mailto:veddhobi252@gmail.com">veddhobi252@gmail.com</a></div></div>
+                        <div class="contact-item magnetic"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-text"><h4>Location</h4><span>Modasa, Arravalli, Gujarat</span></div></div>
+                        <div class="contact-item magnetic"><div class="contact-icon"><i class="fab fa-linkedin"></i></div><div class="contact-text"><h4>LinkedIn</h4><a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank">linkedin.com/in/ved-dhobi</a></div></div>
+                        <div class="contact-item magnetic"><div class="contact-icon"><i class="fab fa-github"></i></div><div class="contact-text"><h4>GitHub</h4><a href="https://github.com/veddhobi" target="_blank">github.com/veddhobi</a></div></div>
                     </div>
                 </div>
                 <div class="contact-form scroll-reveal delay-1 glass-effect">
                     <h3><i class="fas fa-paper-plane"></i> Send Message</h3>
                     <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" placeholder="Your Name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Your Email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" placeholder="Subject" required>
-                            <label for="subject">Subject</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" placeholder="Your Message" rows="5" required maxlength="500"></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary ripple-effect">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
+                        <div class="form-group"><input type="text" id="name" placeholder="Your Name" required><label for="name">Your Name</label></div>
+                        <div class="form-group"><input type="email" id="email" placeholder="Your Email" required><label for="email">Your Email</label></div>
+                        <div class="form-group"><input type="text" id="subject" placeholder="Subject" required><label for="subject">Subject</label></div>
+                        <div class="form-group"><textarea id="message" placeholder="Your Message" rows="5" required maxlength="500"></textarea><label for="message">Your Message</label></div>
+                        <button type="submit" class="btn btn-primary ripple-effect"><i class="fas fa-paper-plane"></i> Send Message</button>
                     </form>
                 </div>
             </div>
@@ -1073,21 +1030,11 @@ window.onload = () => {
                 <div class="footer-social">
                     <h4>Connect With Me</h4>
                     <div class="social-icons">
-                        <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-icon magnetic" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/veddhobi" target="_blank" class="social-icon magnetic" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:veddhobi252@gmail.com" class="social-icon magnetic" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://wa.me/917043362186" target="_blank" class="social-icon magnetic" title="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+917043362186" class="social-icon magnetic" title="Phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
+                        <a href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank" class="social-icon magnetic" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/veddhobi" target="_blank" class="social-icon magnetic" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:veddhobi252@gmail.com" class="social-icon magnetic" title="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/917043362186" target="_blank" class="social-icon magnetic" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="tel:+917043362186" class="social-icon magnetic" title="Phone"><i class="fas fa-phone"></i></a>
                     </div>
                     <div class="footer-newsletter">
                         <p>Subscribe to my newsletter for updates</p>
@@ -1100,23 +1047,18 @@ window.onload = () => {
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Ved Dhobi. All rights reserved. <span class="footer-heart"><i class="fas fa-heart"></i></span></p>
-                
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
     <!-- Loading Spinner -->
     <div class="loading-spinner" id="loadingSpinner"></div>
 
-    <!-- Resume Request Button (Hidden by default) -->
-    <button id="resumeTrigger" class="btn btn-primary pulse-animation" style="display: none;">
-        <i class="fas fa-download"></i> Download Resume
-    </button>
+    <!-- Resume Trigger (hidden) -->
+    <button id="resumeTrigger" class="btn btn-primary pulse-animation" style="display:none;"><i class="fas fa-download"></i> Download Resume</button>
 
     <script src="js/main.js"></script>
     <script src="js/resume-request.js" defer></script>
