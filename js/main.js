@@ -2075,7 +2075,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<script>
+const lines = [
+    "Welcome.",
+    "You Didn't Open Just A Portfolio.",
+    "You Entered A Digital Experience.",
+    "Stay Focused.",
+    "Something Different Is Loading..."
+];
 
+let index = 0;
+const textElement = document.getElementById("introText");
+
+function showNextLine() {
+    if (index < lines.length) {
+        textElement.innerHTML = lines[index];
+        textElement.style.opacity = 0;
+        setTimeout(() => {
+            textElement.style.opacity = 1;
+        }, 200);
+        index++;
+        setTimeout(showNextLine, 1800);
+    } else {
+        setTimeout(() => {
+            document.getElementById("cinematicIntro").classList.add("hide-intro");
+        }, 1000);
+    }
+}
+
+window.addEventListener("load", showNextLine);
+</script>
 
 
 
