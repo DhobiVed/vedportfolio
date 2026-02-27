@@ -2070,41 +2070,91 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+async function sendNovaMessage() {
+  if (novaIsTyping) return;
+  const input = document.getElementById('novaInput');
+  const text = input.value.trim();
+  if (!text) return;
 
+  // Add user message
+  appendNovaMessage('user', text);
+  novaHistory.push({ role: 'user', content: text });
+  input.value = '';
+  input.style.height = 'auto';
 
+  // Hide suggestion chips after first message
+  const chips = document.getElementById('nova-suggestions');
+  if (chips) chips.style.display = 'none';
 
+  novaIsTyping = true;
+  document.getElementById('novaSendBtn').style.opacity = '0.5';
+  showNovaTyping();
 
+  try {
+    // 🔁 NEW: Groq API endpoint and authentication
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_GROQ_API_KEY'   // <-- replace with your actual Groq key
+      },
+      body: JSON.stringify({
+        model: 'llama3-8b-8192',                      // or 'mixtral-8x7b-32768' if you prefer
+        messages: [
+          { role: 'system', content: NOVA_SYSTEM },   // your existing system prompt
+          ...novaHistory                               // conversation history
+        ],
+        max_tokens: 1000,
+        temperature: 0.7,
+        stream: false
+      })
+    });
 
-<script>
-const lines = [
-    "Welcome.",
-    "You Didn't Open Just A Portfolio.",
-    "You Entered A Digital Experience.",
-    "Stay Focused.",
-    "Something Different Is Loading..."
-];
+    const data = await response.json();
+    removeNovaTyping();
 
-let index = 0;
-const textElement = document.getElementById("introText");
+    // Groq returns the answer in data.choices[0].message.content
+    const reply = data.choices?.[0]?.message?.content || 
+                  'Sorry, I could not get a response from Nova.';
 
-function showNextLine() {
-    if (index < lines.length) {
-        textElement.innerHTML = lines[index];
-        textElement.style.opacity = 0;
-        setTimeout(() => {
-            textElement.style.opacity = 1;
-        }, 200);
-        index++;
-        setTimeout(showNextLine, 1800);
-    } else {
-        setTimeout(() => {
-            document.getElementById("cinematicIntro").classList.add("hide-intro");
-        }, 1000);
-    }
+    novaHistory.push({ role: 'assistant', content: reply });
+
+    // Create the bubble with typewriter effect (same as before)
+    const bubble = appendNovaMessage('assistant', '', true);
+    const html = formatNovaResponse(reply);
+    let i = 0;
+    const chars = html.split('');
+    const box = document.getElementById('novaChatBox');
+    const interval = setInterval(() => {
+      if (i < chars.length) {
+        bubble.innerHTML = html.substring(0, i + 1);
+        i++;
+        box.scrollTop = box.scrollHeight;
+      } else {
+        clearInterval(interval);
+        novaIsTyping = false;
+        document.getElementById('novaSendBtn').style.opacity = '1';
+      }
+    }, 8);
+
+  } catch (err) {
+    removeNovaTyping();
+    appendNovaMessage('assistant', '⚠️ Could not connect to Nova right now. Please try again later.', false);
+    novaIsTyping = false;
+    document.getElementById('novaSendBtn').style.opacity = '1';
+    console.error('Groq API error:', err);
+  }
 }
 
-window.addEventListener("load", showNextLine);
-</script>
+
+
+
+
+
+
+
+
+
 
 
 
