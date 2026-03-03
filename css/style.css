@@ -2811,3 +2811,16 @@ footer {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+/* =====================================
+   SCALE DESKTOP UI FOR MOBILE
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  body {
+    transform: scale(0.85);
+    transform-origin: top center;
+    width: 117%;
+  }
+
+}
