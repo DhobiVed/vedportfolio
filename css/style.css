@@ -2626,110 +2626,93 @@ footer {
   }
 }
 /* =========================================
-   MOBILE OPTIMIZATION (Android Friendly)
+   ANDROID MOBILE FIX (NO UI CHANGE)
    ========================================= */
 
 @media (max-width: 768px) {
 
+  /* Prevent horizontal scroll */
   html, body {
-    overflow-x: hidden !important;
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  body {
-    padding: 0 12px;
-  }
-
-  /* Fix sections spacing */
-  section {
-    padding: 60px 0 !important;
-  }
-
-  /* Headings responsive */
-  h1 {
-    font-size: 28px !important;
-    line-height: 1.3;
-  }
-
-  h2 {
-    font-size: 22px !important;
-  }
-
-  h3 {
-    font-size: 18px !important;
-  }
-
-  p {
-    font-size: 14px !important;
-  }
-
-  /* Fix containers */
+  /* Container width fix */
   .container,
+  .main,
   .wrapper {
     width: 100% !important;
-    padding: 0 10px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 
-  /* Flex to column for mobile */
+  /* Hero section fix (don’t force full height on mobile) */
+  .hero,
+  .home,
+  #home {
+    height: auto !important;
+    min-height: 100vh;
+    padding-top: 120px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Stack flex rows vertically */
   .row,
   .flex,
   .d-flex {
     flex-direction: column !important;
   }
 
-  /* Navigation fix */
-  nav {
-    padding: 12px 15px !important;
+  /* Fix grid layouts */
+  .grid {
+    grid-template-columns: 1fr !important;
   }
 
-  /* Hero section fix */
-  .hero,
-  .home {
-    height: auto !important;
-    padding-top: 100px !important;
-  }
-
-  /* Buttons */
-  button,
-  .btn {
-    width: 100% !important;
-    text-align: center;
-  }
-
-  /* Images responsive */
+  /* Responsive images */
   img {
-    max-width: 100% !important;
-    height: auto !important;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Reduce big headings slightly (no design change) */
+  h1 {
+    font-size: 32px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
   }
 
   /* Cards spacing */
-  .card {
+  .card,
+  .box,
+  .project {
     margin-bottom: 20px !important;
   }
 
-  /* Fix absolute elements breaking layout */
-  [style*="position: absolute"] {
-    max-width: 100% !important;
+  /* Buttons full width for touch */
+  .btn,
+  button {
+    width: 100%;
+    text-align: center;
   }
 
+  /* Fix absolute positioned decorative elements */
+  .shape,
+  .circle,
+  .floating {
+    display: none !important;
+  }
 }
-/* Smooth animations on Android */
+/* Performance improvement for Android */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-.animate,
+.animated,
 [class*="animate"],
 [class*="transition"] {
   will-change: transform, opacity;
-  backface-visibility: hidden;
   transform: translateZ(0);
-}
-@media (max-width: 768px) {
-  .navbar {
-    backdrop-filter: blur(10px);
-  }
-}
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  backface-visibility: hidden;
 }
