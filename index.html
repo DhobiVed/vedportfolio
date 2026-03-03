@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animation.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ved Dhobi — Engineer, Builder, Thinker</title>
@@ -47,9 +49,35 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 
 #sp{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--amber),var(--amber2));z-index:10001;transition:width 0.1s}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;display:flex;align-items:center;border-bottom:1px solid transparent;transition:all 0.3s}
-nav.scrolled{background:rgba(7,7,9,0.92);backdrop-filter:blur(20px);border-color:rgba(245,166,35,0.15)}
-.nav-inner{max-width:1300px;margin:0 auto;padding:0 2rem;width:100%;display:flex;align-items:center;justify-content:space-between}
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(245,166,35,0.2);
+    background: rgba(7,7,9,0.85);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+}
+nav.scrolled {
+    background: rgba(7,7,9,0.95);
+    backdrop-filter: blur(20px);
+    border-color: rgba(245,166,35,0.3);
+}
+.nav-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+}
 .logo{font-family:var(--display);font-size:1.6rem;letter-spacing:2px;color:var(--amber);text-decoration:none}
 .logo span{color:var(--white)}
 .nav-links{display:flex;gap:0.25rem;list-style:none}
@@ -596,9 +624,276 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:4rem 0 2
 #__stage.exit-up { animation:iExitUp 1s cubic-bezier(0.7,0,0.3,1) forwards; }
 @keyframes iExitUp { 0%{opacity:1;filter:brightness(1)} 15%{filter:brightness(2);opacity:1} 100%{transform:translateY(-4px);opacity:0} }
 
+/* ========== SIMPLE FIXED TOGGLE BUTTON - STAYS AT TOP ========== */
+#navToggle {
+  position: fixed !important;  /* Force fixed positioning */
+  top: 20px !important;        /* Fixed distance from top of viewport */
+  left: 20px !important;       /* Fixed distance from left of viewport */
+  width: 48px;
+  height: 48px;
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(8px);
+  border: 2px solid #f5a623;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 100000 !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  margin: 0;                   /* Remove any margins */
+  transform: none !important;  /* Remove any transforms */
+}
+
+#navToggle:hover {
+  background: #222;
+  border-color: #ffaa33;
+  transform: scale(1.05) !important;
+}
+
+#navToggle span {
+  width: 24px;
+  height: 3px;
+  background: white;
+  transition: 0.3s;
+  display: block;
+  border-radius: 3px;
+}
+
+#navToggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+#navToggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+#navToggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Ensure nothing interferes with fixed positioning */
+body {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+  #navToggle {
+    top: 15px !important;
+    left: 15px !important;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* IMPROVED LEFT NAVIGATION PANEL */
+#leftNav {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 15, 19, 0.98);
+  backdrop-filter: blur(15px);
+  border-right: 2px solid rgba(245, 166, 35, 0.2);
+  z-index: 99999;
+  transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 80px 0 28px;
+  overflow-y: auto;
+  box-shadow: 5px 0 30px rgba(0,0,0,0.5);
+}
+
+#leftNav.open {
+  left: 0;
+}
+
+/* Navigation Links Styling */
+#leftNav .ln-brand {
+  padding: 0 24px;
+  margin-bottom: 30px;
+}
+
+#leftNav .ln-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: #f5a623;
+  line-height: 1.2;
+}
+
+#leftNav .ln-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: #888897;
+  text-transform: uppercase;
+}
+
+#leftNav .ln-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+#leftNav .ln-links li {
+  margin: 2px 0;
+}
+
+#leftNav .ln-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888897;
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+#leftNav .ln-links a:hover {
+  background: rgba(245, 166, 35, 0.08);
+  color: #f5a623;
+  border-left-color: #f5a623;
+}
+
+#leftNav .ln-links a.active {
+  background: rgba(245, 166, 35, 0.12);
+  color: #f5a623;
+  border-left-color: #f5a623;
+}
+
+#leftNav .ln-links .ln-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+#leftNav .ln-footer {
+  padding: 0 24px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+#leftNav .ln-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: #39ff14;
+}
+
+#leftNav .ln-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #39ff14;
+  box-shadow: 0 0 10px #39ff14;
+  animation: blink 2s infinite;
+}
+
+/* Overlay */
+#leftNavOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 99998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+#leftNavOverlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #navToggle {
+    top: 15px;
+    left: 15px;
+    width: 42px;
+    height: 42px;
+  }
+  
+  #leftNav {
+    width: 260px;
+  }
+}
+
+body {
+    background: linear-gradient(180deg, #0f172a 0%, #0b1120 100%);
+}
+
+.project-card,
+.skill-box,
+.impact-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover,
+.skill-box:hover,
+.impact-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+}
 </style>
 </head>
 <body>
+  <script src="js/main.js"></script>
+    <script src="js/page-transitions.js"></script>
+    <script src="js/resume-request.js"></script>
+
+<!-- ── LEFT NAV OVERLAY ── -->
+<div id="leftNavOverlay"></div>
+
+<!-- ── SIMPLE FIXED TOGGLE BUTTON (ALWAYS VISIBLE) ── -->
+<button id="navToggle" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- ── LEFT SIDE NAV (full content) ── -->
+<nav id="leftNav" aria-hidden="true">
+  <div class="ln-brand">
+    <div class="ln-name">VED.</div>
+    <div class="ln-role">Engineer · Builder · Thinker</div>
+  </div>
+  <ul class="ln-links">
+    <li><a href="#hero" class="active"><span class="ln-icon"><i class="fas fa-home"></i></span>Home</a></li>
+    <li><a href="#about"><span class="ln-icon"><i class="fas fa-user"></i></span>About</a></li>
+    <li><a href="#education"><span class="ln-icon"><i class="fas fa-graduation-cap"></i></span>Education</a></li>
+    <li><a href="#skills"><span class="ln-icon"><i class="fas fa-code"></i></span>Skills</a></li>
+    <li><a href="#projects"><span class="ln-icon"><i class="fas fa-rocket"></i></span>Projects</a></li>
+    <li><a href="#nova"><span class="ln-icon"><i class="fas fa-robot"></i></span>Nova AI</a></li>
+    <li><a href="#sds-section"><span class="ln-icon"><i class="fas fa-server"></i></span>Simulator</a></li>
+    <li><a href="#metrics"><span class="ln-icon"><i class="fas fa-chart-bar"></i></span>Metrics</a></li>
+    <li><a href="#contact"><span class="ln-icon"><i class="fas fa-envelope"></i></span>Contact</a></li>
+  </ul>
+  <div class="ln-footer">
+    <div class="ln-status">
+      <span class="ln-status-dot"></span>Open to Work
+    </div>
+  </div>
+</nav>
 
 <!-- ════════ CUSTOM CURSOR ════════ -->
 <div id="__cursor"></div>
@@ -1603,6 +1898,70 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:4rem 0 2
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══ SIMPLE TOGGLE FUNCTIONALITY - ALWAYS WORKS ═══ */
+(function() {
+  // Make sure DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Toggle script loaded');
+    
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('leftNav');
+    const overlay = document.getElementById('leftNavOverlay');
+    
+    if (toggle && nav && overlay) {
+      console.log('Toggle elements found');
+      
+      // Toggle menu on button click
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Toggle clicked');
+        this.classList.toggle('open');
+        nav.classList.toggle('open');
+        overlay.classList.toggle('visible');
+      });
+      
+      // Close menu when clicking overlay
+      overlay.addEventListener('click', function() {
+        console.log('Overlay clicked');
+        toggle.classList.remove('open');
+        nav.classList.remove('open');
+        this.classList.remove('visible');
+      });
+      
+      // Update active state when links are clicked
+      const links = nav.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Don't prevent default - let the navigation happen
+          console.log('Nav link clicked:', this.getAttribute('href'));
+          
+          // Update active class
+          links.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Optionally close menu after clicking (uncomment if desired)
+          // setTimeout(() => {
+          //   toggle.classList.remove('open');
+          //   nav.classList.remove('open');
+          //   overlay.classList.remove('visible');
+          // }, 300);
+        });
+      });
+      
+      // Prevent clicks inside nav from closing it
+      nav.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+      
+      // Ensure toggle is always visible and properly styled
+      toggle.style.display = 'flex';
+      toggle.style.zIndex = '100000';
+    } else {
+      console.error('Toggle elements not found!');
+    }
+  });
+})();
 
 /* ═══ CUSTOM CURSOR ═══ */
 const __cur  = document.getElementById('__cursor');
@@ -2198,5 +2557,6 @@ body {
 }
 </style>
 </div><!-- /#__portfolio -->
+
 </body>
 </html>
