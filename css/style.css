@@ -2704,14 +2704,109 @@ footer {
     display: none !important;
   }
 }
-/* Performance improvement for Android */
+/* =====================================
+   PERFECT MOBILE ALIGNMENT SYSTEM
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  /* Remove horizontal scroll completely */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Universal container alignment */
+  .container,
+  .wrapper,
+  .main,
+  section {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* Center all flex layouts properly */
+  .row,
+  .flex,
+  .d-flex {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+  }
+
+  /* Grid correction */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  /* Hero alignment */
+  .hero,
+  .home,
+  #home {
+    height: auto !important;
+    padding-top: 110px;
+    padding-bottom: 60px;
+    text-align: center;
+  }
+
+  /* Fix headings scaling proportionally */
+  h1 {
+    font-size: clamp(26px, 6vw, 34px);
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  /* Cards perfect spacing */
+  .card,
+  .project,
+  .box {
+    width: 100%;
+    margin-bottom: 22px;
+  }
+
+  /* Images perfectly responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+  }
+
+  /* Buttons aligned & touch friendly */
+  .btn,
+  button {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+}
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-.animated,
-[class*="animate"],
-[class*="transition"] {
+.animate,
+[class*="animate"] {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
