@@ -962,38 +962,99 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:3rem 0 2
       <button class="pfilter" data-f="django">Django</button>
     </div>
     <div class="proj-grid" id="projGrid">
-      <div class="pcard rev" data-cat="android ai" onclick="openDeepDive('attendance')">
+      <!-- 1. Smart Attendance -->
+      <div class="pcard rev" data-cat="android">
         <div class="pthumb" style="background:linear-gradient(135deg,#0f2010,#1a3020)">
           <i class="fas fa-user-check pthumb-icon" style="color:#34a853"></i>
-          <span class="pthumb-badge private">Private</span>
-          <div class="pthumb-overlay"><span class="btn-secondary" style="font-size:0.68rem;padding:0.45rem 0.9rem">Deep Dive →</span></div>
+          <span class="pthumb-badge private">Dream Vision Tech</span>
         </div>
         <div class="pbody">
-          <div class="ptypes"><span class="ptype ptype-android">Android</span><span class="ptype ptype-ai">AI</span></div>
+          <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
           <h3>Smart Attendance System</h3>
-          <p class="pdesc">Automated face-recognition attendance system replacing manual roll-call. Prevents proxy attendance using ML Kit.</p>
+          <p class="pdesc">A universal solution for schools & offices. Features Face Recognition, QR Check-In, Instant Notifications, and Real-Time Cloud Reports.</p>
           <div class="pfoot">
-            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">Firebase</span><span class="ptechitem">ML Kit</span></div>
+            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">XML</span><span class="ptechitem">ML Kit</span></div>
             <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
           </div>
         </div>
       </div>
-      <div class="pcard rev rev-d1" data-cat="android" onclick="openDeepDive('ddquest')">
+
+      <!-- 2. Online Order App -->
+      <div class="pcard rev rev-d1" data-cat="android">
+        <div class="pthumb" style="background:linear-gradient(135deg,#201010,#301a1a)">
+          <i class="fas fa-shopping-basket pthumb-icon" style="color:#e74c3c"></i>
+          <span class="pthumb-badge live">Featured</span>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
+          <h3>QuickCommerce Delivery App</h3>
+          <p class="pdesc">A Blinkit/JioMart style online ordering app. Highly reliable, flexible, and attractive UI for seamless shopping and fast delivery.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Kotlin</span><span class="ptechitem">Firebase</span><span class="ptechitem">MVVM</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Offline Billing System -->
+      <div class="pcard rev rev-d2" data-cat="web">
+        <div class="pthumb" style="background:linear-gradient(135deg,#101a20,#1a2a30)">
+          <i class="fas fa-cash-register pthumb-icon" style="color:#3498db"></i>
+          <span class="pthumb-badge private">Dream & Vision</span>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-web">Desktop Web</span></div>
+          <h3>Smart Mall Billing System</h3>
+          <p class="pdesc">Offline desktop billing dashboard. Features fast POS billing, Inventory Management, Sales Reports & Analytics, and Receipt Printing.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">HTML/CSS</span><span class="ptechitem">JS</span><span class="ptechitem">Local DB</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. DDQuest Mobile App -->
+      <div class="pcard rev" data-cat="android">
         <div class="pthumb" style="background:linear-gradient(135deg,#0f0f20,#1a1a35)">
           <i class="fas fa-graduation-cap pthumb-icon" style="color:var(--amber)"></i>
           <span class="pthumb-badge private">Founder</span>
-          <div class="pthumb-overlay"><span class="btn-secondary" style="font-size:0.68rem;padding:0.45rem 0.9rem">Deep Dive →</span></div>
         </div>
         <div class="pbody">
           <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
           <h3>DDQuest Mobile App</h3>
-          <p class="pdesc">Academic platform providing free study materials for diploma students. Notes, assignments, and student-teacher communication.</p>
+          <p class="pdesc">Best-in-class mobile study platform providing academic materials, notes, assignments, and smooth student-teacher communication.</p>
           <div class="pfoot">
-            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">Firebase</span><span class="ptechitem">Material UI</span></div>
-            <div class="plinks"><span class="plink"><i class="fas fa-crown"></i></span></div>
+            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">XML</span><span class="ptechitem">Firebase</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-crown"></i></span></div>
           </div>
         </div>
       </div>
+
+      <!-- 5. DDQuest Web Platform -->
+      <div class="pcard rev rev-d1" data-cat="web">
+        <div class="pthumb" style="background:linear-gradient(135deg,#151525,#252545)">
+          <i class="fas fa-globe pthumb-icon" style="color:var(--amber)"></i>
+          <span class="pthumb-badge live">Live</span>
+          <div class="pthumb-overlay">
+            <a href="https://ddquest-614ea.web.app/" target="_blank" class="btn-primary" style="font-size:0.68rem;padding:0.45rem 0.8rem" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-web">Web</span></div>
+          <h3>DDQuest Web Platform</h3>
+          <p class="pdesc">Complete digital learning platform for Diploma IT & CE. Features semester-wise materials and dedicated DDCET entrance exam preparation.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">HTML/CSS</span><span class="ptechitem">JS</span><span class="ptechitem">Firebase</span></div>
+            <div class="plinks">
+              <a class="plink" href="https://www.instagram.com/reel/DVnW89ajPvI/" target="_blank" title="View Instagram Reel" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>
+              <a class="plink" href="https://ddquest-614ea.web.app/" target="_blank" title="Visit Website" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      
       <div class="pcard rev rev-d2" data-cat="ai web" onclick="openDeepDive('chatbot')">
         <div class="pthumb" style="background:linear-gradient(135deg,#0f1520,#1a2535)">
           <i class="fas fa-robot pthumb-icon" style="color:var(--cyan)"></i>
@@ -1723,10 +1784,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 
 /* ════════ PDF MODAL ════════ */
 function openPdf(src,title){
-  document.getElementById('pdfFrame').src=src;
-  document.getElementById('pdfTitle').textContent=title;
-  document.getElementById('pdfModal').style.display='flex';
-  document.body.style.overflow='hidden';
+  window.open(src, '_blank');
 }
 function closePdf(){
   document.getElementById('pdfModal').style.display='none';
