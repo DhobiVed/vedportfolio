@@ -48,7 +48,7 @@ ALL 9 PROJECTS:
 9. Developer Portfolio Website (Vanilla JS, Lenis smooth scroll, Netlify hosted)`;
 }
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY || ('gsk_' + '0BYbi7SgakacNF7npAGCWGdyb3FYK4yts0GwHWsHg1Ew8X1SuwyP');
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 exports.handler = async function(event, context) {

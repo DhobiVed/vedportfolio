@@ -20,9 +20,19 @@ const MODEL_NAME = 'qwen2.5:1.5b';
 // ─── Groq Cloud Config ─────────────────────────────────────────────────────
 // Get your FREE key at: https://console.groq.com  (no credit card needed)
 // Paste it below or set environment variable: GROQ_API_KEY=your_key
-const GROQ_API_KEY = process.env.GROQ_API_KEY || ('gsk_' + '0BYbi7SgakacNF7npAGCWGdyb3FYK4yts0GwHWsHg1Ew8X1SuwyP');
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = 'llama-3.3-70b-versatile'; // Free, fast (~300ms)
 // ──────────────────────────────────────────────────────────────────────────
+
+
+// Auto-load .env file for local development
+if (fs.existsSync(path.join(__dirname, '.env'))) {
+  const envContent = fs.readFileSync(path.join(__dirname, '.env'), 'utf-8');
+  envContent.split('\n').forEach(line => {
+    const parts = line.split('=');
+    if (parts.length === 2) process.env[parts[0].trim()] = parts[1].trim();
+  });
+}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
