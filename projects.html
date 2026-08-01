@@ -675,73 +675,6 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:3rem 0 2
     100% { transform: rotate(360deg); }
 }
 
-.about-photo-wrapper {
-   position: relative;
-   width: 100%;
-   max-width: 280px;
-   margin: 2rem auto;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.about-photo-inner {
-   position: relative;
-   width: 100%;
-   aspect-ratio: 9/16;
-   border-radius: 24px;
-   overflow: hidden;
-   z-index: 2;
-   box-shadow: 0 20px 40px rgba(22, 101, 52, 0.2);
-   border: 4px solid var(--ink);
-   animation: floatAvatarPhoto 6s ease-in-out infinite;
-}
-.about-photo-inner img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   display: block;
-}
-.photo-decor-1 {
-   position: absolute;
-   top: -15px;
-   right: -15px;
-   width: 100%;
-   height: 100%;
-   border-radius: 24px;
-   background: var(--grad-primary);
-   z-index: 1;
-   opacity: 0.6;
-   animation: pulseDecorPhoto 4s ease-in-out infinite alternate;
-}
-.photo-decor-2 {
-   position: absolute;
-   bottom: -20px;
-   left: -20px;
-   width: 70%;
-   height: 70%;
-   border-radius: 50%;
-   background: var(--amber3);
-   z-index: 0;
-   filter: blur(35px);
-   opacity: 0.5;
-   animation: floatGlowPhoto 8s linear infinite;
-}
-@keyframes floatAvatarPhoto {
-   0%, 100% { transform: translateY(0); }
-   50% { transform: translateY(-15px); box-shadow: 0 30px 50px rgba(22, 101, 52, 0.35); }
-}
-@keyframes pulseDecorPhoto {
-   0% { transform: scale(0.97) translate(5px, 5px); opacity: 0.4; }
-   100% { transform: scale(1.03) translate(-5px, -5px); opacity: 0.8; }
-}
-@keyframes floatGlowPhoto {
-   0% { transform: translate(0, 0) scale(1); }
-   33% { transform: translate(25px, -25px) scale(1.2); }
-   66% { transform: translate(-25px, 15px) scale(0.8); }
-   100% { transform: translate(0, 0) scale(1); }
-}
-
-
 
 /* --- PREMIUM TYPOGRAPHY SYSTEM --- */
 
@@ -928,13 +861,13 @@ footer, .footer-links a, .footer-brand p {
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="logo" class="active">VED<span>.</span></a>
+    <a href="index.html" class="logo">VED<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="index.html"  class="active">Home</a></li>
-      <li><a href="index.html" class="active">About</a></li>
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="index.html">About</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="skills.html">Skills</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
       <li><a href="nova.html">Nova AI</a></li>
       <li></li>
       <li></li>
@@ -950,11 +883,11 @@ footer, .footer-links a, .footer-brand p {
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
   <a href="education.html" onclick="closeMobMenu()"><i class="fas fa-graduation-cap" style="width:18px;color:var(--amber)"></i>Education</a>
   <a href="skills.html" onclick="closeMobMenu()"><i class="fas fa-code" style="width:18px;color:var(--amber)"></i>Skills</a>
-  <a href="projects.html" onclick="closeMobMenu()"><i class="fas fa-rocket" style="width:18px;color:var(--amber)"></i>Projects</a>
+  <a href="projects.html" onclick="closeMobMenu()" class="active"><i class="fas fa-rocket" style="width:18px;color:var(--amber)"></i>Projects</a>
   <a href="nova.html" onclick="closeMobMenu()"><i class="fas fa-robot" style="width:18px;color:var(--amber)"></i>Nova AI</a>
   
   
@@ -966,191 +899,317 @@ footer, .footer-links a, .footer-brand p {
 
 <!-- ═══ HERO ═══ -->
 
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-grid-lines"></div>
-    <div class="hero-glow-1"></div>
-    <div class="hero-glow-2"></div>
-  </div>
+<section class="section dark" id="projects">
   <div class="wrap">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-tag"><div class="hero-tag-line"></div>BE Computer Engineering · GTU · India</div>
-        <h1 class="hero-name rev -d1"><span class="line1">VED</span><span class="line2">DHOBI</span></h1>
-        <div class="hero-title-bar rev -d2">
-          <span class="hero-role">Full-Stack Dev</span>
-          <span class="hero-role">AI Builder</span>
-          <span class="hero-role">Founder · DDQuest</span>
+    <div class="sec-eyebrow">Projects</div>
+    <h2 class="sec-title">Things I've <span>Built</span></h2>
+    <p class="sec-sub">Real solutions to real problems. Tap any project for a full engineering deep-dive.</p>
+    <div class="proj-filters">
+      <button class="pfilter active" data-f="all">All</button>
+      <button class="pfilter" data-f="ai">AI / ML</button>
+      <button class="pfilter" data-f="android">Android</button>
+      <button class="pfilter" data-f="web">Web</button>
+      <button class="pfilter" data-f="django">Django</button>
+    </div>
+    <div class="proj-grid" id="projGrid">
+      <!-- 1. Smart Attendance -->
+      <div class="pcard" data-cat="android">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-user-check pthumb-icon" style="color:#34a853"></i>
+          <span class="pthumb-badge private">Dream Vision Tech</span>
         </div>
-        <p class="hero-desc rev -d2">BE Computer Engineering student at GEC Modasa · Diploma IT with <strong>8.87 CGPA</strong> · Building real-world apps with Python, Android, Firebase & LLMs. Smart India Hackathon 2025 participant.</p>
-        <div class="hero-ctas rev -d3">
-          <a href="projects.html" class="btn-primary"><i class="fas fa-code"></i> View Projects</a>
-          <a href="nova.html" class="btn-secondary"><i class="fas fa-robot"></i> Nova AI</a>
-          <button class="btn-secondary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-        </div>
-        <div class="hero-stats rev -d4">
-          <div class="hstat"><div class="hstat-num">8.87</div><div class="hstat-lbl">Diploma CGPA</div></div>
-          <div class="hstat"><div class="hstat-num">6+</div><div class="hstat-lbl">Projects</div></div>
-          <div class="hstat"><div class="hstat-num">15+</div><div class="hstat-lbl">Certs</div></div>
-          <div class="hstat"><div class="hstat-num">339</div><div class="hstat-lbl">Connections</div></div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
+          <h3>Smart Attendance System</h3>
+          <p class="pdesc">A universal solution for schools & offices. Features Face Recognition, QR Check-In, Instant Notifications, and Real-Time Cloud Reports.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">XML</span><span class="ptechitem">ML Kit</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
+          </div>
         </div>
       </div>
-      <div class="rev -d2">
-        <div class="hero-card">
-          <div class="hero-card-header">
-            <div class="hero-avatar"><div class="hero-avatar-inner"><img src="assets/images/profile.jpg" alt="Ved Dhobi" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:var(--display);font-size:1.8rem;color:var(--ink);background:linear-gradient(135deg,var(--amber),var(--amber3))\'>VD</div></div>'"></div></div>
-            <div>
-              <div class="hero-card-name">Ved Dhobi</div>
-              <div class="hero-card-sub">IT Student · Developer</div>
+
+      <!-- 2. Online Order App -->
+      <div class="pcard rev -d1" data-cat="android">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-shopping-basket pthumb-icon" style="color:#e74c3c"></i>
+          <span class="pthumb-badge live">Featured</span>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
+          <h3>QuickCommerce Delivery App</h3>
+          <p class="pdesc">A Blinkit/JioMart style online ordering app. Highly reliable, flexible, and attractive UI for seamless shopping and fast delivery.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Kotlin</span><span class="ptechitem">Firebase</span><span class="ptechitem">MVVM</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Offline Billing System -->
+      <div class="pcard rev -d2" data-cat="web">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-cash-register pthumb-icon" style="color:#3498db"></i>
+          <span class="pthumb-badge private">Dream & Vision</span>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-web">Desktop Web</span></div>
+          <h3>Smart Mall Billing System</h3>
+          <p class="pdesc">Offline desktop billing dashboard. Features fast POS billing, Inventory Management, Sales Reports & Analytics, and Receipt Printing.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">HTML/CSS</span><span class="ptechitem">JS</span><span class="ptechitem">Local DB</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-lock"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. DDQuest Mobile App -->
+      <div class="pcard" data-cat="android">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-graduation-cap pthumb-icon" style="color:var(--amber)"></i>
+          <span class="pthumb-badge private">Founder</span>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-android">Android</span></div>
+          <h3>DDQuest Mobile App</h3>
+          <p class="pdesc">Best-in-class mobile study platform providing academic materials, notes, assignments, and smooth student-teacher communication.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Java</span><span class="ptechitem">XML</span><span class="ptechitem">Firebase</span></div>
+            <div class="plinks"><span class="plink" title="Private"><i class="fas fa-crown"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. DDQuest Web Platform -->
+      <div class="pcard rev -d1" data-cat="web">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-globe pthumb-icon" style="color:var(--amber)"></i>
+          <span class="pthumb-badge live">Live</span>
+          <div class="pthumb-overlay">
+            <a href="https://ddquest-614ea.web.app/" target="_blank" class="btn-primary" style="font-size:0.68rem;padding:0.45rem 0.8rem" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-web">Web</span></div>
+          <h3>DDQuest Web Platform</h3>
+          <p class="pdesc">Complete digital learning platform for Diploma IT & CE. Features semester-wise materials and dedicated DDCET entrance exam preparation.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">HTML/CSS</span><span class="ptechitem">JS</span><span class="ptechitem">Firebase</span></div>
+            <div class="plinks">
+              <a class="plink" href="https://www.instagram.com/reel/DVnW89ajPvI/" target="_blank" title="View Instagram Reel" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>
+              <a class="plink" href="https://ddquest-614ea.web.app/" target="_blank" title="Visit Website" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
             </div>
           </div>
-          <div class="hero-badges">
-            <span class="badge badge-amber">Python</span><span class="badge badge-amber">Java</span>
-            <span class="badge badge-cyan">Android</span><span class="badge badge-cyan">Firebase</span>
-            <span class="badge badge-green">ML / AI</span><span class="badge badge-green">LLMs</span>
-            <span class="badge badge-amber">Django</span><span class="badge badge-cyan">SQL</span>
-          </div>
-          <div class="hero-metrics">
-            <div class="metric-row"><span class="metric-key">CGPA</span><span class="metric-val hi">8.87 / 10</span></div>
-            <div class="metric-row"><span class="metric-key">Uni</span><span class="metric-val">GTU</span></div>
-            <div class="metric-row"><span class="metric-key">Degree</span><span class="metric-val">BE Comp.</span></div>
-            <div class="metric-row"><span class="metric-key">Completed</span><span class="metric-val hi">Diploma IT</span></div>
-            <div class="metric-row"><span class="metric-key">Location</span><span class="metric-val">Modasa, GJ</span></div>
-            <div class="metric-row"><span class="metric-key">Status</span><span class="metric-val" style="color:var(--green)">Open to Work</span></div>
-          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="section dark" id="recruiter">
-  <div class="wrap">
-    <div class="sec-eyebrow">Recruiter Intelligence Mode</div>
-    <h2 class="sec-title">Quick <span>Overview</span></h2>
-    <p class="sec-sub">Toggle for a 2-minute summary optimized for hiring decisions.</p>
-    <div style="margin-top:1.75rem">
-      <div class="recruiter-toggle" onclick="toggleRecruiter()">
-        <div style="flex:1">
-          <div class="toggle-label">Recruiter Intelligence Mode</div>
-          <div class="toggle-sub">Impact metrics, key skills, and download options</div>
-        </div>
-        <div class="toggle-switch" id="recSwitch"><div class="toggle-knob"></div></div>
-      </div>
-      <div class="recruiter-panel" id="recPanel">
-        <div class="rp-top">
-          <div class="rp-name">VED DHOBI</div>
-          <div class="rp-headline">BE Computer Engineering · Full-Stack & AI Developer · Founder, DDQuest · Open to Work</div>
-          <div class="rp-quick-stats">
-            <div class="rp-stat"><div class="rp-stat-v">8.87</div><div class="rp-stat-l">Diploma CGPA</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">9.26</div><div class="rp-stat-l">Best Semester</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">6+</div><div class="rp-stat-l">Projects</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">15+</div><div class="rp-stat-l">Certs</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">SIH 2025</div><div class="rp-stat-l">Hackathon</div></div>
-          </div>
-        </div>
-        <div class="rp-sections">
-          <div class="rp-section">
-            <div class="rp-sec-title">Core Skills</div>
-            <ul class="rp-list">
-              <li>Python, Java, JavaScript</li>
-              <li>Android (Java + Firebase)</li>
-              <li>Django, Flask, HTML/CSS</li>
-              <li>Machine Learning, LLMs</li>
-              <li>SQL, MongoDB, Firebase DB</li>
-              <li>Git, GitHub, CI/CD basics</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Key Projects</div>
-            <ul class="rp-list">
-              <li>Smart Attendance (Face Recognition)</li>
-              <li>DDQuest Mobile App (Firebase)</li>
-              <li>Advanced AI Chatbot Suite</li>
-              <li>Academix Django Web App</li>
-              <li>Nova AI Chatbot (Groq + Streamlit)</li>
-              <li>Portfolio Website</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Education & Awards</div>
-            <ul class="rp-list">
-              <li>BE Comp. Eng. — GEC Modasa</li>
-              <li>Diploma IT — 8.87 CGPA (GTU)</li>
-              <li>Best Performance Award socially from the society</li>
-              <li>SIH 2025 Participant</li>
-              <li>IBM, Infosys, IIT Bombay Certs</li>
-              <li>ML Internship — InfoLabz</li>
-            </ul>
-          </div>
-        </div>
-        <div class="rp-actions">
-          <button class="btn-primary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-          <a class="btn-secondary" href="https://mail.google.com/mail/?view=cm&fs=1&to=veddhobi252@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Email</a>
-          <a class="btn-secondary" href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a class="btn-secondary" href="https://github.com/DhobiVed" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="sec-eyebrow">About Me</div>
-    <h2 class="sec-title">Motivated builder,<br><span>consistent learner.</span></h2>
-    <div class="about-grid">
-      <div>
-        <div class="about-text">
-          <p>I'm <strong>Ved Dhobi</strong>, a BE Computer Engineering student at Government Engineering College, Modasa (GTU). I completed my Diploma in IT with <strong>8.87 CGPA</strong> — earning the Best Performance Award socially from my society. I'm the <strong>Founder of DDQuest</strong>, a community providing free study materials for diploma students.</p>
-          <p>I build things end-to-end — from Android apps with Firebase to Python-based AI systems using LLMs. I participated in <strong>Smart India Hackathon 2025</strong> and completed an ML internship at InfoLabz. My learning approach: build → break → understand → improve.</p>
-          <p>Currently seeking <strong>entry-level / work-from-home</strong> opportunities in software development, AI/ML, or full-stack roles where I can contribute meaningfully and grow fast.</p>
-        </div>
-        <div class="about-chips rev -d1">
-          <div class="achip"><i class="fas fa-graduation-cap"></i> 8.87 CGPA Diploma</div>
-          <div class="achip"><i class="fas fa-code"></i> Python Developer</div>
-          <div class="achip"><i class="fas fa-mobile-alt"></i> Android Developer</div>
-          <div class="achip"><i class="fas fa-fire"></i> Firebase Expert</div>
-          <div class="achip"><i class="fas fa-brain"></i> ML / LLM Builder</div>
-          <div class="achip"><i class="fas fa-users"></i> DDQuest Founder</div>
-          <div class="achip"><i class="fas fa-trophy"></i> SIH 2025</div>
-          <div class="achip"><i class="fas fa-award"></i> Best Performance Award</div>
-        </div>
-      </div>
       
-      <div class="rev -d2" style="display:flex; justify-content:center; align-items:center;">
-        <div class="about-photo-wrapper">
-          <div class="photo-decor-1"></div>
-          <div class="photo-decor-2"></div>
-          <div class="about-photo-inner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:20px;">
-            <img src="assets/images/ved_profile.jpg" alt="Ved Dhobi" style="width:100%;height:100%;object-fit:cover;display:block;">
+      
+      <div class="pcard rev -d2" data-cat="ai web" onclick="openDeepDive('chatbot')">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-robot pthumb-icon" style="color:var(--cyan)"></i>
+          <span class="pthumb-badge oss">Open Source</span>
+          <div class="pthumb-overlay">
+            <a href="https://github.com/DhobiVed/advanced-AI-chatbot" target="_blank" class="btn-secondary" style="font-size:0.68rem;padding:0.45rem 0.8rem" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-ai">AI</span><span class="ptype ptype-web">Web</span></div>
+          <h3>Advanced AI Chatbot Suite</h3>
+          <p class="pdesc">Multi-modal AI platform: text chat, PDF Q&A, semantic search, and document summarization. OpenAI API + Flask.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Python</span><span class="ptechitem">Flask</span><span class="ptechitem">OpenAI</span></div>
+            <div class="plinks"><a class="plink" href="https://github.com/DhobiVed/advanced-AI-chatbot" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a></div>
           </div>
         </div>
       </div>
-          <div class="principle-item"><span class="principle-num">02</span><div class="principle-text"><strong>Measure before optimizing</strong>Profile first, optimize second. Guessing wastes time.</div></div>
-          <div class="principle-item"><span class="principle-num">03</span><div class="principle-text"><strong>Automate what's repetitive</strong>If you do it twice, automate it the third time.</div></div>
-          <div class="principle-item"><span class="principle-num">04</span><div class="principle-text"><strong>Secure by default</strong>Security is architecture, not an afterthought.</div></div>
-          <div class="principle-item"><span class="principle-num">05</span><div class="principle-text"><strong>Write self-documenting code</strong>Names > comments. Clarity > cleverness.</div></div>
-          <div class="principle-item"><span class="principle-num">06</span><div class="principle-text"><strong>Fail fast, learn faster</strong>Mistakes are features of the learning process.</div></div>
+      <div class="pcard" data-cat="ai web" onclick="openDeepDive('nova')">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-comment-dots pthumb-icon" style="color:#b794f4"></i>
+          <span class="pthumb-badge live">Live</span>
+          <div class="pthumb-overlay">
+            <a href="https://chatbot-dcwsetqcogz8luitqk73uz.streamlit.app/" target="_blank" class="btn-primary" style="font-size:0.68rem;padding:0.45rem 0.8rem" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-ai">AI</span><span class="ptype ptype-web">Web</span></div>
+          <h3>Nova AI Chatbot</h3>
+          <p class="pdesc">Live chatbot built with Groq API and Streamlit. Real-time streaming responses via Groq's LPU hardware.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Python</span><span class="ptechitem">Groq</span><span class="ptechitem">Streamlit</span></div>
+            <div class="plinks">
+              <a class="plink" href="https://github.com/DhobiVed/chatbot" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+              <a class="plink" href="https://chatbot-dcwsetqcogz8luitqk73uz.streamlit.app/" target="_blank" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard rev -d1" data-cat="django web" onclick="openDeepDive('academix')">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-chalkboard-teacher pthumb-icon" style="color:#b794f4"></i>
+          <span class="pthumb-badge oss">Open Source</span>
+          <div class="pthumb-overlay">
+            <a href="https://github.com/DhobiVed/Academix" target="_blank" class="btn-secondary" style="font-size:0.68rem;padding:0.45rem 0.8rem" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-django">Django</span><span class="ptype ptype-web">Web</span></div>
+          <h3>Academix — Class Manager</h3>
+          <p class="pdesc">Django web app for managing classes, assignments, and student progress. Deployed on Render with PostgreSQL.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">Django</span><span class="ptechitem">Python</span><span class="ptechitem">Render</span></div>
+            <div class="plinks"><a class="plink" href="https://github.com/DhobiVed/Academix" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard rev -d2" data-cat="web">
+        <div class="pthumb" style="background:linear-gradient(135deg, var(--ink3), var(--ink4))">
+          <i class="fas fa-code pthumb-icon" style="color:var(--amber)"></i>
+          <span class="pthumb-badge live">Live</span>
+          <div class="pthumb-overlay">
+            <a href="https://silver-flan-71ce5f.netlify.app/" target="_blank" class="btn-primary" style="font-size:0.68rem;padding:0.45rem 0.8rem"><i class="fas fa-external-link-alt"></i></a>
+            <a href="https://github.com/DhobiVed/vedportfolio" target="_blank" class="btn-secondary" style="font-size:0.68rem;padding:0.45rem 0.8rem"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="ptypes"><span class="ptype ptype-web">Web</span></div>
+          <h3>Portfolio Website</h3>
+          <p class="pdesc">Responsive portfolio with dark theme, animations, and full project showcase. Deployed on Netlify.</p>
+          <div class="pfoot">
+            <div class="ptech-stack"><span class="ptechitem">HTML/CSS</span><span class="ptechitem">JS</span><span class="ptechitem">Netlify</span></div>
+            <div class="plinks">
+              <a class="plink" href="https://silver-flan-71ce5f.netlify.app/" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+              <a class="plink" href="https://github.com/DhobiVed/vedportfolio" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="principles" style="background:var(--ink3);">
+<section class="section" id="think">
   <div class="wrap">
-    <div class="sec-eyebrow">Mindset</div>
-    <h2 class="sec-title">Engineering <span>Principles</span></h2>
-    <div style="max-width: 800px; margin: 2rem auto 0; background: var(--ink); border: 1px solid var(--amber2); border-radius: 16px; box-shadow: 0 10px 30px rgba(22, 101, 52, 0.05);">
-        
-        <div class="principles-card">
-          
-          <div class="principle-item"><span class="principle-num">01</span><div class="principle-text"><strong>Build for real users, not demos</strong>Code that ships and solves real problems beats perfect code that never runs.</div>
+    <div class="sec-eyebrow">Engineering Mindset</div>
+    <h2 class="sec-title">How I <span>Think</span></h2>
+    <div class="think-grid">
+      <div class="think-card">
+        <div class="think-num">01</div>
+        <h3>Approaching New Problems</h3>
+        <p>Break the problem into the smallest unit, build outward.</p>
+        <ul>
+          <li>Define input, output, and constraints first</li>
+          <li>Sketch data flow before writing code</li>
+          <li>Build dumbest working version first</li>
+          <li>Refactor only after it works correctly</li>
+        </ul>
+      </div>
+      <div class="think-card rev -d1">
+        <div class="think-num">02</div>
+        <h3>Debugging Methodology</h3>
+        <p>Narrow down systematically — reproduce, isolate, fix.</p>
+        <ul>
+          <li>Reproduce bug with minimal test case</li>
+          <li>Add logs at boundaries, not everywhere</li>
+          <li>Binary search through codebase mentally</li>
+          <li>Read the error message fully before Googling</li>
+        </ul>
+      </div>
+      <div class="think-card">
+        <div class="think-num">03</div>
+        <h3>Designing APIs & Systems</h3>
+        <p>Think about the consumer before the implementation.</p>
+        <ul>
+          <li>Design from the client's perspective first</li>
+          <li>Use consistent naming and error formats</li>
+          <li>Validate input strictly at the boundary</li>
+          <li>Version from day one</li>
+        </ul>
+      </div>
+      <div class="think-card rev -d1">
+        <div class="think-num">04</div>
+        <h3>Learning New Technology</h3>
+        <p>Learn by building something real, not just tutorials.</p>
+        <ul>
+          <li>Read the official docs, not just Stack Overflow</li>
+          <li>Build a tiny working project in the first hour</li>
+          <li>Break it intentionally to understand limits</li>
+          <li>Teach it back to solidify understanding</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
+<section class="section dark" id="deployment">
+  <div class="wrap">
+    <div class="sec-eyebrow">Deployment Transparency</div>
+    <h2 class="sec-title">How My Projects <span>Ship</span></h2>
+    <div class="deploy-grid">
+      <div class="deploy-card"><div class="deploy-card-icon"><i class="fab fa-github"></i></div><h3>Version Control</h3><p>All projects use Git with feature branching. Commit messages follow conventional commits. PRs for major features even on solo projects.</p></div>
+      <div class="deploy-card rev -d1"><div class="deploy-card-icon"><i class="fas fa-cloud-upload-alt"></i></div><h3>Hosting Strategy</h3><p>Static sites → Netlify. Python/Django → Render. Chatbot → Streamlit Cloud. Firebase for Android backends.</p></div>
+      <div class="deploy-card rev -d2"><div class="deploy-card-icon"><i class="fas fa-shield-alt"></i></div><h3>SSL & Security</h3><p>All deployments use HTTPS. Environment variables for all secrets. Firebase security rules restrict unauthorized DB access.</p></div>
+      <div class="deploy-card rev -d1"><div class="deploy-card-icon"><i class="fas fa-database"></i></div><h3>Database Strategy</h3><p>Firebase Firestore for Android. MongoDB Atlas for chatbot history. PostgreSQL on Render for Django.</p></div>
+      <div class="deploy-card rev -d2"><div class="deploy-card-icon"><i class="fas fa-sync-alt"></i></div><h3>CI/CD Pipeline</h3><p>Render auto-deploys on GitHub push. Netlify deploys on every commit with preview URLs for PRs.</p></div>
+      <div class="deploy-card rev -d3"><div class="deploy-card-icon"><i class="fas fa-chart-line"></i></div><h3>Monitoring</h3><p>Firebase Crashlytics for Android. Render dashboard for server health. UptimeRobot for uptime tracking.</p></div>
+    </div>
+    <div class="deploy-pipeline rev -d1">
+      <div class="pipeline-title">Deployment Pipeline — Python Web App (Django / Flask)</div>
+      <div class="pipeline-steps">
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fas fa-code"></i></div><div class="pipeline-step-name">Code</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fab fa-git-alt"></i></div><div class="pipeline-step-name">Git Push</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fab fa-github"></i></div><div class="pipeline-step-name">GitHub</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fas fa-hammer"></i></div><div class="pipeline-step-name">Build</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fas fa-check-circle"></i></div><div class="pipeline-step-name">Tests</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fas fa-rocket"></i></div><div class="pipeline-step-name">Deploy</div></div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><div class="pipeline-icon"><i class="fas fa-chart-bar"></i></div><div class="pipeline-step-name">Monitor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="security">
+  <div class="wrap">
+    <div class="sec-eyebrow">Security Mindset</div>
+    <h2 class="sec-title">Security in <span>Practice</span></h2>
+    <div class="security-grid">
+      <div class="sec-demo-card">
+        <div class="sec-demo-header"><i class="fas fa-database" style="color:var(--red)"></i> SQL Injection Prevention <span class="sec-demo-badge-blocked">BLOCKED</span></div>
+        <div class="sec-demo-body">
+          <div class="sec-code"><span class="hl-red"># ❌ Vulnerable</span><br>query = f"SELECT * FROM users WHERE name='{user_input}'"<br><br><span class="hl-green"># ✅ Parameterized Query</span><br>cursor.execute(<span class="hl-cyan">"SELECT * FROM users WHERE name=%s"</span>, (user_input,))</div>
+          <div class="sec-result sec-result-blocked">Attack: ' OR 1=1 -- → BLOCKED by parameterization</div>
+        </div>
+      </div>
+      <div class="sec-demo-card rev -d1">
+        <div class="sec-demo-header"><i class="fas fa-tachometer-alt" style="color:var(--amber)"></i> Rate Limiting <span class="sec-demo-badge-ok">PROTECTED</span></div>
+        <div class="sec-demo-body">
+          <div class="sec-code"><span class="hl-green"># Flask-Limiter</span><br>@app.route(<span class="hl-cyan">"/api/login"</span>)<br><span class="hl-amber">@limiter.limit("5 per minute")</span><br>def login(): ...</div>
+          <div class="sec-result sec-result-ok">Brute force limited to 5 attempts/minute per IP</div>
+        </div>
+      </div>
+      <div class="sec-demo-card">
+        <div class="sec-demo-header"><i class="fas fa-code" style="color:var(--red)"></i> XSS Prevention <span class="sec-demo-badge-blocked">BLOCKED</span></div>
+        <div class="sec-demo-body">
+          <div class="sec-code"><span class="hl-red"># ❌ Vulnerable</span><br>element.innerHTML = userContent<br><br><span class="hl-green"># ✅ Safe</span><br>element.textContent = userContent</div>
+          <div class="sec-result sec-result-blocked">&lt;script&gt;steal()&lt;/script&gt; → Rendered as text, not executed</div>
+        </div>
+      </div>
+      <div class="sec-demo-card rev -d1">
+        <div class="sec-demo-header"><i class="fas fa-key" style="color:var(--green)"></i> JWT Validation <span class="sec-demo-badge-ok">VALIDATED</span></div>
+        <div class="sec-demo-body">
+          <div class="sec-code"><span class="hl-green"># JWT with expiry</span><br>payload = jwt.decode(token, SECRET_KEY,<br>  algorithms=[<span class="hl-cyan">"HS256"</span>])<br><span class="hl-amber">check_expiry(payload["exp"])</span></div>
+          <div class="sec-result sec-result-ok">Signature verified + expiry checked. Tampered tokens rejected.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
@@ -1359,7 +1418,7 @@ document.getElementById('btt').addEventListener('click',function(){window.scroll
 var deepDives={
   attendance:{title:'Smart Attendance System',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">System Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">Android App</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">ML Kit</span><br><span class="arch-node arch-cyan">Face Detected</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Firebase Auth</span><br><span class="arch-node arch-green">Auth OK</span><span class="arch-arrow"> → </span><span class="arch-node arch-amber">Firestore DB</span></div></div><div class="dd-section"><div class="dd-label">Tech Stack Reasoning</div><div class="dd-text"><ul><li><strong>ML Kit</strong> — On-device face detection. No API costs, works offline, ~50ms detection</li><li><strong>Firebase Firestore</strong> — Real-time sync for dashboard</li><li><strong>Java (Android)</strong> — Stable, good ML Kit integration</li></ul></div></div><div class="dd-section dd-section-full"><div class="dd-label">Mistakes Made & Fixed</div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>Stored face images in Firestore (v1)</strong><p>Privacy issue + slow uploads on 4G</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>On-device ML Kit only</strong><p>Zero cloud storage for biometrics. Faster and more private.</p></div></div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>No throttling — duplicate attendance</strong><p>Same student could register twice within seconds</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>Session-based deduplication</strong><p>HashMap tracks scanned IDs. Ignore same ID within 5 minutes.</p></div></div></div></div>'},
   ddquest:{title:'DDQuest Mobile App',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">Student/Teacher App</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Firebase Auth</span><br><span class="arch-node arch-amber">Content</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Firestore + Storage</span><br><span class="arch-node arch-cyan">Push</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">FCM Notifications</span></div></div><div class="dd-section"><div class="dd-label">Why I Built This</div><div class="dd-text"><p>Diploma students in Gujarat struggle to find organized, free study material. DDQuest centralizes everything — built for students like me.</p></div></div><div class="dd-section dd-section-full"><div class="dd-label">Mistakes & Improvements</div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>No offline support (v1)</strong><p>App broke without internet.</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>Firestore offline persistence</strong><p>One line fix. App works offline with cached data.</p></div></div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>No pagination — loaded all 200+ notes at once</strong><p>Slow load, high costs.</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>Firestore pagination with startAfter()</strong><p>Load 20 items at a time. 90% reduction in reads.</p></div></div></div></div>'},
-  chatbot:{title:'Advanced AI Chatbot Suite',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">Browser UI</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Flask REST API</span><br><span class="arch-node arch-cyan">Text Query</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">OpenAI GPT</span><br><span class="arch-node arch-amber">PDF Upload</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Chunking + Embeddings</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Semantic Search</span></div></div><div class="dd-section"><div class="dd-label">Features</div><div class="dd-text"><ul><li>Text chat with GPT-3.5/4</li><li>PDF Q&A with RAG architecture</li><li>Streaming responses for better UX</li><li>Chat history in MongoDB Atlas</li></ul></div></div><div class="dd-section dd-section-full"><div class="dd-label">Mistakes & Improvements</div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>Sent entire PDF as context (v1)</strong><p>Hit token limit at 15+ pages. Very expensive.</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>RAG implementation</strong><p>Chunk PDF, embed, search, send top-3 relevant chunks. Cost reduced 80%.</p></div></div></div></div>'},
+  chatbot:{title:'Advanced AI Chatbot Suite',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">Streamlit UI</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Python Backend</span><br><span class="arch-node arch-cyan">Text Query</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">OpenAI GPT</span><br><span class="arch-node arch-amber">PDF Upload</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Chunking + Embeddings</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Semantic Search</span></div></div><div class="dd-section"><div class="dd-label">Features</div><div class="dd-text"><ul><li>Intelligent chat via ML models</li><li>Advanced data processing</li><li>Streaming responses for better UX</li><li>Chat history in MongoDB Atlas</li></ul></div></div><div class="dd-section dd-section-full"><div class="dd-label">Mistakes & Improvements</div><div class="mistake-item"><div class="mistake-x">✗</div><div class="mistake-content"><strong>Sent entire PDF as context (v1)</strong><p>Hit token limit at 15+ pages. Very expensive.</p></div><div class="mistake-check">✓</div><div class="mistake-content"><strong>RAG implementation</strong><p>Chunk PDF, embed, search, send top-3 relevant chunks. Cost reduced 80%.</p></div></div></div></div>'},
   nova:{title:'Nova AI Chatbot (Groq + Streamlit)',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">User Input</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Streamlit UI</span><br><span class="arch-node arch-cyan">Session State</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Groq API (LLaMA 3)</span><br><span class="arch-node arch-green">Streaming Response</span><span class="arch-arrow"> → </span><span class="arch-node arch-amber">Streamlit Write Stream</span></div></div><div class="dd-section"><div class="dd-label">Why Groq over OpenAI?</div><div class="dd-text"><ul><li><strong>Speed:</strong> ~50ms responses vs ~800ms GPT</li><li><strong>Cost:</strong> Groq free tier — $0 for demos</li><li><strong>Quality:</strong> LLaMA 3 8B is 80% of GPT-3.5 at 5% cost</li></ul></div></div></div>'},
   academix:{title:'Academix — Django Class Manager',content:'<div class="dd-grid"><div class="dd-section"><div class="dd-label">Architecture</div><div class="arch-diagram"><span class="arch-node arch-amber">Browser</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">Gunicorn</span><span class="arch-arrow"> → </span><span class="arch-node arch-green">Django App</span><br><span class="arch-node arch-green">Django ORM</span><span class="arch-arrow"> → </span><span class="arch-node arch-cyan">PostgreSQL (Render)</span></div></div><div class="dd-section"><div class="dd-label">Django Features Used</div><div class="dd-text"><ul><li>Class-Based Views (CBV) for CRUD</li><li>Django Auth for user management</li><li>Django ORM for all queries</li><li>CSRF protection (built-in)</li><li>Auto-deploy on Render via GitHub</li></ul></div></div></div>'}
 };

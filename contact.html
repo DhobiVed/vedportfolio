@@ -675,73 +675,6 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:3rem 0 2
     100% { transform: rotate(360deg); }
 }
 
-.about-photo-wrapper {
-   position: relative;
-   width: 100%;
-   max-width: 280px;
-   margin: 2rem auto;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.about-photo-inner {
-   position: relative;
-   width: 100%;
-   aspect-ratio: 9/16;
-   border-radius: 24px;
-   overflow: hidden;
-   z-index: 2;
-   box-shadow: 0 20px 40px rgba(22, 101, 52, 0.2);
-   border: 4px solid var(--ink);
-   animation: floatAvatarPhoto 6s ease-in-out infinite;
-}
-.about-photo-inner img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   display: block;
-}
-.photo-decor-1 {
-   position: absolute;
-   top: -15px;
-   right: -15px;
-   width: 100%;
-   height: 100%;
-   border-radius: 24px;
-   background: var(--grad-primary);
-   z-index: 1;
-   opacity: 0.6;
-   animation: pulseDecorPhoto 4s ease-in-out infinite alternate;
-}
-.photo-decor-2 {
-   position: absolute;
-   bottom: -20px;
-   left: -20px;
-   width: 70%;
-   height: 70%;
-   border-radius: 50%;
-   background: var(--amber3);
-   z-index: 0;
-   filter: blur(35px);
-   opacity: 0.5;
-   animation: floatGlowPhoto 8s linear infinite;
-}
-@keyframes floatAvatarPhoto {
-   0%, 100% { transform: translateY(0); }
-   50% { transform: translateY(-15px); box-shadow: 0 30px 50px rgba(22, 101, 52, 0.35); }
-}
-@keyframes pulseDecorPhoto {
-   0% { transform: scale(0.97) translate(5px, 5px); opacity: 0.4; }
-   100% { transform: scale(1.03) translate(-5px, -5px); opacity: 0.8; }
-}
-@keyframes floatGlowPhoto {
-   0% { transform: translate(0, 0) scale(1); }
-   33% { transform: translate(25px, -25px) scale(1.2); }
-   66% { transform: translate(-25px, 15px) scale(0.8); }
-   100% { transform: translate(0, 0) scale(1); }
-}
-
-
 
 /* --- PREMIUM TYPOGRAPHY SYSTEM --- */
 
@@ -928,17 +861,17 @@ footer, .footer-links a, .footer-brand p {
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="logo" class="active">VED<span>.</span></a>
+    <a href="index.html" class="logo">VED<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="index.html"  class="active">Home</a></li>
-      <li><a href="index.html" class="active">About</a></li>
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="index.html">About</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="skills.html">Skills</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="nova.html">Nova AI</a></li>
       <li></li>
       <li></li>
-      <li><a href="achievements.html">Achievements</a><a href="contact.html">Contact</a></li>
+      <li><a href="achievements.html">Achievements</a><a href="contact.html" class="active">Contact</a></li>
     </ul>
     <div class="nav-right">
       <div class="nav-status">OPEN TO WORK</div>
@@ -950,8 +883,8 @@ footer, .footer-links a, .footer-brand p {
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
   <a href="education.html" onclick="closeMobMenu()"><i class="fas fa-graduation-cap" style="width:18px;color:var(--amber)"></i>Education</a>
   <a href="skills.html" onclick="closeMobMenu()"><i class="fas fa-code" style="width:18px;color:var(--amber)"></i>Skills</a>
   <a href="projects.html" onclick="closeMobMenu()"><i class="fas fa-rocket" style="width:18px;color:var(--amber)"></i>Projects</a>
@@ -959,198 +892,46 @@ footer, .footer-links a, .footer-brand p {
   
   
   <a href="achievements.html" onclick="closeMobMenu()"><i class="fas fa-certificate" style="width:18px;color:var(--amber)"></i>Achievements</a>
-  <a href="contact.html" onclick="closeMobMenu()"><i class="fas fa-envelope" style="width:18px;color:var(--amber)"></i>Contact</a>
+  <a href="contact.html" onclick="closeMobMenu()" class="active"><i class="fas fa-envelope" style="width:18px;color:var(--amber)"></i>Contact</a>
   <div class="mob-menu-status">OPEN TO WORK</div>
   <button class="btn-primary" onclick="openResumeReq();closeMobMenu();" style="margin-top:0.5rem;width:100%;"><i class="fas fa-download"></i> Request Resume</button>
 </div>
 
 <!-- ═══ HERO ═══ -->
 
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-grid-lines"></div>
-    <div class="hero-glow-1"></div>
-    <div class="hero-glow-2"></div>
-  </div>
+<section class="section dark" id="contact">
   <div class="wrap">
-    <div class="hero-inner">
+    <div class="sec-eyebrow">Contact</div>
+    <h2 class="sec-title">Let's <span>Connect</span></h2>
+    <p class="sec-sub">Open to jobs, internships, freelance work, mentorship, and interesting projects.</p>
+    <div class="contact-grid">
       <div>
-        <div class="hero-tag"><div class="hero-tag-line"></div>BE Computer Engineering · GTU · India</div>
-        <h1 class="hero-name rev -d1"><span class="line1">VED</span><span class="line2">DHOBI</span></h1>
-        <div class="hero-title-bar rev -d2">
-          <span class="hero-role">Full-Stack Dev</span>
-          <span class="hero-role">AI Builder</span>
-          <span class="hero-role">Founder · DDQuest</span>
-        </div>
-        <p class="hero-desc rev -d2">BE Computer Engineering student at GEC Modasa · Diploma IT with <strong>8.87 CGPA</strong> · Building real-world apps with Python, Android, Firebase & LLMs. Smart India Hackathon 2025 participant.</p>
-        <div class="hero-ctas rev -d3">
-          <a href="projects.html" class="btn-primary"><i class="fas fa-code"></i> View Projects</a>
-          <a href="nova.html" class="btn-secondary"><i class="fas fa-robot"></i> Nova AI</a>
-          <button class="btn-secondary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-        </div>
-        <div class="hero-stats rev -d4">
-          <div class="hstat"><div class="hstat-num">8.87</div><div class="hstat-lbl">Diploma CGPA</div></div>
-          <div class="hstat"><div class="hstat-num">6+</div><div class="hstat-lbl">Projects</div></div>
-          <div class="hstat"><div class="hstat-num">15+</div><div class="hstat-lbl">Certs</div></div>
-          <div class="hstat"><div class="hstat-num">339</div><div class="hstat-lbl">Connections</div></div>
+        <h3>Get in Touch</h3>
+        <p>I'm a fresher actively looking for entry-level or WFH opportunities in software development, AI/ML, or full-stack roles.</p>
+        <div class="citem-list">
+          <div class="citem"><div class="citem-icon"><i class="fas fa-phone"></i></div><div><span class="citem-label">Phone</span><a class="citem-val" href="tel:+917043362186">+91 70433 62186</a></div></div>
+          <div class="citem"><div class="citem-icon"><i class="fas fa-envelope"></i></div><div><span class="citem-label">Email</span><a class="citem-val" href="https://mail.google.com/mail/?view=cm&fs=1&to=veddhobi252@gmail.com" target="_blank">veddhobi252@gmail.com</a></div></div>
+          <div class="citem"><div class="citem-icon"><i class="fas fa-map-marker-alt"></i></div><div><span class="citem-label">Location</span><span class="citem-val">Modasa, Aravalli, Gujarat, India</span></div></div>
+          <div class="citem"><div class="citem-icon"><i class="fab fa-linkedin"></i></div><div><span class="citem-label">LinkedIn</span><a class="citem-val" href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank">ved-dhobi-7b3a88376</a></div></div>
+          <div class="citem"><div class="citem-icon"><i class="fab fa-github"></i></div><div><span class="citem-label">GitHub</span><a class="citem-val" href="https://github.com/DhobiVed" target="_blank">DhobiVed</a></div></div>
+          <div class="citem"><div class="citem-icon"><i class="fab fa-whatsapp"></i></div><div><span class="citem-label">WhatsApp</span><a class="citem-val" href="https://wa.me/917043362186" target="_blank">+91 70433 62186</a></div></div>
         </div>
       </div>
-      <div class="rev -d2">
-        <div class="hero-card">
-          <div class="hero-card-header">
-            <div class="hero-avatar"><div class="hero-avatar-inner"><img src="assets/images/profile.jpg" alt="Ved Dhobi" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:var(--display);font-size:1.8rem;color:var(--ink);background:linear-gradient(135deg,var(--amber),var(--amber3))\'>VD</div></div>'"></div></div>
-            <div>
-              <div class="hero-card-name">Ved Dhobi</div>
-              <div class="hero-card-sub">IT Student · Developer</div>
-            </div>
+      <div class="contact-form-wrap rev -d2">
+        <h3>Send a Message</h3>
+        <form id="contactForm" onsubmit="submitContact(event)">
+          <div class="frow">
+            <div class="fgroup"><label>Name</label><input type="text" id="cname" placeholder="Your name" required autocomplete="name"></div>
+            <div class="fgroup"><label>Email</label><input type="email" id="cemail" placeholder="your@email.com" required autocomplete="email"></div>
           </div>
-          <div class="hero-badges">
-            <span class="badge badge-amber">Python</span><span class="badge badge-amber">Java</span>
-            <span class="badge badge-cyan">Android</span><span class="badge badge-cyan">Firebase</span>
-            <span class="badge badge-green">ML / AI</span><span class="badge badge-green">LLMs</span>
-            <span class="badge badge-amber">Django</span><span class="badge badge-cyan">SQL</span>
-          </div>
-          <div class="hero-metrics">
-            <div class="metric-row"><span class="metric-key">CGPA</span><span class="metric-val hi">8.87 / 10</span></div>
-            <div class="metric-row"><span class="metric-key">Uni</span><span class="metric-val">GTU</span></div>
-            <div class="metric-row"><span class="metric-key">Degree</span><span class="metric-val">BE Comp.</span></div>
-            <div class="metric-row"><span class="metric-key">Completed</span><span class="metric-val hi">Diploma IT</span></div>
-            <div class="metric-row"><span class="metric-key">Location</span><span class="metric-val">Modasa, GJ</span></div>
-            <div class="metric-row"><span class="metric-key">Status</span><span class="metric-val" style="color:var(--green)">Open to Work</span></div>
-          </div>
-        </div>
+          <div class="fgroup"><label>Subject</label><input type="text" id="csub" placeholder="Job opportunity / Collaboration / etc." required></div>
+          <div class="fgroup"><label>Message</label><textarea id="cmsg" rows="4" placeholder="What's on your mind?" required maxlength="600" style="min-height:100px"></textarea></div>
+          <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i> SEND MESSAGE</button>
+        </form>
       </div>
     </div>
   </div>
 </section>
-
-<section class="section dark" id="recruiter">
-  <div class="wrap">
-    <div class="sec-eyebrow">Recruiter Intelligence Mode</div>
-    <h2 class="sec-title">Quick <span>Overview</span></h2>
-    <p class="sec-sub">Toggle for a 2-minute summary optimized for hiring decisions.</p>
-    <div style="margin-top:1.75rem">
-      <div class="recruiter-toggle" onclick="toggleRecruiter()">
-        <div style="flex:1">
-          <div class="toggle-label">Recruiter Intelligence Mode</div>
-          <div class="toggle-sub">Impact metrics, key skills, and download options</div>
-        </div>
-        <div class="toggle-switch" id="recSwitch"><div class="toggle-knob"></div></div>
-      </div>
-      <div class="recruiter-panel" id="recPanel">
-        <div class="rp-top">
-          <div class="rp-name">VED DHOBI</div>
-          <div class="rp-headline">BE Computer Engineering · Full-Stack & AI Developer · Founder, DDQuest · Open to Work</div>
-          <div class="rp-quick-stats">
-            <div class="rp-stat"><div class="rp-stat-v">8.87</div><div class="rp-stat-l">Diploma CGPA</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">9.26</div><div class="rp-stat-l">Best Semester</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">6+</div><div class="rp-stat-l">Projects</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">15+</div><div class="rp-stat-l">Certs</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">SIH 2025</div><div class="rp-stat-l">Hackathon</div></div>
-          </div>
-        </div>
-        <div class="rp-sections">
-          <div class="rp-section">
-            <div class="rp-sec-title">Core Skills</div>
-            <ul class="rp-list">
-              <li>Python, Java, JavaScript</li>
-              <li>Android (Java + Firebase)</li>
-              <li>Django, Flask, HTML/CSS</li>
-              <li>Machine Learning, LLMs</li>
-              <li>SQL, MongoDB, Firebase DB</li>
-              <li>Git, GitHub, CI/CD basics</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Key Projects</div>
-            <ul class="rp-list">
-              <li>Smart Attendance (Face Recognition)</li>
-              <li>DDQuest Mobile App (Firebase)</li>
-              <li>Advanced AI Chatbot Suite</li>
-              <li>Academix Django Web App</li>
-              <li>Nova AI Chatbot (Groq + Streamlit)</li>
-              <li>Portfolio Website</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Education & Awards</div>
-            <ul class="rp-list">
-              <li>BE Comp. Eng. — GEC Modasa</li>
-              <li>Diploma IT — 8.87 CGPA (GTU)</li>
-              <li>Best Performance Award socially from the society</li>
-              <li>SIH 2025 Participant</li>
-              <li>IBM, Infosys, IIT Bombay Certs</li>
-              <li>ML Internship — InfoLabz</li>
-            </ul>
-          </div>
-        </div>
-        <div class="rp-actions">
-          <button class="btn-primary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-          <a class="btn-secondary" href="https://mail.google.com/mail/?view=cm&fs=1&to=veddhobi252@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Email</a>
-          <a class="btn-secondary" href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a class="btn-secondary" href="https://github.com/DhobiVed" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="sec-eyebrow">About Me</div>
-    <h2 class="sec-title">Motivated builder,<br><span>consistent learner.</span></h2>
-    <div class="about-grid">
-      <div>
-        <div class="about-text">
-          <p>I'm <strong>Ved Dhobi</strong>, a BE Computer Engineering student at Government Engineering College, Modasa (GTU). I completed my Diploma in IT with <strong>8.87 CGPA</strong> — earning the Best Performance Award socially from my society. I'm the <strong>Founder of DDQuest</strong>, a community providing free study materials for diploma students.</p>
-          <p>I build things end-to-end — from Android apps with Firebase to Python-based AI systems using LLMs. I participated in <strong>Smart India Hackathon 2025</strong> and completed an ML internship at InfoLabz. My learning approach: build → break → understand → improve.</p>
-          <p>Currently seeking <strong>entry-level / work-from-home</strong> opportunities in software development, AI/ML, or full-stack roles where I can contribute meaningfully and grow fast.</p>
-        </div>
-        <div class="about-chips rev -d1">
-          <div class="achip"><i class="fas fa-graduation-cap"></i> 8.87 CGPA Diploma</div>
-          <div class="achip"><i class="fas fa-code"></i> Python Developer</div>
-          <div class="achip"><i class="fas fa-mobile-alt"></i> Android Developer</div>
-          <div class="achip"><i class="fas fa-fire"></i> Firebase Expert</div>
-          <div class="achip"><i class="fas fa-brain"></i> ML / LLM Builder</div>
-          <div class="achip"><i class="fas fa-users"></i> DDQuest Founder</div>
-          <div class="achip"><i class="fas fa-trophy"></i> SIH 2025</div>
-          <div class="achip"><i class="fas fa-award"></i> Best Performance Award</div>
-        </div>
-      </div>
-      
-      <div class="rev -d2" style="display:flex; justify-content:center; align-items:center;">
-        <div class="about-photo-wrapper">
-          <div class="photo-decor-1"></div>
-          <div class="photo-decor-2"></div>
-          <div class="about-photo-inner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:20px;">
-            <img src="assets/images/ved_profile.jpg" alt="Ved Dhobi" style="width:100%;height:100%;object-fit:cover;display:block;">
-          </div>
-        </div>
-      </div>
-          <div class="principle-item"><span class="principle-num">02</span><div class="principle-text"><strong>Measure before optimizing</strong>Profile first, optimize second. Guessing wastes time.</div></div>
-          <div class="principle-item"><span class="principle-num">03</span><div class="principle-text"><strong>Automate what's repetitive</strong>If you do it twice, automate it the third time.</div></div>
-          <div class="principle-item"><span class="principle-num">04</span><div class="principle-text"><strong>Secure by default</strong>Security is architecture, not an afterthought.</div></div>
-          <div class="principle-item"><span class="principle-num">05</span><div class="principle-text"><strong>Write self-documenting code</strong>Names > comments. Clarity > cleverness.</div></div>
-          <div class="principle-item"><span class="principle-num">06</span><div class="principle-text"><strong>Fail fast, learn faster</strong>Mistakes are features of the learning process.</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="principles" style="background:var(--ink3);">
-  <div class="wrap">
-    <div class="sec-eyebrow">Mindset</div>
-    <h2 class="sec-title">Engineering <span>Principles</span></h2>
-    <div style="max-width: 800px; margin: 2rem auto 0; background: var(--ink); border: 1px solid var(--amber2); border-radius: 16px; box-shadow: 0 10px 30px rgba(22, 101, 52, 0.05);">
-        
-        <div class="principles-card">
-          
-          <div class="principle-item"><span class="principle-num">01</span><div class="principle-text"><strong>Build for real users, not demos</strong>Code that ships and solves real problems beats perfect code that never runs.</div>
-    </div>
-  </div>
-</section>
-
 
 <!-- ═══ FOOTER ═══ -->
 <footer>

@@ -658,18 +658,7 @@
 
     // ========== INITIALIZE EVERYTHING ==========
     document.addEventListener('DOMContentLoaded', () => {
-        // Update active nav link on scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const scrollPos = window.scrollY + 100;
-            sections.forEach(section => {
-                const top = section.offsetTop;
-                const height = section.clientHeight;
-                const id = section.getAttribute('id');
-                if (scrollPos >= top && scrollPos < top + height) {
-                    updateActiveNavLink(`#${id}`);
-                }
-            });
+        // Scroll spy disabled for multi-page
         });
 
         // Add ripple to interactive elements
@@ -810,7 +799,7 @@
     });
 })();
 
-setTimeout(introExit, 2500); // extra safety: hide intro after 2.5s
+// intro logic removed
 
 (function () {
 
@@ -828,7 +817,7 @@ setTimeout(introExit, 2500); // extra safety: hide intro after 2.5s
       toggle.classList.add("open");
       nav.classList.add("open");
       overlay.classList.add("visible");
-      document.body.style.overflow = "hidden"; // Lock scroll
+       // Lock scroll
     }
 
     /* ===== CLOSE MENU ===== */

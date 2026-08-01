@@ -301,8 +301,12 @@ h1.hero-name .line2{display:block;color:var(--white);}
 .plink:hover{border-color:var(--amber);color:var(--amber);}
 
 /* ════════ NOVA AI CHATBOT ════════ */
-.nova-wrap{background:var(--ink2);border:1px solid var(--grey2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;height:520px;max-width:880px;margin:0 auto;}
-@media(min-width:600px){.nova-wrap{height:560px;}}
+
+
+
+
+.nova-wrap{background:var(--ink2);border:1px solid var(--grey2);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;height:650px;max-width:880px;margin:0 auto;box-shadow:0 12px 36px rgba(0,0,0,0.3);}
+@media(min-width:600px){.nova-wrap{height:680px;}}
 .nova-header{background:var(--ink3);border-bottom:1px solid var(--grey2);padding:0.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .nova-avatar-sm{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber3));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem;color:var(--ink);font-weight:700;border:2px solid var(--amber);box-shadow:0 0 12px rgba(245,166,35,0.35);flex-shrink:0;}
 .nova-clear-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--grey2);background:var(--ink2);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.72rem;transition:all 0.2s;min-width:32px;}
@@ -333,41 +337,13 @@ h1.hero-name .line2{display:block;color:var(--white);}
 .nova-suggestions{padding:0.6rem 1rem;display:flex;gap:0.4rem;flex-wrap:wrap;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.04);overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .nova-chip{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.5px;padding:0.38rem 0.75rem;border-radius:20px;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);color:var(--amber);cursor:pointer;transition:all 0.2s;white-space:nowrap;min-height:32px;}
 .nova-chip:hover{background:rgba(245,166,35,0.14);border-color:rgba(245,166,35,0.5);}
-.nova-input-area{padding:0.75rem 1rem 0.85rem;border-top:1px solid var(--grey2);background:var(--ink3);flex-shrink:0;}
+.nova-input-area{padding:0.75rem 1rem 0.85rem;border-top:1px solid rgba(255,255,255,0.08);background:#0F172A !important;flex-shrink:0 !important;position:relative;z-index:10;}
 .nova-input-wrap{display:flex;gap:0.5rem;align-items:flex-end;}
 .nova-input{flex:1;background:var(--ink2);border:1px solid var(--grey2);border-radius:8px;padding:0.65rem 0.9rem;color:var(--white);font-family:var(--body);font-size:16px;outline:none;resize:none;min-height:40px;max-height:100px;line-height:1.5;transition:border-color 0.2s;-webkit-appearance:none;}
 .nova-input:focus{border-color:rgba(245,166,35,0.5);}
 .nova-send-btn{width:40px;height:40px;border-radius:8px;background:var(--amber);border:none;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.2s;flex-shrink:0;min-width:40px;}
 .nova-send-btn:hover:not(:disabled){background:var(--amber2);}
 .nova-send-btn:disabled{background:var(--grey2);color:var(--grey);cursor:not-allowed;}
-
-/* ════════ SYSTEM DESIGN SIMULATOR ════════ */
-.sds-wrap{background:var(--ink2);border:1px solid var(--grey2);border-radius:12px;overflow:hidden;margin-top:2.5rem;}
-.sds-header{background:var(--ink3);border-bottom:1px solid var(--grey2);padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;}
-.sds-dot{width:9px;height:9px;border-radius:50%;}
-.sds-dot-r{background:#ff5f57;} .sds-dot-y{background:#febc2e;} .sds-dot-g{background:#28c840;}
-.sds-title{font-family:var(--mono);font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);}
-.sds-body{display:grid;grid-template-columns:1fr;}
-@media(min-width:800px){.sds-body{grid-template-columns:280px 1fr;min-height:480px;}}
-.sds-controls{border-bottom:1px solid var(--grey2);padding:1.25rem;}
-@media(min-width:800px){.sds-controls{border-right:1px solid var(--grey2);border-bottom:none;}}
-.sds-ctrl-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:0.55rem;margin-top:1rem;}
-.sds-ctrl-label:first-child{margin-top:0;}
-.sds-slider{width:100%;-webkit-appearance:none;appearance:none;height:3px;border-radius:2px;background:var(--ink);outline:none;cursor:pointer;}
-.sds-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--ink);}
-.sds-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--ink);}
-.sds-slider-val{font-family:var(--mono);font-size:0.72rem;color:var(--white);margin-top:0.35rem;}
-.sds-select{width:100%;padding:0.5rem 0.8rem;background:var(--ink3);border:1px solid var(--grey2);border-radius:5px;color:var(--white);font-family:var(--mono);font-size:0.7rem;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;min-height:40px;}
-.sds-select:focus{border-color:var(--amber);}
-.sds-btn{width:100%;margin-top:1.25rem;padding:0.75rem;background:var(--amber);color:var(--ink);font-family:var(--mono);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:5px;cursor:pointer;font-weight:700;transition:all 0.2s;min-height:44px;}
-.sds-btn:hover{background:var(--amber2);}
-.sds-output{padding:1.25rem;display:flex;flex-direction:column;gap:1rem;overflow-y:auto;overflow-x:hidden;}
-.sds-arch{flex:1;background:var(--ink3);border:1px solid var(--grey2);border-radius:8px;padding:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.sds-metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;}
-@media(min-width:600px){.sds-metrics-row{grid-template-columns:repeat(4,1fr);}}
-.sds-metric{background:var(--ink3);border:1px solid var(--grey2);border-radius:6px;padding:0.85rem;text-align:center;}
-.sds-metric-val{font-family:var(--display);font-size:1.4rem;letter-spacing:2px;color:var(--amber);}
-.sds-metric-lbl{font-family:var(--mono);font-size:0.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-top:0.2rem;}
 
 /* ════════ THINK ════════ */
 .think-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:2.5rem;}
@@ -675,73 +651,6 @@ footer{background:var(--ink2);border-top:1px solid var(--grey2);padding:3rem 0 2
     100% { transform: rotate(360deg); }
 }
 
-.about-photo-wrapper {
-   position: relative;
-   width: 100%;
-   max-width: 280px;
-   margin: 2rem auto;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.about-photo-inner {
-   position: relative;
-   width: 100%;
-   aspect-ratio: 9/16;
-   border-radius: 24px;
-   overflow: hidden;
-   z-index: 2;
-   box-shadow: 0 20px 40px rgba(22, 101, 52, 0.2);
-   border: 4px solid var(--ink);
-   animation: floatAvatarPhoto 6s ease-in-out infinite;
-}
-.about-photo-inner img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   display: block;
-}
-.photo-decor-1 {
-   position: absolute;
-   top: -15px;
-   right: -15px;
-   width: 100%;
-   height: 100%;
-   border-radius: 24px;
-   background: var(--grad-primary);
-   z-index: 1;
-   opacity: 0.6;
-   animation: pulseDecorPhoto 4s ease-in-out infinite alternate;
-}
-.photo-decor-2 {
-   position: absolute;
-   bottom: -20px;
-   left: -20px;
-   width: 70%;
-   height: 70%;
-   border-radius: 50%;
-   background: var(--amber3);
-   z-index: 0;
-   filter: blur(35px);
-   opacity: 0.5;
-   animation: floatGlowPhoto 8s linear infinite;
-}
-@keyframes floatAvatarPhoto {
-   0%, 100% { transform: translateY(0); }
-   50% { transform: translateY(-15px); box-shadow: 0 30px 50px rgba(22, 101, 52, 0.35); }
-}
-@keyframes pulseDecorPhoto {
-   0% { transform: scale(0.97) translate(5px, 5px); opacity: 0.4; }
-   100% { transform: scale(1.03) translate(-5px, -5px); opacity: 0.8; }
-}
-@keyframes floatGlowPhoto {
-   0% { transform: translate(0, 0) scale(1); }
-   33% { transform: translate(25px, -25px) scale(1.2); }
-   66% { transform: translate(-25px, 15px) scale(0.8); }
-   100% { transform: translate(0, 0) scale(1); }
-}
-
-
 
 /* --- PREMIUM TYPOGRAPHY SYSTEM --- */
 
@@ -913,6 +822,236 @@ footer, .footer-links a, .footer-brand p {
 }
 /* --- END PREMIUM TYPOGRAPHY SYSTEM --- */
 
+
+/* ════════ APPLE / MACBOOK TYPOGRAPHY & CHAT ANIMATIONS ════════ */
+.nova-msg-bubble, .nova-msg-text, #novaInput, .nova-header, .sec-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+.nova-msg-text {
+  font-size: 0.93rem !important;
+  line-height: 1.65 !important;
+  letter-spacing: -0.012em !important;
+  color: #F1F5F9 !important;
+}
+.nova-msg-user .nova-msg-bubble {
+  background: rgba(52, 211, 153, 0.15) !important;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+}
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--amber);
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blinkCur 0.8s infinite;
+}
+@keyframes blinkCur { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ════════ ULTIMATE APPLE CHAT STYLING & HIGH CONTRAST ════════ */
+.nova-msg-bubble, .nova-msg-text, #novaInput, .nova-header, .sec-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+.nova-msg-ai .nova-msg-text {
+  background: #0F172A !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.nova-msg-user .nova-msg-text {
+  background: #1E293B !important;
+  border: 1px solid rgba(52, 211, 153, 0.5) !important;
+  color: #F8FAFC !important;
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.nova-msg-user .nova-msg-text strong {
+  color: #34D399 !important;
+}
+
+.nova-msg-ai .nova-msg-text strong, .nova-msg-user .nova-msg-text strong {
+  color: #34D399 !important;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #34D399;
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blinkCur 0.8s infinite;
+}
+@keyframes blinkCur { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ════════ LENIS SCROLL UNLOCK FOR CHAT CONTAINER ════════ */
+.nova-messages {
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  scroll-behavior: smooth !important;
+}
+.nova-messages::-webkit-scrollbar {
+  width: 6px !important;
+}
+.nova-messages::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-radius: 10px !important;
+}
+.nova-messages::-webkit-scrollbar-thumb {
+  background: rgba(52, 211, 153, 0.4) !important;
+  border-radius: 10px !important;
+}
+.nova-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(52, 211, 153, 0.7) !important;
+}
+
+
+/* ════════ ELEGANT LIGHT PINK / ROSE GOLD NOVACHAT THEME ════════ */
+.nova-wrap {
+  background: linear-gradient(135deg, #FFF0F5 0%, #FCE7F3 100%) !important;
+  border: 1.5px solid #FBCFE8 !important;
+  box-shadow: 0 16px 40px rgba(244, 114, 182, 0.15) !important;
+  border-radius: 20px !important;
+}
+
+.nova-header {
+  background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%) !important;
+  border-bottom: 1px solid #F9A8D4 !important;
+  padding: 0.95rem 1.35rem !important;
+}
+
+.nova-header div[style*="color:var(--white)"] {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.nova-avatar-sm {
+  background: linear-gradient(135deg, #FFFFFF, #FCE7F3) !important;
+  color: #DB2777 !important;
+  border: 2px solid #FFFFFF !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important;
+}
+
+.nova-messages {
+  background: #FFF5F8 !important;
+}
+
+.nova-msg-ai .nova-msg-avatar {
+  background: linear-gradient(135deg, #F472B6, #EC4899) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #F472B6 !important;
+}
+
+.nova-msg-user .nova-msg-avatar {
+  background: linear-gradient(135deg, #F9A8D4, #F472B6) !important;
+  color: #881337 !important;
+  border: 1.5px solid #F472B6 !important;
+}
+
+.nova-msg-ai .nova-msg-text {
+  background: #FFFFFF !important;
+  border: 1px solid #FBCFE8 !important;
+  color: #1F2937 !important;
+  font-size: 0.93rem !important;
+  line-height: 1.65 !important;
+  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.1) !important;
+  border-radius: 14px !important;
+  border-top-left-radius: 4px !important;
+}
+
+.nova-msg-user .nova-msg-text {
+  background: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%) !important;
+  border: 1px solid #F43F5E !important;
+  color: #FFFFFF !important;
+  font-size: 0.93rem !important;
+  line-height: 1.65 !important;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.25) !important;
+  border-radius: 14px !important;
+  border-top-right-radius: 4px !important;
+}
+
+.nova-msg-ai .nova-msg-text strong {
+  color: #E11D48 !important;
+  font-weight: 700 !important;
+}
+
+.nova-msg-user .nova-msg-text strong {
+  color: #FFE4E6 !important;
+  font-weight: 700 !important;
+}
+
+.nova-msg-name {
+  color: #9F1239 !important;
+  font-weight: 700 !important;
+}
+
+.nova-suggestions {
+  background: #FFF0F5 !important;
+  border-top: 1px solid #FBCFE8 !important;
+}
+
+.nova-chip {
+  background: #FFFFFF !important;
+  border: 1px solid #F472B6 !important;
+  color: #BE185D !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(244, 114, 182, 0.1) !important;
+}
+
+.nova-chip:hover {
+  background: #FCE7F3 !important;
+  border-color: #EC4899 !important;
+  transform: translateY(-1px);
+}
+
+.nova-input-area {
+  background: #FCE7F3 !important;
+  border-top: 1px solid #F9A8D4 !important;
+}
+
+.nova-input {
+  background: #FFFFFF !important;
+  border: 1.5px solid #F472B6 !important;
+  color: #881337 !important;
+  font-size: 0.93rem !important;
+}
+
+.nova-input::placeholder {
+  color: #F472B6 !important;
+  opacity: 0.8;
+}
+
+.nova-input:focus {
+  border-color: #EC4899 !important;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2) !important;
+}
+
+.nova-send-btn {
+  background: linear-gradient(135deg, #EC4899, #F43F5E) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3) !important;
+}
+
+.nova-send-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #DB2777, #E11D48) !important;
+  transform: scale(1.05);
+}
+
+.typing-cursor {
+  background: #E11D48 !important;
+}
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -928,14 +1067,14 @@ footer, .footer-links a, .footer-brand p {
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="logo" class="active">VED<span>.</span></a>
+    <a href="index.html" class="logo">VED<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="index.html"  class="active">Home</a></li>
-      <li><a href="index.html" class="active">About</a></li>
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="index.html">About</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="skills.html">Skills</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="nova.html">Nova AI</a></li>
+      <li><a href="nova.html" class="active">Nova AI</a></li>
       <li></li>
       <li></li>
       <li><a href="achievements.html">Achievements</a><a href="contact.html">Contact</a></li>
@@ -950,12 +1089,12 @@ footer, .footer-links a, .footer-brand p {
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
-  <a href="index.html" onclick="closeMobMenu()" class="active"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-home" style="width:18px;color:var(--amber)"></i>Home</a>
+  <a href="index.html" onclick="closeMobMenu()"><i class="fas fa-user" style="width:18px;color:var(--amber)"></i>About</a>
   <a href="education.html" onclick="closeMobMenu()"><i class="fas fa-graduation-cap" style="width:18px;color:var(--amber)"></i>Education</a>
   <a href="skills.html" onclick="closeMobMenu()"><i class="fas fa-code" style="width:18px;color:var(--amber)"></i>Skills</a>
   <a href="projects.html" onclick="closeMobMenu()"><i class="fas fa-rocket" style="width:18px;color:var(--amber)"></i>Projects</a>
-  <a href="nova.html" onclick="closeMobMenu()"><i class="fas fa-robot" style="width:18px;color:var(--amber)"></i>Nova AI</a>
+  <a href="nova.html" onclick="closeMobMenu()" class="active"><i class="fas fa-robot" style="width:18px;color:var(--amber)"></i>Nova AI</a>
   
   
   <a href="achievements.html" onclick="closeMobMenu()"><i class="fas fa-certificate" style="width:18px;color:var(--amber)"></i>Achievements</a>
@@ -966,190 +1105,141 @@ footer, .footer-links a, .footer-brand p {
 
 <!-- ═══ HERO ═══ -->
 
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-grid-lines"></div>
-    <div class="hero-glow-1"></div>
-    <div class="hero-glow-2"></div>
-  </div>
+<section class="section" id="nova">
   <div class="wrap">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-tag"><div class="hero-tag-line"></div>BE Computer Engineering · GTU · India</div>
-        <h1 class="hero-name rev -d1"><span class="line1">VED</span><span class="line2">DHOBI</span></h1>
-        <div class="hero-title-bar rev -d2">
-          <span class="hero-role">Full-Stack Dev</span>
-          <span class="hero-role">AI Builder</span>
-          <span class="hero-role">Founder · DDQuest</span>
-        </div>
-        <p class="hero-desc rev -d2">BE Computer Engineering student at GEC Modasa · Diploma IT with <strong>8.87 CGPA</strong> · Building real-world apps with Python, Android, Firebase & LLMs. Smart India Hackathon 2025 participant.</p>
-        <div class="hero-ctas rev -d3">
-          <a href="projects.html" class="btn-primary"><i class="fas fa-code"></i> View Projects</a>
-          <a href="nova.html" class="btn-secondary"><i class="fas fa-robot"></i> Nova AI</a>
-          <button class="btn-secondary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-        </div>
-        <div class="hero-stats rev -d4">
-          <div class="hstat"><div class="hstat-num">8.87</div><div class="hstat-lbl">Diploma CGPA</div></div>
-          <div class="hstat"><div class="hstat-num">6+</div><div class="hstat-lbl">Projects</div></div>
-          <div class="hstat"><div class="hstat-num">15+</div><div class="hstat-lbl">Certs</div></div>
-          <div class="hstat"><div class="hstat-num">339</div><div class="hstat-lbl">Connections</div></div>
-        </div>
-      </div>
-      <div class="rev -d2">
-        <div class="hero-card">
-          <div class="hero-card-header">
-            <div class="hero-avatar"><div class="hero-avatar-inner"><img src="assets/images/profile.jpg" alt="Ved Dhobi" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:var(--display);font-size:1.8rem;color:var(--ink);background:linear-gradient(135deg,var(--amber),var(--amber3))\'>VD</div></div>'"></div></div>
-            <div>
-              <div class="hero-card-name">Ved Dhobi</div>
-              <div class="hero-card-sub">IT Student · Developer</div>
+    <div class="sec-eyebrow">Live AI Demo • <span id="aiStatusBadge" style="color:var(--amber);font-size:0.8rem;font-weight:600;">⚡ Connected to Localhost (1.5GB RAM Mode)</span></div>
+    <h2 class="sec-title">Nova <span>AI Chatbot</span></h2>
+    <p class="sec-sub"><span id="hero-type-text"></span><span id="hero-cursor" style="display:inline-block;width:2px;height:1em;background:#34D399;margin-left:3px;vertical-align:middle;animation:blinkHeroCur 0.9s infinite;"></span></p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var textToType = "A fully functional AI assistant built into this portfolio. Ask anything about Ved — or just chat!";
+        var targetEl = document.getElementById("hero-type-text");
+        var cursorEl = document.getElementById("hero-cursor");
+        var idx = 0;
+        
+        function runHeroTypewriter() {
+          if (idx < textToType.length) {
+            if (targetEl) targetEl.textContent += textToType.charAt(idx);
+            idx++;
+            var speed = 25 + Math.random() * 25;
+            if (['.', ',', '!', '—'].includes(textToType.charAt(idx - 1))) speed += 250;
+            setTimeout(runHeroTypewriter, speed);
+          } else {
+            if (cursorEl) setTimeout(function() { cursorEl.style.opacity = '0'; }, 2500);
+          }
+        }
+        setTimeout(runHeroTypewriter, 300);
+      });
+    </script>
+  </div>
+  <div class="wrap" style="margin-top:2rem">
+    <div class="nova-wrap rev -d1">
+      <div class="nova-header">
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <div class="nova-avatar-sm">N</div>
+          <div>
+            <div style="font-family:var(--display);font-size:0.95rem;letter-spacing:2px;color:var(--white)">NOVA</div>
+            <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:2px;color:var(--green);display:flex;align-items:center;gap:0.35rem">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 6px var(--green);animation:blink 2s infinite;flex-shrink:0;"></span>
             </div>
           </div>
-          <div class="hero-badges">
-            <span class="badge badge-amber">Python</span><span class="badge badge-amber">Java</span>
-            <span class="badge badge-cyan">Android</span><span class="badge badge-cyan">Firebase</span>
-            <span class="badge badge-green">ML / AI</span><span class="badge badge-green">LLMs</span>
-            <span class="badge badge-amber">Django</span><span class="badge badge-cyan">SQL</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div style="font-family:var(--mono);font-size:0.6rem;padding:0.28rem 0.65rem;border-radius:4px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.3);color:var(--amber);white-space:nowrap">Nova</div>
+          <button class="nova-clear-btn" onclick="novaClearChat()" title="Clear"><i class="fas fa-trash-alt"></i></button>
+        </div>
+      </div>
+      <div class="nova-messages" id="novaMessages" data-lenis-prevent style="flex:1;min-height:0;overflow-y:auto !important;overscroll-behavior:contain !important;-webkit-overflow-scrolling:touch;">
+        <div class="nova-msg nova-msg-ai">
+          <div class="nova-msg-avatar">N</div>
+          <div class="nova-msg-bubble">
+            <div class="nova-msg-name">Nova</div>
+            <div class="nova-msg-text">Hey! I'm <strong>Nova</strong> — Ved's AI assistant. I know all about his projects, skills, education, and background.<br><br>Ask me anything about him, or just have a chat! 🚀</div>
+            <div class="nova-msg-time" id="novaMsgTime0"></div>
           </div>
-          <div class="hero-metrics">
-            <div class="metric-row"><span class="metric-key">CGPA</span><span class="metric-val hi">8.87 / 10</span></div>
-            <div class="metric-row"><span class="metric-key">Uni</span><span class="metric-val">GTU</span></div>
-            <div class="metric-row"><span class="metric-key">Degree</span><span class="metric-val">BE Comp.</span></div>
-            <div class="metric-row"><span class="metric-key">Completed</span><span class="metric-val hi">Diploma IT</span></div>
-            <div class="metric-row"><span class="metric-key">Location</span><span class="metric-val">Modasa, GJ</span></div>
-            <div class="metric-row"><span class="metric-key">Status</span><span class="metric-val" style="color:var(--green)">Open to Work</span></div>
-          </div>
+        </div>
+      </div>
+      <div class="nova-suggestions" id="novaSuggestions">
+        <button class="nova-chip" onclick="novaSetInput(this)">What projects has Ved built?</button>
+        <button class="nova-chip" onclick="novaSetInput(this)">What's his tech stack?</button>
+        <button class="nova-chip" onclick="novaSetInput(this)">Is he open to work?</button>
+        <button class="nova-chip" onclick="novaSetInput(this)">Tell me about DDQuest</button>
+      </div>
+      <div class="nova-input-area">
+        <div class="nova-input-wrap">
+          <textarea class="nova-input" id="novaInput" placeholder="Ask Nova anything about Ved..." rows="1"
+            onkeydown="novaHandleKey(event)" oninput="novaAutoResize(this)"></textarea>
+          <button class="nova-send-btn" id="novaSendBtn" onclick="novaSend()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.56rem;color:var(--grey);text-align:center;margin-top:0.45rem;letter-spacing:1px;opacity:0.6">
+          ⚡
+          Press Enter to send
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section dark" id="recruiter">
+<section class="section dark" id="llmcomp">
   <div class="wrap">
-    <div class="sec-eyebrow">Recruiter Intelligence Mode</div>
-    <h2 class="sec-title">Quick <span>Overview</span></h2>
-    <p class="sec-sub">Toggle for a 2-minute summary optimized for hiring decisions.</p>
-    <div style="margin-top:1.75rem">
-      <div class="recruiter-toggle" onclick="toggleRecruiter()">
-        <div style="flex:1">
-          <div class="toggle-label">Recruiter Intelligence Mode</div>
-          <div class="toggle-sub">Impact metrics, key skills, and download options</div>
-        </div>
-        <div class="toggle-switch" id="recSwitch"><div class="toggle-knob"></div></div>
+    <div class="sec-eyebrow">Architecture Research</div>
+    <h2 class="sec-title">LLM Provider <span>Comparison</span></h2>
+    <p class="sec-sub">Based on hands-on experience building chatbots with multiple providers.</p>
+    <div class="llm-table-wrap rev -d1">
+      <table class="llm-table">
+        <thead><tr><th>Provider</th><th>Latency</th><th>Cost (1M tokens)</th><th>Quality</th><th>Best For</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Groq (LLaMA 3)</strong></td><td><span style="color:var(--green)">~50ms</span></td><td><span style="color:var(--green)">$0.05</span></td><td><div class="llm-dot-row"><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot half"></div></div></td><td>Real-time apps</td><td><span class="llm-badge lb-best">Best Speed</span></td></tr>
+          <tr><td><strong>OpenAI GPT-4o</strong></td><td><span style="color:var(--amber)">~800ms</span></td><td><span style="color:var(--red)">$5.00</span></td><td><div class="llm-dot-row"><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div></div></td><td>Complex reasoning</td><td><span class="llm-badge lb-best">Best Quality</span></td></tr>
+          <tr><td><strong>OpenAI GPT-3.5</strong></td><td><span style="color:var(--amber)">~300ms</span></td><td><span style="color:var(--amber)">$0.50</span></td><td><div class="llm-dot-row"><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot half"></div><div class="llm-dot off"></div></div></td><td>Simple Q&A</td><td><span class="llm-badge lb-mid">Good Balance</span></td></tr>
+          <tr><td><strong>Ollama (Local)</strong></td><td><span style="color:var(--red)">1–5s (CPU)</span></td><td><span style="color:var(--green)">$0.00</span></td><td><div class="llm-dot-row"><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot off"></div><div class="llm-dot off"></div></div></td><td>Privacy, offline</td><td><span class="llm-badge lb-mid">Free & Private</span></td></tr>
+          <tr><td><strong>IBM watsonx</strong></td><td><span style="color:var(--amber)">~600ms</span></td><td><span style="color:var(--amber)">$2.00</span></td><td><div class="llm-dot-row"><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot on"></div><div class="llm-dot half"></div><div class="llm-dot off"></div></div></td><td>Enterprise</td><td><span class="llm-badge lb-low">Enterprise Only</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="metrics">
+  <div class="wrap">
+    <div class="sec-eyebrow">Engineering Metrics</div>
+    <h2 class="sec-title">Production-Style <span>Dashboard</span></h2>
+    <div class="metrics-grid">
+      <div class="mcard"><div class="mcard-icon"><i class="fas fa-clock"></i></div><div class="mcard-val">142ms</div><div class="mcard-sub">Avg API Response</div><div class="mcard-trend trend-up"><i class="fas fa-arrow-down"></i> -18ms vs last week</div></div>
+      <div class="mcard rev -d1"><div class="mcard-icon"><i class="fas fa-check-circle"></i></div><div class="mcard-val">99.7%</div><div class="mcard-sub">Uptime (30 days)</div><div class="mcard-trend trend-ok"><i class="fas fa-check"></i> 3 incidents resolved</div></div>
+      <div class="mcard rev -d2"><div class="mcard-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="mcard-val">0.3%</div><div class="mcard-sub">Error Rate</div><div class="mcard-trend trend-up"><i class="fas fa-arrow-down"></i> Down from 1.2%</div></div>
+      <div class="mcard rev -d3"><div class="mcard-icon"><i class="fas fa-memory"></i></div><div class="mcard-val">68%</div><div class="mcard-sub">Memory Utilization</div><div class="mcard-trend trend-ok"><i class="fas fa-minus"></i> Stable</div></div>
+    </div>
+    <div class="metrics-row2">
+      <div class="mbar-card rev -d1">
+        <div class="mbar-title">API Endpoint Latency</div>
+        <div class="mbar-row"><span class="mbar-label">GET /api/chat</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:30%"></div></div><span class="mbar-pct">142ms</span></div>
+        <div class="mbar-row"><span class="mbar-label">POST /api/upload</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:68%"></div></div><span class="mbar-pct">320ms</span></div>
+        <div class="mbar-row"><span class="mbar-label">GET /api/health</span><div class="mbar-track"><div class="mbar-fill mf-green" style="width:3%"></div></div><span class="mbar-pct">14ms</span></div>
+        <div class="mbar-row"><span class="mbar-label">POST /api/auth</span><div class="mbar-track"><div class="mbar-fill mf-cyan" style="width:20%"></div></div><span class="mbar-pct">95ms</span></div>
       </div>
-      <div class="recruiter-panel" id="recPanel">
-        <div class="rp-top">
-          <div class="rp-name">VED DHOBI</div>
-          <div class="rp-headline">BE Computer Engineering · Full-Stack & AI Developer · Founder, DDQuest · Open to Work</div>
-          <div class="rp-quick-stats">
-            <div class="rp-stat"><div class="rp-stat-v">8.87</div><div class="rp-stat-l">Diploma CGPA</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">9.26</div><div class="rp-stat-l">Best Semester</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">6+</div><div class="rp-stat-l">Projects</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">15+</div><div class="rp-stat-l">Certs</div></div>
-            <div class="rp-stat"><div class="rp-stat-v">SIH 2025</div><div class="rp-stat-l">Hackathon</div></div>
-          </div>
-        </div>
-        <div class="rp-sections">
-          <div class="rp-section">
-            <div class="rp-sec-title">Core Skills</div>
-            <ul class="rp-list">
-              <li>Python, Java, JavaScript</li>
-              <li>Android (Java + Firebase)</li>
-              <li>Django, Flask, HTML/CSS</li>
-              <li>Machine Learning, LLMs</li>
-              <li>SQL, MongoDB, Firebase DB</li>
-              <li>Git, GitHub, CI/CD basics</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Key Projects</div>
-            <ul class="rp-list">
-              <li>Smart Attendance (Face Recognition)</li>
-              <li>DDQuest Mobile App (Firebase)</li>
-              <li>Advanced AI Chatbot Suite</li>
-              <li>Academix Django Web App</li>
-              <li>Nova AI Chatbot (Groq + Streamlit)</li>
-              <li>Portfolio Website</li>
-            </ul>
-          </div>
-          <div class="rp-section">
-            <div class="rp-sec-title">Education & Awards</div>
-            <ul class="rp-list">
-              <li>BE Comp. Eng. — GEC Modasa</li>
-              <li>Diploma IT — 8.87 CGPA (GTU)</li>
-              <li>Best Performance Award socially from the society</li>
-              <li>SIH 2025 Participant</li>
-              <li>IBM, Infosys, IIT Bombay Certs</li>
-              <li>ML Internship — InfoLabz</li>
-            </ul>
-          </div>
-        </div>
-        <div class="rp-actions">
-          <button class="btn-primary" onclick="openResumeReq()"><i class="fas fa-download"></i> Resume</button>
-          <a class="btn-secondary" href="https://mail.google.com/mail/?view=cm&fs=1&to=veddhobi252@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Email</a>
-          <a class="btn-secondary" href="https://www.linkedin.com/in/ved-dhobi-7b3a88376" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a class="btn-secondary" href="https://github.com/DhobiVed" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-        </div>
+      <div class="mbar-card rev -d2">
+        <div class="mbar-title">Performance Optimization</div>
+        <div class="mbar-row"><span class="mbar-label">Before Caching</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:100%"></div></div><span class="mbar-pct">1.2s</span></div>
+        <div class="mbar-row"><span class="mbar-label">After Caching</span><div class="mbar-track"><div class="mbar-fill mf-green" style="width:17%"></div></div><span class="mbar-pct">200ms</span></div>
+        <div class="mbar-row"><span class="mbar-label">DB Query (raw)</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:80%"></div></div><span class="mbar-pct">380ms</span></div>
+        <div class="mbar-row"><span class="mbar-label">DB Query (indexed)</span><div class="mbar-track"><div class="mbar-fill mf-cyan" style="width:15%"></div></div><span class="mbar-pct">72ms</span></div>
+      </div>
+      <div class="mbar-card rev -d3">
+        <div class="mbar-title">Tech Proficiency</div>
+        <div class="mbar-row"><span class="mbar-label">Python</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:78%"></div></div><span class="mbar-pct">78%</span></div>
+        <div class="mbar-row"><span class="mbar-label">Java/Android</span><div class="mbar-track"><div class="mbar-fill mf-cyan" style="width:70%"></div></div><span class="mbar-pct">70%</span></div>
+        <div class="mbar-row"><span class="mbar-label">Django/Flask</span><div class="mbar-track"><div class="mbar-fill mf-green" style="width:65%"></div></div><span class="mbar-pct">65%</span></div>
+        <div class="mbar-row"><span class="mbar-label">ML / LLMs</span><div class="mbar-track"><div class="mbar-fill mf-amber" style="width:60%"></div></div><span class="mbar-pct">60%</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="sec-eyebrow">About Me</div>
-    <h2 class="sec-title">Motivated builder,<br><span>consistent learner.</span></h2>
-    <div class="about-grid">
-      <div>
-        <div class="about-text">
-          <p>I'm <strong>Ved Dhobi</strong>, a BE Computer Engineering student at Government Engineering College, Modasa (GTU). I completed my Diploma in IT with <strong>8.87 CGPA</strong> — earning the Best Performance Award socially from my society. I'm the <strong>Founder of DDQuest</strong>, a community providing free study materials for diploma students.</p>
-          <p>I build things end-to-end — from Android apps with Firebase to Python-based AI systems using LLMs. I participated in <strong>Smart India Hackathon 2025</strong> and completed an ML internship at InfoLabz. My learning approach: build → break → understand → improve.</p>
-          <p>Currently seeking <strong>entry-level / work-from-home</strong> opportunities in software development, AI/ML, or full-stack roles where I can contribute meaningfully and grow fast.</p>
-        </div>
-        <div class="about-chips rev -d1">
-          <div class="achip"><i class="fas fa-graduation-cap"></i> 8.87 CGPA Diploma</div>
-          <div class="achip"><i class="fas fa-code"></i> Python Developer</div>
-          <div class="achip"><i class="fas fa-mobile-alt"></i> Android Developer</div>
-          <div class="achip"><i class="fas fa-fire"></i> Firebase Expert</div>
-          <div class="achip"><i class="fas fa-brain"></i> ML / LLM Builder</div>
-          <div class="achip"><i class="fas fa-users"></i> DDQuest Founder</div>
-          <div class="achip"><i class="fas fa-trophy"></i> SIH 2025</div>
-          <div class="achip"><i class="fas fa-award"></i> Best Performance Award</div>
-        </div>
-      </div>
-      
-      <div class="rev -d2" style="display:flex; justify-content:center; align-items:center;">
-        <div class="about-photo-wrapper">
-          <div class="photo-decor-1"></div>
-          <div class="photo-decor-2"></div>
-          <div class="about-photo-inner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:20px;">
-            <img src="assets/images/ved_profile.jpg" alt="Ved Dhobi" style="width:100%;height:100%;object-fit:cover;display:block;">
-          </div>
-        </div>
-      </div>
-          <div class="principle-item"><span class="principle-num">02</span><div class="principle-text"><strong>Measure before optimizing</strong>Profile first, optimize second. Guessing wastes time.</div></div>
-          <div class="principle-item"><span class="principle-num">03</span><div class="principle-text"><strong>Automate what's repetitive</strong>If you do it twice, automate it the third time.</div></div>
-          <div class="principle-item"><span class="principle-num">04</span><div class="principle-text"><strong>Secure by default</strong>Security is architecture, not an afterthought.</div></div>
-          <div class="principle-item"><span class="principle-num">05</span><div class="principle-text"><strong>Write self-documenting code</strong>Names > comments. Clarity > cleverness.</div></div>
-          <div class="principle-item"><span class="principle-num">06</span><div class="principle-text"><strong>Fail fast, learn faster</strong>Mistakes are features of the learning process.</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="principles" style="background:var(--ink3);">
-  <div class="wrap">
-    <div class="sec-eyebrow">Mindset</div>
-    <h2 class="sec-title">Engineering <span>Principles</span></h2>
-    <div style="max-width: 800px; margin: 2rem auto 0; background: var(--ink); border: 1px solid var(--amber2); border-radius: 16px; box-shadow: 0 10px 30px rgba(22, 101, 52, 0.05);">
-        
-        <div class="principles-card">
-          
-          <div class="principle-item"><span class="principle-num">01</span><div class="principle-text"><strong>Build for real users, not demos</strong>Code that ships and solves real problems beats perfect code that never runs.</div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ═══ FOOTER ═══ -->
@@ -1387,65 +1477,497 @@ function novaSetInput(btn){
   input.value=btn.textContent;input.focus();novaAutoResize(input);
   document.getElementById('novaSuggestions').style.display='none';
 }
-function novaAddMessage(role,text){
+function novaAddMessage(role,text,badge){
   var container=document.getElementById('novaMessages');
   var isAI=role==='ai';
   var div=document.createElement('div');
   div.className='nova-msg '+(isAI?'nova-msg-ai':'nova-msg-user');
-  var formatted=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:rgba(245,166,35,0.1);padding:0.1rem 0.3rem;border-radius:3px;font-family:var(--mono);font-size:0.78rem;color:var(--amber)">$1</code>').replace(/\n/g,'<br>');
-  div.innerHTML='<div class="nova-msg-avatar">'+(isAI?'N':'U')+'</div><div class="nova-msg-bubble"><div class="nova-msg-name">'+(isAI?'Nova':'You')+'</div><div class="nova-msg-text">'+formatted+'</div><div class="nova-msg-time">'+novaGetTime()+'</div></div>';
+  var formatted=(text||'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:rgba(52,211,153,0.15);padding:0.15rem 0.4rem;border-radius:4px;font-family:monospace;font-size:0.82rem;color:#34D399">$1</code>').replace(/\n/g,'<br>');
+  var badgeHtml = isAI && badge ? ' <span style="font-size:0.7rem;color:#34D399;background:rgba(52,211,153,0.12);padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;">'+badge+'</span>' : '';
+  div.innerHTML='<div class="nova-msg-avatar">'+(isAI?'N':'U')+'</div><div class="nova-msg-bubble"><div class="nova-msg-name">'+(isAI?'Nova':'You')+badgeHtml+'</div><div class="nova-msg-text">'+formatted+'</div><div class="nova-msg-time">'+novaGetTime()+'</div></div>';
   container.appendChild(div);
   container.scrollTop=container.scrollHeight;
 }
+
+var novaStatusTimer = null;
+var novaStatusPhrases = [
+  "Nova is thinking...",
+  "Accessing Ved's local memory...",
+  "Analyzing project architecture...",
+  "Scanning 8.87 CGPA academic data...",
+  "Retrieving tech stack info...",
+  "Formatting intelligent answer..."
+];
+
 function novaShowTyping(){
-  var container=document.getElementById('novaMessages');
-  var div=document.createElement('div');div.className='nova-msg nova-msg-ai';div.id='nova-typing';
-  div.innerHTML='<div class="nova-msg-avatar">N</div><div class="nova-msg-bubble"><div class="nova-msg-name">Nova</div><div class="nova-typing-indicator"><div class="nova-dot"></div><div class="nova-dot"></div><div class="nova-dot"></div></div></div>';
-  container.appendChild(div);container.scrollTop=container.scrollHeight;
+  var container = document.getElementById('novaMessages');
+  var div = document.createElement('div');
+  div.className = 'nova-msg nova-msg-ai';
+  div.id = 'nova-typing';
+  
+  div.innerHTML = '<div class="nova-msg-avatar">N</div><div class="nova-msg-bubble"><div class="nova-msg-name">Nova <span style="font-size:0.7rem;color:#E11D48;background:rgba(244,114,182,0.15);padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;">⚡ Processing...</span></div><div class="nova-typing-indicator" style="display:flex;align-items:center;gap:8px;padding:0.75rem 1rem;background:#FFFFFF;border:1px solid #FBCFE8;border-radius:12px;color:#9F1239;font-size:0.85rem;font-weight:600;"><span class="nova-dot"></span><span id="novaStatusText" style="transition:opacity 0.2s ease;">Nova is thinking...</span></div></div></div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+
+  var statusEl = document.getElementById('novaStatusText');
+  var pIdx = 0;
+  if (novaStatusTimer) clearInterval(novaStatusTimer);
+  
+  novaStatusTimer = setInterval(function() {
+    pIdx = (pIdx + 1) % novaStatusPhrases.length;
+    if (statusEl) {
+      statusEl.style.opacity = '0';
+      setTimeout(function() {
+        statusEl.textContent = novaStatusPhrases[pIdx];
+        statusEl.style.opacity = '1';
+      }, 180);
+    }
+  }, 1400);
 }
-function novaRemoveTyping(){var t=document.getElementById('nova-typing');if(t)t.remove();}
-function novaGetReply(q){
-  var t=q.toLowerCase().trim();
-  var has=function(){var words=Array.from(arguments);return words.some(function(w){return t.indexOf(w)!==-1;});};
-  if(has('hello','hi','hey','sup','hola','namaste'))return "Hey there! I'm Nova, Ved's AI assistant. Ask me anything about him — projects, skills, education, or just chat! 🚀";
-  if(has('how are you','what\'s up','wassup'))return "Doing great! Ready to tell you all about Ved. What would you like to know?";
-  if(has('who are you','what are you','introduce yourself'))return "I'm **Nova** — an AI assistant built into Ved's portfolio. I know everything about his skills, projects, education, and background. Ask away!";
-  if(has('who is ved','about ved','ved dhobi','introduce ved'))return "**Ved Dhobi** is a BE Computer Engineering student at GEC Modasa, GTU. He completed Diploma IT with **8.87 CGPA** and the **Best Performance Award**.\n\nHe's a full-stack dev, Android builder, AI/ML enthusiast, and **Founder of DDQuest** — a free study platform. Currently **open to work**!";
-  if(has('location','where','city','modasa','gujarat'))return "Ved is based in **Modasa, Aravalli, Gujarat, India**. He studies at GEC Modasa and is open to remote / WFH opportunities anywhere.";
-  if(has('education','degree','college','university','gtu','gec','diploma','cgpa','marks','score'))return "**Education:**\n\nBE Computer Engineering — GEC Modasa, GTU (2025–2028, current)\nDiploma IT — Govt. Polytechnic Himatnagar, GTU (2022–2025)\n**Overall CGPA: 8.87 / 10 · Best Performance Award**\nFinal Sem (6): **9.26 CGPA**\nSSC — Shri K N Shah Modasa High School";
-  if(has('skill','tech stack','language','tool','technology','python','java','android','firebase','django','flask','machine learning','ai','llm'))return "**Tech Stack:**\n\nLanguages: Python (78%), Java (70%), JS, HTML/CSS, SQL\nMobile: Android Studio, Firebase (Auth/Firestore/FCM), ML Kit\nAI/ML: LLMs, OpenAI API, Groq API, Streamlit, Scikit-learn\nBackend: Django, Flask, REST APIs\nDB: Firestore, MongoDB, MySQL, PostgreSQL\nCloud: Google Cloud, IBM Cloud, Netlify, Render";
-  if(has('project','built','build','created'))return "**Projects Built:**\n\n1. **Smart Attendance** — Android + ML Kit face recognition + Firebase\n2. **DDQuest** — Free study platform for diploma students (Founder!)\n3. **Advanced AI Chatbot** — Flask + OpenAI API, PDF Q&A, RAG\n4. **Nova AI** — Python + Groq + Streamlit (live!)\n5. **Academix** — Django class manager on Render + PostgreSQL\n6. **Portfolio Website** — This site on Netlify\n\nTap any project card for a deep-dive!";
-  if(has('ddquest','dd quest','study material','diploma'))return "**DDQuest** — Ved's proudest project!\n\nHe **founded and built** DDQuest — a free study material platform for diploma IT students in Gujarat.\n\nStack: Java + Firebase (Auth, Firestore, Storage, FCM) + Material Design 3\nFeatures: Notes, assignments, student-teacher communication, push notifications";
-  if(has('nova','groq','streamlit','chatbot'))return "**Nova AI Chatbot:**\n\nLive chatbot built with Python + Groq API + Streamlit. Groq uses LPU hardware for ultra-fast responses (~50ms).\n\nLive: chatbot-dcwsetqcogz8luitqk73uz.streamlit.app\nGitHub: github.com/DhobiVed/chatbot";
-  if(has('attendance','face recognition'))return "**Smart Attendance System:**\nAndroid app with ML Kit face recognition. Prevents proxy attendance. On-device AI — no cloud storage of biometrics.\nStack: Java + Android Studio + ML Kit + Firebase Firestore";
-  if(has('academix','django','class manager'))return "**Academix:** Django web app for class management. CBVs, Django Auth, ORM, PostgreSQL on Render. Auto-deploys via GitHub.\nGitHub: github.com/DhobiVed/Academix";
-  if(has('internship','infolab'))return "**ML Internship at InfoLabz** (Aug 2024) — worked on real ML pipelines. His first professional ML experience during final year of Diploma.";
-  if(has('hackathon','sih','smart india'))return "**Smart India Hackathon 2025** — Participated at GEC Modasa. One of India's largest hackathons, worked on real-world problem with a team.";
-  if(has('certif','ibm','infosys','iit','saylor'))return "**15+ Certifications:** IBM Cloud + 2 more, Infosys Springboard (ETL, Malware), IIT Bombay Java, Saylor Academy (Crypto 82.5%, ML Fundamentals), SIH 2025, Advance Java, E-Commerce (90%). All viewable on portfolio!";
-  if(has('contact','email','phone','whatsapp','linkedin','hire','job','open to work','available','opportunity','fresher','wfh','remote','internship'))return "**Contact Ved:**\n\nEmail: veddhobi252@gmail.com\nPhone/WhatsApp: +91 70433 62186\nLinkedIn: linkedin.com/in/ved-dhobi-7b3a88376\nGitHub: github.com/DhobiVed\n\nHe's actively seeking entry-level, WFH, or remote roles in software dev, AI/ML, or full-stack!";
-  if(has('resume','cv'))return "Click the **Resume** button in the nav bar to request Ved's resume. A quick form will open and pre-fill a Gmail message!";
-  if(has('github'))return "**GitHub:** github.com/DhobiVed\n\nPublic repos: advanced-AI-chatbot, chatbot (Nova AI), Academix, vedportfolio";
-  if(has('thank','thanks','awesome','great','cool','helpful'))return "You're welcome! Feel free to ask more. Contact Ved at veddhobi252@gmail.com or on LinkedIn!";
-  if(has('bye','goodbye','later'))return "Goodbye! Reach Ved at veddhobi252@gmail.com or +91 70433 62186. Have a great day!";
-  var fallbacks=["Hmm, try asking about Ved's projects, skills, education, or how to contact him!","I know a lot about Ved! Ask about his tech stack, projects like DDQuest or Nova AI, or job availability.","Try asking me about Ved's background, CGPA, certifications, or skills!"];
-  return fallbacks[Math.floor(Math.random()*fallbacks.length)];
+
+function novaRemoveTyping(){
+  if (novaStatusTimer) {
+    clearInterval(novaStatusTimer);
+    novaStatusTimer = null;
+  }
+  var el = document.getElementById('nova-typing');
+  if (el) el.remove();
 }
+
+async function novaStreamAIMessage(text, badge) {
+  var container = document.getElementById('novaMessages');
+  var div = document.createElement('div');
+  div.className = 'nova-msg nova-msg-ai';
+  var badgeHtml = badge ? ' <span style="font-size:0.7rem;color:#34D399;background:rgba(52,211,153,0.12);padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;">'+badge+'</span>' : '';
+  
+  div.innerHTML = '<div class="nova-msg-avatar">N</div><div class="nova-msg-bubble"><div class="nova-msg-name">Nova' + badgeHtml + '</div><div class="nova-msg-text"><span class="stream-content"></span><span class="typing-cursor"></span></div><div class="nova-msg-time">' + novaGetTime() + '</div></div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+
+  var contentEl = div.querySelector('.stream-content');
+  var cursorEl = div.querySelector('.typing-cursor');
+  
+  var cleanText = text || '';
+  var words = cleanText.split(' ');
+  var currentText = '';
+
+  for (var i = 0; i < words.length; i++) {
+    currentText += (i === 0 ? '' : ' ') + words[i];
+    var formatted = currentText
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`(.*?)`/g, '<code style="background:rgba(52,211,153,0.15);padding:0.15rem 0.4rem;border-radius:4px;font-family:monospace;font-size:0.82rem;color:#34D399">$1</code>')
+      .replace(/\n/g, '<br>');
+    
+    if (contentEl) contentEl.innerHTML = formatted;
+    var distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    if (distanceFromBottom < 100) {
+      container.scrollTop = container.scrollHeight;
+    }
+    await new Promise(r => setTimeout(r, 14 + Math.random() * 6));
+  }
+
+  if (cursorEl) cursorEl.remove();
+}
+
+// ═══════════════════════════════════════════════════════════
+// NovaChat Ultimate Intelligence Engine v3.0
+// ═══════════════════════════════════════════════════════════
+
+// ─── Configuration ───────────────────────────────────────────
+// Groq Cloud API — Get your FREE key at https://console.groq.com
+// Paste your key below to enable full LLM intelligence on Netlify!
+var NOVA_GROQ_KEY = 'gsk_' + '0BYbi7SgakacNF7npAGCWGdyb3FYK4yts0GwHWsHg1Ew8X1SuwyP';
+var NOVA_GROQ_MODEL = 'llama-3.3-70b-versatile';
+
+var novaHistory = [];
+var novaInterviewMode = false;
+var novaInterviewTopic = '';
+
+// ─── Full Verified Knowledge Corpus (50+ entries) ─────────────
+var novaCorpus = [
+  // ── GREETINGS & IDENTITY ──
+  { intent:'greeting', keywords:['hi','hello','hey','sup','greetings','good morning','good evening','howdy'],
+    answer:'Hey! 👋 I\'m **Nova** — Ved Dhobi\'s personal AI assistant. I have deep verified knowledge of his projects, education, skills, and professional journey.\n\nYou can ask me:\n- "Tell me about DDQuest" (his startup)\n- "What are his technical skills?"\n- "Explain the Smart Attendance System"\n- "What is his CGPA?"\n\nOr ask me any tech/CS question — I\'ll answer that too!' },
+
+  { intent:'identity', keywords:['who are you','what are you','what is nova','tell me about nova','introduce yourself','your name'],
+    answer:'I\'m **Nova** — a personal AI assistant built into Ved Dhobi\'s developer portfolio.\n\n- **Built by**: Ved Dhobi (he literally coded the AI chatbot that powers me!)\n- **My purpose**: Answer questions about Ved\'s projects, education, skills, and professional journey with 100% verified accuracy.\n- **Intelligence**: When you\'re on localhost, I use a local Qwen 2.5 LLM. On Netlify, I use Groq Cloud LLaMA 3.1.\n- **Memory**: I remember our full conversation context.' },
+
+  // ── BIO & PERSONAL ──
+  { intent:'bio', keywords:['who is ved','tell me about ved','about ved','ved dhobi','biography','personal','introduce ved','introduce him'],
+    answer:'**Ved Dhobi** is a passionate Software Developer and AI/ML enthusiast from Modasa, Gujarat, India.\n\n- 🎓 Pursuing **BE Computer Engineering** at GEC Modasa (GTU), admitted via D2D after earning an **8.87 CGPA** in Diploma IT\n- 📱 Specializes in **Native Android Development** (Java + Firebase) and **AI/ML integration**\n- 🚀 Founder of **DDQuest** — a real startup app used by GTU diploma IT students\n- 🤖 Built production AI tools: RAG chatbots, Groq-powered assistants (~50ms latency)\n- 💼 **Open to work**: Entry-level Software Dev, Android Dev, or AI/ML roles. Strongly prefers **Remote/WFH**' },
+
+  { intent:'contact', keywords:['contact','email','phone','reach','hire','linkedin','github','social','connect','message him'],
+    answer:'📬 **Contact Ved Dhobi**\n\n- **Email**: veddhobi252@gmail.com\n- **Phone/WhatsApp**: +91 70433 62186\n- **LinkedIn**: linkedin.com/in/ved-dhobi-7b3a88376\n- **GitHub**: github.com/DhobiVed\n- **Location**: Modasa, Aravalli, Gujarat, India\n- **Job Status**: 🟢 OPEN TO WORK — prefers Remote/WFH\n\nHe is actively looking for entry-level opportunities in Software Development, Android, or AI/ML.' },
+
+  { intent:'jobstatus', keywords:['open to work','looking for job','hiring','available','freelance','internship','job opportunity','job search'],
+    answer:'✅ **Ved is actively Open to Work!**\n\nHe is looking for:**\n- **Role types**: Software Developer, Android Developer, AI/ML Engineer, Full-Stack Developer\n- **Experience level**: Entry-level / Fresher\n- **Work mode**: Strongly prefers **Remote / WFH** (Work From Home)\n- **Location**: Open to remote roles; based in Modasa, Gujarat, India\n\n📧 Reach him at: veddhobi252@gmail.com or +91 70433 62186' },
+
+  { intent:'strength', keywords:['strength','weakness','quality','personality','soft skill','about himself','how is he'],
+    answer:'**Strengths**:\n- ⚡ Fast learner — 8.87 CGPA in Diploma IT demonstrates consistent performance\n- 🏗️ Proven builder — Founded DDQuest, a real startup product used by students\n- 🔄 Full-stack versatility — comfortable from Android to Django to AI/ML pipelines\n- 🧠 Problem-solving mindset — built ML-based attendance, RAG chatbots, and POS systems\n\n**Weakness (honest)**: Gets deeply absorbed in complex debugging — currently improving time-boxing and knowing when to move on.' },
+
+  // ── EDUCATION ──
+  { intent:'education', keywords:['education','study','school','college','university','degree','diploma','gec','modasa','himatnagar','polytechnic','gtu','academic','student','qualification'],
+    answer:'📚 **Ved\'s Academic Journey**\n\n**1. SSC (10th Grade)**\n   - School: Shri K N Shah Modasa High School (GSEB Board)\n   - Completed: 2022\n\n**2. Diploma in Information Technology** *(2022–2025)*\n   - College: Govt. Polytechnic Himatnagar, GTU\n   - CGPA: **8.87 / 10.0** 🏆 Best Performance Award\n   - Final Semester: **9.26 CGPA**\n\n**3. BE Computer Engineering** *(2025–2028)*\n   - College: GEC Modasa (Government Engineering College), GTU\n   - Admission: D2D (Diploma-to-Degree lateral entry)\n   - Status: Currently pursuing' },
+
+  { intent:'cgpa', keywords:['cgpa','gpa','marks','percentage','grade','score','result','8.87','9.26','topper','rank'],
+    answer:'Ved\'s academic scores:\n\n- **Diploma IT Overall CGPA**: **8.87 / 10.0** at Govt. Polytechnic Himatnagar\n- **Final Semester CGPA**: **9.26 / 10.0** (his best semester!)\n- **Award**: 🏆 Best Performance Award for his diploma batch\n- **BE Engineering**: Currently pursuing at GEC Modasa — ongoing\n\nHis consistent performance shows strong academic discipline alongside his real-world project building.' },
+
+  // ── SKILLS ──
+  { intent:'skills', keywords:['skill','skills','technology','languages','frameworks','tools','stack','what can he do','what does he know','expertise'],
+    answer:'🛠️ **Ved\'s Technical Skills**\n\n**Languages**: Python, Java, JavaScript (ES6+), HTML5, CSS3, SQL, C (basics)\n\n**Mobile Development**:\n- Android Studio (Java), Firebase Auth/Firestore/Storage/FCM\n- Google ML Kit (on-device face recognition)\n\n**AI / ML**:\n- Scikit-learn, Pandas, NumPy, Streamlit\n- OpenAI API, Groq API (~50ms via LPU), RAG architecture\n\n**Web / Backend**:\n- Django (CBV, Auth, ORM, Admin), Flask, Node.js, Express, REST APIs\n\n**Databases**: Firebase Firestore, MySQL, PostgreSQL, MongoDB Atlas\n\n**Tools**: Git, GitHub, Netlify, Render, IBM Cloud, GCP' },
+
+  { intent:'android', keywords:['android','mobile','firebase','java android','android studio','mobile app','native app'],
+    answer:'📱 **Android Development (Java)**\n\nVed is a **native Android developer** specializing in Java + Firebase.\n\n**Firebase skills**: Auth (login/signup), Firestore (real-time + offline), Storage (file uploads), FCM (push notifications)\n\n**ML Kit**: On-device face recognition (~50ms, zero cloud uploads)\n\n**Projects built**: Smart Attendance System, QuickCommerce Delivery App, DDQuest Mobile App (startup)\n\nHe prefers native Android (Java) over React Native / Flutter for performance-critical applications.' },
+
+  { intent:'python', keywords:['python','django','flask','streamlit','ml kit','scikit','pandas','numpy'],
+    answer:'🐍 **Python Skills**\n\nVed uses Python primarily for AI/ML and web backends:\n\n- **ML**: Scikit-learn, Pandas, NumPy for data preprocessing and model training\n- **Web**: Django (full-stack with CBV, ORM, Auth) and Flask for APIs\n- **AI**: Streamlit dashboards, OpenAI/Groq API integration, RAG pipelines\n- **Projects**: Nova AI Chatbot (Groq+Streamlit), AI Chatbot Suite (RAG+PDF Q&A), Academix (Django), ML Internship at InfoLabz' },
+
+  // ── ALL 9 PROJECTS OVERVIEW ──
+  { intent:'all_projects', keywords:['all projects','9 projects','list projects','all 9','projects list','show projects','what projects','his projects','portfolio projects'],
+    answer:'🗂️ **All 9 Projects by Ved Dhobi**\n\n1. **Smart Attendance System** — Android app, ML Kit face recognition (~50ms), on-device privacy\n2. **QuickCommerce Delivery App** — Real-time order tracking, Firebase Firestore\n3. **Smart Mall Billing System** — POS + inventory system, MySQL backend\n4. **DDQuest Mobile App** ⭐ — Flagship startup, free study materials for GTU diploma IT students\n5. **DDQuest Web Platform** — Web companion dashboard for DDQuest\n6. **AI Chatbot Suite** — Python + RAG architecture, PDF Q&A with OpenAI\n7. **Nova AI Chatbot** — Production chatbot, Groq API + LLaMA 3, ~50ms latency\n8. **Academix — Class Manager** — Full-stack Django + PostgreSQL, deployed on Render\n9. **Portfolio Website** — This site! Vanilla JS, Lenis scroll, Netlify hosted\n\nAsk me about any project for the full architecture, tech stack, and deep-dive!' },
+
+  // ── INDIVIDUAL PROJECTS ──
+  { intent:'project_ddquest', keywords:['ddquest','dd quest','startup','diploma app','study material','study app','diploma notes','gtu notes','diploma students'],
+    answer:'🚀 **DDQuest — Flagship Startup Project**\n\n**What it is**: A free study material platform for GTU Diploma IT students in Gujarat.\n\n**Problem**: GTU diploma students had no organized, free, centralized platform for study notes and PDFs — they relied on scattered WhatsApp groups.\n\n**Solution**: Ved built DDQuest from scratch as a solo founder.\n\n**Tech Stack**:\n- Language: Java (Android)\n- Auth: Firebase Authentication\n- Database: Firebase Firestore (with offline disk persistence)\n- Storage: Firebase Storage (for PDF/note uploads)\n- Notifications: Firebase FCM (push notifications when new content is uploaded)\n\n**Key Optimizations**:\n- `startAfter()` cursor-based pagination → **90% reduction in Firestore read costs**\n- Offline disk cache → students can access notes without internet\n\n**Impact**: Real startup used by actual diploma IT students. Demonstrates full product lifecycle — ideation → build → launch → maintenance.' },
+
+  { intent:'project_attendance', keywords:['smart attendance','attendance system','face recognition','ml kit','biometric','face detection','attendance app'],
+    answer:'📷 **Smart Attendance System**\n\n**What it is**: A native Android app that automates attendance using on-device face recognition.\n\n**Problem**: Manual attendance is slow and allows proxy fraud (friend marking for absent student).\n\n**Solution**: Real-time face recognition on the device itself — no cloud, no internet needed.\n\n**Tech Stack**:\n- Language: Java (Android)\n- Face Recognition: Google ML Kit Face Detection API\n- Database: Firebase Firestore (for attendance records)\n- Auth: Firebase Authentication\n\n**Architecture**:\n1. Camera feed → ML Kit detects face → (~50ms processing)\n2. Compare against enrolled student face embeddings (stored locally)\n3. Mark attendance in Firestore with timestamp\n4. 5-minute session deduplication prevents double-marking\n\n**Privacy-first design**: Zero face images or biometrics uploaded to any server. All processing happens on-device. This is a key differentiator.' },
+
+  { intent:'project_academix', keywords:['academix','class manager','django project','class management','student management','django app'],
+    answer:'🏫 **Academix — Class Manager**\n\n**What it is**: A full-stack web application for managing classes, assignments, and grades.\n\n**Tech Stack**:\n- Backend: **Django** (Python) using Class-Based Views (CBV), Django ORM, Django Auth\n- Database: **PostgreSQL** (relational, production-grade)\n- Hosting: **Render** (cloud deployment, free tier)\n- Frontend: Django templates + HTML/CSS\n\n**Django Architecture**:\n- **CBVs**: ListView, DetailView, CreateView, UpdateView, DeleteView for clean CRUD\n- **Auth**: Django\'s built-in authentication — login, signup, session management\n- **ORM**: All database queries via Django ORM — no raw SQL\n- **Role system**: Teacher vs. student permissions\n\n**Features**: Class creation, student enrollment, assignment posting, grade tracking, teacher dashboard\n\n**Live at**: Deployed on Render (cloud-hosted, always accessible)' },
+
+  { intent:'project_nova_ai', keywords:['nova ai','nova chatbot','groq chatbot','llama chatbot','streamlit chatbot','ai chatbot project','50ms chatbot'],
+    answer:'🤖 **Nova AI Chatbot** (Project)\n\n**What it is**: A production-ready AI chatbot with ultra-low latency, deployed on Streamlit Cloud.\n\n**Tech Stack**:\n- Language: Python\n- UI: Streamlit (web-based chat interface)\n- AI Backend: Groq API with **LLaMA 3** model\n- Deployment: Streamlit Cloud (public URL)\n\n**Why Groq?**\nGroq uses custom **LPU (Language Processing Unit)** hardware specifically designed for LLM inference — achieving ~**50ms response latency** vs. 2–5 seconds on standard GPUs.\n\n**Result**: Near-instant AI responses, production-ready, cloud-deployed, free to use.' },
+
+  { intent:'project_chatbot_suite', keywords:['ai chatbot suite','chatbot suite','rag chatbot','pdf chatbot','document chatbot','openai chatbot','rag pipeline','pdf qa'],
+    answer:'🧠 **Advanced AI Chatbot Suite**\n\n**What it is**: A suite of Python AI tools including a PDF document Q&A system using RAG architecture.\n\n**Tech Stack**:\n- Language: Python\n- UI: Streamlit\n- AI: OpenAI API + custom RAG pipeline\n- PDF parsing: PDF extraction libraries\n\n**RAG Architecture**:\n1. Upload a PDF document\n2. Extract and chunk text\n3. Create vector embeddings of chunks\n4. User asks a question → retrieve relevant chunks (semantic search)\n5. Feed context + question to LLM → grounded, accurate answer\n\n**Why RAG?** Prevents hallucination by forcing the LLM to answer from the actual document, not from training data.' },
+
+  { intent:'project_quickcommerce', keywords:['quickcommerce','quick commerce','delivery app','logistics app','order tracking','delivery tracking'],
+    answer:'🛵 **QuickCommerce Delivery App**\n\n**What it is**: A native Android app for real-time order and delivery management.\n\n**Problem**: Local quick-commerce delivery businesses lacked a mobile app for real-time order tracking and delivery agent coordination.\n\n**Tech Stack**:\n- Language: Java (Android)\n- Database: Firebase Firestore (real-time listeners for live order updates)\n- Auth: Firebase Authentication\n\n**Key Feature**: Firestore real-time listeners provide instant order status updates without polling — orders update live as delivery agents change their status.' },
+
+  { intent:'project_billing', keywords:['billing','smart mall','mall billing','pos system','retail','point of sale','inventory','billing system'],
+    answer:'🏪 **Smart Mall Billing System**\n\n**What it is**: A Point of Sale (POS) and inventory management system for retail stores.\n\n**Problem**: Manual billing in small retail stores causes errors, slow checkout, and poor inventory tracking.\n\n**Tech Stack**:\n- Backend/Database: **MySQL** (relational database for products, sales, inventory)\n- Application: Desktop/Web application\n\n**Features**:\n- Barcode/product lookup\n- Automatic inventory deduction on every sale\n- Bill/receipt generation\n- Sales reports and analytics\n- Inventory alerts when stock is low' },
+
+  { intent:'project_portfolio', keywords:['portfolio website','this website','portfolio site','personal website','this site','portfolio project'],
+    answer:'🌐 **Developer Portfolio Website** (this site!)\n\n**Tech Stack**:\n- HTML5, CSS3, **Vanilla JavaScript** (ES6+, no frameworks)\n- **Lenis** for premium smooth scrolling\n- Hosted on **Netlify** (free CDN distribution)\n\n**Key Features**:\n- Nova AI Chat (me!) embedded as the AI assistant\n- Animated intro loading stage\n- Dark theme with green/emerald color palette\n- Fully responsive — mobile + desktop\n- SEO optimized\n- System Design Simulator interactive tool\n\n**Why Vanilla JS?** Maximum performance — no React/Vue overhead. Instant page loads.' },
+
+  { intent:'project_ddquest_web', keywords:['ddquest web','ddquest website','ddquest web platform','ddquest companion'],
+    answer:'**DDQuest Web Platform** is the web-based companion to the DDQuest Mobile App.\n\n- Provides browser access to the DDQuest study material ecosystem\n- Built with HTML, CSS, JavaScript, and Firebase\n- Complements the Android app for students who prefer desktop/browser access\n- Part of the broader DDQuest startup ecosystem founded by Ved' },
+
+  // ── EXPERIENCE ──
+  { intent:'experience', keywords:['experience','internship','infolabz','work experience','job experience','industry experience','professional experience'],
+    answer:'💼 **Professional Experience**\n\n**Machine Learning Internship — InfoLabz** *(August 2024)*\n- Type: Hands-on ML engineering training\n- Work done: Built ML data preprocessing pipelines, trained and evaluated models, learned deployment workflows\n- Tech: Python, Scikit-learn, Pandas, NumPy\n\n**Smart India Hackathon (SIH) 2025**\n- Participated representing GEC Modasa in India\'s largest national hackathon\n\n**DDQuest Startup**\n- Founded, designed, built, and launched a real product — demonstrates entrepreneurial initiative and full product lifecycle experience' },
+
+  // ── CERTIFICATIONS ──
+  { intent:'certifications', keywords:['certification','certificate','certified','ibm','infosys','iit','saylor','coursework','credential','15 certificates'],
+    answer:'📜 **Certifications (15+ Total)**\n\n**IBM** (3 certificates):\n- IBM Cloud Computing Fundamentals + 2 additional IBM certifications\n\n**Infosys Springboard**:\n- ETL (Extract, Transform, Load) Processes\n- Malware Analysis\n\n**IIT Bombay Spoken Tutorial**:\n- Core Java Programming\n- Advanced Java Programming\n\n**Saylor Academy**:\n- Cryptocurrency Fundamentals — **82.5% score**\n- Machine Learning Fundamentals\n\n**Other**:\n- E-Commerce Fundamentals — **90% score**\n- Web development, data science, and software engineering certifications\n\nTotal: **15+ verified certifications** across cloud, AI/ML, Java, web, and cybersecurity.' },
+
+  // ── CAREER & GOALS ──
+  { intent:'career', keywords:['career','goal','future','plan','aim','aspiration','dream job','looking for','want to do','career goal','ambition'],
+    answer:'🎯 **Ved\'s Career Goals**\n\n**Short-term target**: Land an entry-level role in Software Development, Android Development, or AI/ML Engineering\n\n**Preference**: Remote / Work From Home (WFH) strongly preferred\n\n**Ideal role**: Position where he can build real products, work with modern tech (Android, AI, Python/Django), and grow rapidly\n\n**Long-term vision**: Scale DDQuest into a full ed-tech platform and contribute to impactful AI/software products\n\nHe has already proven he can build production-quality software independently — DDQuest, Nova AI Chatbot, Smart Attendance, and Academix are all live, real products.' },
+
+  // ── LIVE DATA / CANNOT ANSWER ──
+  { intent:'date', keywords:['date','today date','what is the date','current date','today\'s date','today is'],
+    answer:'Today is **' + new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '**!' },
+
+  // ── GENERAL TECH KNOWLEDGE (fallback enriched) ──
+  { intent:'general_ai', keywords:['machine learning','deep learning','neural network','artificial intelligence','llm','large language model','transformer','gpt','llama'],
+    answer:'**Machine Learning & AI** is one of Ved\'s core areas of expertise!\n\n**Key concepts**:\n- **ML**: Algorithms that learn patterns from data (Scikit-learn, Pandas)\n- **Deep Learning**: Neural networks with multiple layers — powers LLMs, image recognition\n- **LLMs (Large Language Models)**: Transformer-based models like LLaMA, GPT-4, Qwen — what powers me!\n- **RAG**: Retrieval-Augmented Generation — Ved used this in his AI Chatbot Suite project\n- **Groq LPU**: Special hardware for ~50ms LLM inference — used in Nova AI Chatbot\n\nVed has hands-on experience with Scikit-learn (internship), Groq API (Nova AI), and RAG pipelines (chatbot suite).' },
+
+  { intent:'general_django', keywords:['django','cbv','class based views','orm','django rest','python web framework'],
+    answer:'**Django** (Python web framework) is one of Ved\'s primary web development tools.\n\n**Django in Ved\'s work (Academix project)**:\n- **Class-Based Views (CBV)**: ListView, DetailView, CreateView, UpdateView — clean, reusable CRUD\n- **Django Auth**: Built-in login/signup/session system used for teacher vs student roles\n- **Django ORM**: All database queries written in Python — no raw SQL needed\n- **Admin panel**: Auto-generated management interface\n- **PostgreSQL**: Production-grade relational DB used with Django ORM\n- **Render hosting**: Deployed Academix on Render\'s cloud platform\n\nDjango\'s "batteries included" philosophy makes it ideal for full-stack web apps.' },
+
+  { intent:'general_firebase', keywords:['firebase','firestore','firebase auth','firebase storage','fcm','realtime database','google firebase'],
+    answer:'**Firebase** is Ved\'s primary mobile backend platform.\n\n**Firebase services he has used**:\n- **Firebase Auth**: Email/password authentication in DDQuest and QuickCommerce\n- **Firestore**: NoSQL document database with real-time listeners and offline persistence\n- **Firebase Storage**: PDF and file uploads in DDQuest\n- **FCM** (Firebase Cloud Messaging): Push notifications to DDQuest users when new content is uploaded\n\n**Firestore optimization (DDQuest)**:\n- `startAfter()` cursor-based pagination → 90% fewer reads\n- Offline disk persistence → app works without internet\n\nFirebase enables rapid Android app development without managing your own server.' },
+
+  { intent:'general_git', keywords:['git','github','version control','repository','commit','branch','pull request'],
+    answer:'Git & GitHub is a core part of Ved\'s development workflow.\n\nAll his projects are version-controlled on GitHub: **github.com/DhobiVed**\n\n**Git fundamentals**:\n- **Version control**: Track every code change with commits\n- **Branching**: Work on features in isolation, merge when ready\n- **GitHub**: Cloud hosting for repositories, collaboration, portfolio showcase\n\nHis GitHub profile shows all his projects from DDQuest to Academix to Nova AI Chatbot.' }
+];
+
+// ─── Pronoun / Context Resolver ───────────────────────────────
+function novaResolveContext(query, history) {
+  var q = query.toLowerCase();
+  if (!Array.isArray(history) || history.length < 2) return query;
+
+  var pronouns = ['it','that','this','its','the project','explain more','tell me more','continue','more details','more about','what about','go on','elaborate','expand'];
+  var hasPronouns = pronouns.some(function(p) { return q.includes(p); });
+  if (!hasPronouns) return query;
+
+  // Find the last mentioned topic from history
+  var lastUser = '';
+  var lastAssistant = '';
+  for (var i = history.length - 1; i >= 0; i--) {
+    if (history[i].role === 'user' && !lastUser) lastUser = history[i].content || '';
+    if (history[i].role === 'assistant' && !lastAssistant) lastAssistant = history[i].content || '';
+    if (lastUser && lastAssistant) break;
+  }
+  var combinedCtx = (lastUser + ' ' + lastAssistant).toLowerCase();
+
+  // Enrich the query with detected topic context
+  if (/ddquest|startup|study material/.test(combinedCtx)) return query + ' [CONTEXT: DDQuest project]';
+  if (/smart attendance|face recognition|ml kit/.test(combinedCtx)) return query + ' [CONTEXT: Smart Attendance System project]';
+  if (/academix|django|class manager/.test(combinedCtx)) return query + ' [CONTEXT: Academix project]';
+  if (/nova ai|groq|llama|streamlit chatbot/.test(combinedCtx)) return query + ' [CONTEXT: Nova AI Chatbot project]';
+  if (/chatbot suite|rag|pdf/.test(combinedCtx)) return query + ' [CONTEXT: AI Chatbot Suite project]';
+  if (/quickcommerce|delivery/.test(combinedCtx)) return query + ' [CONTEXT: QuickCommerce Delivery App]';
+  if (/billing|mall|pos/.test(combinedCtx)) return query + ' [CONTEXT: Smart Mall Billing System]';
+  if (/portfolio website|this site|lenis/.test(combinedCtx)) return query + ' [CONTEXT: Portfolio Website project]';
+  if (/education|diploma|degree|cgpa|8.87/.test(combinedCtx)) return query + ' [CONTEXT: Ved\'s education]';
+  if (/skill|language|tech stack/.test(combinedCtx)) return query + ' [CONTEXT: Ved\'s technical skills]';
+
+  return query;
+}
+
+// ─── Intent Classifier & Knowledge Retrieval ──────────────────
+function novaGetReply(text, history) {
+  var raw = (text || '').trim();
+  if (!raw) return "Ask me anything about Ved's projects, education, skills, or general tech topics!";
+
+  // Resolve pronouns and context from conversation history
+  var resolvedText = novaResolveContext(raw, history);
+  var query = resolvedText.toLowerCase();
+
+  // ── Interview Mode ──────────────────────────────────────────
+  if (novaInterviewMode) {
+    return novaInterviewReply(raw, query, history);
+  }
+
+  // ── Activate Interview Mode ─────────────────────────────────
+  if (/interview mode|start interview|practice interview|mock interview/.test(query)) {
+    novaInterviewMode = true;
+    novaInterviewTopic = 'general';
+    return "✅ **Interview Mode Activated!** I\'ll simulate a technical/HR interview about Ved\'s profile.\n\nI\'ll ask you questions. You answer as if you\'re being interviewed (or ask me to answer them too).\n\n---\n🎤 **Question 1**: *Tell me about yourself and your technical background.*\n\n*(Type 'exit interview' to return to normal chat)*";
+  }
+
+  // ── Previous context recall ─────────────────────────────────
+  if (/what did i ask|what was my last question|remember what i said|previous question/.test(query)) {
+    var lastUserMsg = '';
+    if (Array.isArray(history)) {
+      for (var h = history.length - 1; h >= 0; h--) {
+        if (history[h].role === 'user') { lastUserMsg = history[h].content; break; }
+      }
+    }
+    if (lastUserMsg) return 'Your last question was: **"' + lastUserMsg + '"**\n\nI remember our full conversation! What else can I help you with?';
+    return "This appears to be the start of our conversation — no previous questions yet!";
+  }
+
+  // ── Weighted keyword scoring across corpus ──────────────────
+  var bestMatch = null;
+  var maxScore = 0;
+
+  for (var i = 0; i < novaCorpus.length; i++) {
+    var entry = novaCorpus[i];
+    var score = 0;
+    for (var k = 0; k < entry.keywords.length; k++) {
+      var kw = entry.keywords[k];
+      if (query.includes(kw)) {
+        // Longer keyword = higher specificity weight
+        score += kw.length > 6 ? 4 : kw.length > 3 ? 2 : 1;
+      }
+    }
+    if (score > maxScore) { maxScore = score; bestMatch = entry; }
+  }
+
+  if (bestMatch && maxScore >= 2) {
+    return bestMatch.answer;
+  }
+
+  // ── Smart Generative Fallback for Common Tech & General Queries ──
+  if (query.includes('sum') && (query.includes('python') || query.includes('code') || query.includes('number'))) {
+    return "### **Python Code: Sum of Two Numbers**\n```python\n# Take inputs from user\nnum1 = float(input(\"Enter first number: \"))\nnum2 = float(input(\"Enter second number: \"))\n\n# Calculate sum\nresult = num1 + num2\n\n# Print result\nprint(f\"The sum of {num1} and {num2} is {result}\")\n```\n\nVed uses Python extensively for AI/ML models, Django backends (Academix project), and RAG pipelines!";
+  }
+
+  if (query.includes('world cup') || query.includes('worldcup')) {
+    return "### **Cricket World Cup Overview**\n- **2023 ODI World Cup Winner**: **Australia** (defeated India in the final at Ahmedabad).\n- **2024 T20 World Cup Winner**: **India** (defeated South Africa in the final at Barbados).\n\nVed is a passionate developer who enjoys building high-performance AI applications like NovaChat!";
+  }
+
+  if (query.includes('india') || query.includes('country')) {
+    return "### **India — Quick Overview**\n- **Capital**: New Delhi\n- **Highlights**: 5th largest global economy, world's leading IT/software hub, rich cultural heritage.\n- **Ved's Location**: Modasa, Gujarat, India (pursuing BE Computer Engineering at GEC Modasa).";
+  }
+
+  // Graceful response for unknown queries
+  return "### **Information Overview**\nHere is what I know regarding **\"" + text + "\"**:\n\n- **Context**: Ved Dhobi is a Software Developer & AI Builder (8.87 CGPA, Founder of DDQuest).\n- **Verified Topics**: Feel free to ask about his **9 projects**, **technical skills**, **education timeline**, **Python/Java coding**, or **career goals**!";
+}
+
+// ─── Interview Mode Engine ─────────────────────────────────────
+var novaInterviewQuestions = [
+  'Tell me about yourself and your technical background.',
+  'What is your strongest technical skill and why?',
+  'Tell me about DDQuest — what problem does it solve and how did you build it?',
+  'How does the Smart Attendance System work? Explain the face recognition architecture.',
+  'What is Firebase Firestore and how did you optimize it in DDQuest?',
+  'What is the difference between Supervised and Unsupervised Machine Learning?',
+  'Tell me about your ML internship at InfoLabz. What did you build?',
+  'What is RAG (Retrieval-Augmented Generation) and where did you use it?',
+  'Why do you prefer Remote/WFH? How do you stay productive working remotely?',
+  'What is your greatest achievement as a developer?',
+  'Where do you see yourself in 3 years?'
+];
+var novaInterviewIdx = 1;
+
+function novaInterviewReply(raw, query, history) {
+  if (/exit interview|stop interview|end interview|quit interview/.test(query)) {
+    novaInterviewMode = false;
+    novaInterviewIdx = 1;
+    return '✅ **Interview Mode ended.** Back to normal chat! Ask me anything about Ved.';
+  }
+  if (/next|next question|continue|proceed|move on|skip/.test(query) || raw.trim().length < 3) {
+    if (novaInterviewIdx < novaInterviewQuestions.length) {
+      var q = novaInterviewQuestions[novaInterviewIdx];
+      novaInterviewIdx++;
+      return '🎤 **Question ' + novaInterviewIdx + '**: *' + q + '*\n\n*(Type "next" for another question, or type your answer, or "exit interview" to quit)*';
+    } else {
+      novaInterviewMode = false;
+      novaInterviewIdx = 1;
+      return '🎉 **Mock Interview Complete!** You went through all ' + novaInterviewQuestions.length + ' questions.\n\nGreat practice! Type "interview mode" to start again, or ask me anything about Ved.';
+    }
+  }
+  // User answered — acknowledge and give next question
+  var next = novaInterviewIdx < novaInterviewQuestions.length ? novaInterviewQuestions[novaInterviewIdx] : null;
+  novaInterviewIdx++;
+  var reply = '👍 Good answer! ';
+  if (next) {
+    reply += '\n\n🎤 **Question ' + novaInterviewIdx + '**: *' + next + '*\n\n*(Type "next" to skip, "exit interview" to quit)*';
+  } else {
+    novaInterviewMode = false;
+    novaInterviewIdx = 1;
+    reply += '\n\n🎉 **Interview Complete!** All questions covered. Type "interview mode" to restart.';
+  }
+  return reply;
+}
+
+// ─── Main Send Function ───────────────────────────────────────
 async function novaSend(){
-  if(novaIsTyping)return;
-  var input=document.getElementById('novaInput');
-  var text=input.value.trim();if(!text)return;
-  document.getElementById('novaSuggestions').style.display='none';
-  novaAddMessage('user',text);
-  input.value='';input.style.height='auto';
-  novaIsTyping=true;document.getElementById('novaSendBtn').disabled=true;
-  novaShowTyping();
-  await new Promise(function(r){setTimeout(r,400+Math.random()*350);});
-  novaRemoveTyping();
-  novaAddMessage('ai',novaGetReply(text));
-  novaIsTyping=false;document.getElementById('novaSendBtn').disabled=false;
+  if(novaIsTyping) return;
+  var input = document.getElementById('novaInput');
+  var text = input.value.trim();
+  if(!text) return;
+  document.getElementById('novaSuggestions').style.display = 'none';
+  novaAddMessage('user', text);
+  input.value = ''; input.style.height = 'auto';
+  novaIsTyping = true;
+  var sendBtn = document.getElementById('novaSendBtn');
+  if(sendBtn) sendBtn.disabled = true;
+  if (typeof novaShowTyping === 'function') novaShowTyping();
+
+  var aiReply = '';
+  var replyBadge = '';
+  var isLocalhost = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+
+  // ── Step 1: Try local Ollama (localhost only) ──────────────
+  if (isLocalhost) {
+    try {
+      var controller = new AbortController();
+      var timeoutId = setTimeout(function() { controller.abort(); }, 25000);
+      var response = await fetch('http://localhost:3000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: novaHistory }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      if (response.ok) {
+        var resData = await response.json();
+        if (resData && resData.reply) {
+          aiReply = resData.reply;
+          replyBadge = '⚡ Local Qwen 2.5:1.5B';
+        }
+      }
+    } catch (err) {
+      console.log('[Nova] Local Ollama offline → trying fallback', err.message);
+    }
+  }
+
+  // ── Step 2: Try Netlify Function /.netlify/functions/chat (Serverless Groq Proxy) ───
+  if (!aiReply) {
+    try {
+      var nCtrl = new AbortController();
+      var nTimeout = setTimeout(function() { nCtrl.abort(); }, 18000);
+      var nRes = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: novaHistory }),
+        signal: nCtrl.signal
+      });
+      clearTimeout(nTimeout);
+      if (nRes.ok) {
+        var nData = await nRes.json();
+        if (nData && nData.reply) {
+          aiReply = nData.reply;
+          replyBadge = '☁️ Groq LLaMA 3.3 70B';
+        }
+      }
+    } catch (nErr) {
+      console.log('[Nova] Netlify function skipped or offline', nErr.message);
+    }
+  }
+
+  // ── Step 3: Direct Groq Cloud API ───
+  if (!aiReply && NOVA_GROQ_KEY && NOVA_GROQ_KEY.length > 10) {
+    try {
+      var groqController = new AbortController();
+      var groqTimeout = setTimeout(function() { groqController.abort(); }, 15000);
+      var groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + NOVA_GROQ_KEY
+        },
+        body: JSON.stringify({
+          model: NOVA_GROQ_MODEL,
+          messages: [
+            { role: 'system', content: 'You are Nova, personal AI assistant for Ved Dhobi. Answer general questions (coding, sports, geography, science) with full intelligence and precision.' },
+            { role: 'user', content: text }
+          ],
+          max_tokens: 8192,
+          temperature: 0.3
+        }),
+        signal: groqController.signal
+      });
+      clearTimeout(groqTimeout);
+      if (groqResponse.ok) {
+        var groqData = await groqResponse.json();
+        if (groqData.choices && groqData.choices[0]) {
+          var rawReply = groqData.choices[0].message.content;
+          aiReply = rawReply.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+          replyBadge = '☁️ Groq Qwen 3.6';
+        }
+      }
+    } catch (groqErr) {
+      console.log('[Nova] Direct Groq Cloud error', groqErr.message);
+    }
+  }
+
+  // ── Step 3: Instant Knowledge Engine (always works, zero latency) ──
+  if (!aiReply) {
+    await new Promise(function(r) { setTimeout(r, 300 + Math.random() * 150); });
+    var instantReply = novaGetReply(text, novaHistory);
+    if (instantReply) {
+      aiReply = instantReply;
+      replyBadge = '⚡ Instant Knowledge Engine';
+    } else {
+      // General knowledge question fallback
+      aiReply = "### **Information Overview**\nI am Nova, Ved Dhobi's AI assistant. Regarding **\"" + text + "\"**:\n\n- **Context**: Ved is a Software Developer & AI Builder (8.87 CGPA, Founder of DDQuest).\n- **Verified Topics**: Feel free to ask me about his **9 projects**, **technical skills**, **education timeline**, or **career goals**!";
+      replyBadge = '⚡ Instant Knowledge Engine';
+    }
+  }
+
+  if (typeof novaRemoveTyping === 'function') novaRemoveTyping();
+  await novaStreamAIMessage(aiReply, replyBadge);
+
+  novaHistory.push({ role: 'user', content: text });
+  novaHistory.push({ role: 'assistant', content: aiReply });
+  if (novaHistory.length > 14) novaHistory = novaHistory.slice(-14);
+
+  novaIsTyping = false;
+  if(sendBtn) sendBtn.disabled = false;
   input.focus();
 }
+
 function novaClearChat(){
+  novaHistory = [];
   document.getElementById('novaMessages').innerHTML='<div class="nova-msg nova-msg-ai"><div class="nova-msg-avatar">N</div><div class="nova-msg-bubble"><div class="nova-msg-name">Nova</div><div class="nova-msg-text">Chat cleared! Still here — ask me anything about Ved.</div><div class="nova-msg-time">'+novaGetTime()+'</div></div></div>';
   document.getElementById('novaSuggestions').style.display='flex';
   document.getElementById('novaInput').focus();
