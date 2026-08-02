@@ -522,12 +522,17 @@ nav.scrolled {
   gap: 2rem;
 }
 
-.logo {
-  font-family: var(--display);
-  font-size: 1.6rem;
-  letter-spacing: 2px;
-  color: var(--amber);
-  text-decoration: none;
+a.logo, .logo {
+  font-family: var(--display), 'Inter', sans-serif !important;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  color: var(--amber, #166534) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
 }
 .logo span { color: var(--white); }
 
