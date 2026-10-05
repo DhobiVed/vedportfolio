@@ -18,8 +18,8 @@ const novaCorpus = [
     answer:'**Academix — Class Manager** is a full-stack web application built by Ved.\n\n- **Tech Stack**: Python, Django Class-Based Views (CBV), Django Auth, PostgreSQL, Render Cloud.\n- **Features**: Teacher vs student roles, class creation, assignment tracking, grade management.' },
   { intent:'skills', keywords:['skill','skills','programming languages','tech stack','frameworks'],
     answer:'**Ved Dhobi\'s Technical Skills**:\n\n- **Languages**: Python, Java, JavaScript (ES6+), HTML5, CSS3, SQL, C\n- **Mobile**: Native Android (Java), Firebase (Auth/Firestore/Storage/FCM), Google ML Kit\n- **AI & ML**: Scikit-learn, Pandas, NumPy, Streamlit, Groq LPU API (~50ms), OpenAI API, RAG Architecture\n- **Web & DB**: Django (CBV, Auth, ORM), Flask, Node.js, PostgreSQL, MySQL, Firestore, MongoDB Atlas' },
-  { intent:'contact', keywords:['contact','email','phone','whatsapp','linkedin','github','hire','job'],
-    answer:'**Contact Ved Dhobi**:\n\n- 📧 **Email**: veddhobi252@gmail.com\n- 📱 **Phone / WhatsApp**: +91 70433 62186\n- 💼 **LinkedIn**: linkedin.com/in/ved-dhobi-7b3a88376\n- 💻 **GitHub**: github.com/DhobiVed\n- 📍 **Location**: Modasa, Gujarat, India\n- 🟢 **Job Status**: Open to Work (Entry-level Software, Android, AI/ML roles. Prefers Remote/WFH).' }
+  { intent:'contact', keywords:['contact','email','phone','whatsapp','linkedin','github','hire','job','resume','cv'],
+    answer:'**Contact Ved Dhobi**:\n\n- 📧 **Email**: veddhobi252@gmail.com\n- 📱 **Phone / WhatsApp**: +91 70433 62186\n- 💼 **LinkedIn**: linkedin.com/in/ved-dhobi-7b3a88376\n- 💻 **GitHub**: github.com/DhobiVed\n- 📄 **Resume**: Available to view directly at /resume.pdf on this site\n- 📍 **Location**: Modasa, Gujarat, India\n- 🟢 **Job Status**: Open to Work (Entry-level Software, Android, AI/ML roles. Prefers Remote/WFH).' }
 ];
 
 const novaInterviewQuestions = [
@@ -29,11 +29,11 @@ const novaInterviewQuestions = [
   'How does the Smart Attendance System work? Explain the face recognition architecture.',
   'What is Firebase Firestore and how did you optimize it in DDQuest?',
   'What is the difference between Supervised and Unsupervised Machine Learning?',
-  'Tell me about your ML internship at InfoLabz. What did you build?',
-  'What is RAG (Retrieval-Augmented Generation) and where did you use it?',
-  'Why do you prefer Remote/WFH? How do you stay productive working remotely?',
-  'What is your greatest achievement as a developer?',
-  'Where do you see yourself in 3 years?'
+  'Tell me about your ML internship at InfoLabz. What did you work on?',
+  'What is RAG (Retrieval-Augmented Generation) and where did you apply it?',
+  'Why do you prefer Remote/WFH? How do you stay productive?',
+  'What is your greatest achievement as a student developer?',
+  'Where do you see yourself in 3 years as a software engineer?'
 ];
 
 const NovaChat = () => {

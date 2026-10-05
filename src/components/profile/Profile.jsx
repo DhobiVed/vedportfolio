@@ -1,6 +1,6 @@
 import person from "../../assets/images/person2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faCode } from "@fortawesome/free-solid-svg-icons";
+import { faFilePdf, faCode } from "@fortawesome/free-solid-svg-icons";
 import SocialMedia from "../common/socialMedia/SocialMedia";
 import { Link } from "react-scroll";
 
@@ -11,7 +11,7 @@ const Profile = () => {
       id="profile"
     >
       <div className="flex max-md:flex-col justify-between items-center gap-10">
-        {/* Profile image container */}
+        {/* Profile image */}
         <div className="xxl:max-w-106 w-full md:w-auto h-auto">
           <div className="max-w-96 h-108 object-cover overflow-hidden rounded-2xl shadow-lg border-4 border-white relative mx-auto">
             <img
@@ -34,21 +34,32 @@ const Profile = () => {
           <div className="inline-block px-3 py-1 rounded-md bg-purple-100 text-purple-800 font-mono text-xs font-semibold mb-3">
             ABOUT VED DHOBI
           </div>
-          
+
           <h2
             className={`text-2xl xxs:text-3xl sm:text-4xl lg:text-[36px] text-gray-900 max-md:text-center font-bold mb-6 tracking-tight leading-tight`}
           >
-            Software Engineer, Native Android Specialist & AI Builder
+            Software Engineer, Native Android Dev & AI Builder
           </h2>
-          
+
           <div
             className={`text-sm xs:text-base lg:text-[17px] font-normal max-md:text-center text-gray-600 leading-relaxed`}
           >
             <p>
-              I am a computer engineering student at <strong className="text-gray-900">GEC Modasa (GTU)</strong>, admitted via D2D after earning an <strong className="text-purple-700">8.87 / 10.0 CGPA</strong> (9.26 final semester) in Diploma IT at Govt. Polytechnic Himatnagar, where I earned the 🏆 <strong>Best Performance Award</strong>.
+              Computer Engineering student at{" "}
+              <strong className="text-gray-900">GEC Modasa (GTU)</strong>, admitted via D2D
+              after earning an{" "}
+              <strong className="text-purple-700">8.87 / 10.0 CGPA</strong> (9.26 final
+              semester) in Diploma IT at Govt. Polytechnic Himatnagar — where I received the
+              🏆 <strong>Best Performance Award</strong>.
             </p>
             <p className="mt-4">
-              I specialize in <strong className="text-gray-900">Native Android Development (Java + Firebase)</strong>, <strong className="text-gray-900">Python AI/ML Integration</strong> (Groq API ~50ms, RAG architecture, Scikit-learn), and <strong className="text-gray-900">Full-Stack Django</strong>. As the solo founder of <strong className="text-purple-700">DDQuest</strong>, I built and launched a real startup study platform utilized by GTU diploma IT students across Gujarat.
+              Solo founder of{" "}
+              <strong className="text-purple-700">DDQuest</strong> — a real startup Android
+              app used by GTU Diploma IT students across Gujarat. Specialized in{" "}
+              <strong className="text-gray-900">Native Android (Java + Firebase)</strong>,{" "}
+              <strong className="text-gray-900">Python AI/ML</strong> (Groq ~50ms, RAG,
+              Scikit-learn), and{" "}
+              <strong className="text-gray-900">Full-Stack Django</strong>.
             </p>
           </div>
 
@@ -62,12 +73,15 @@ const Profile = () => {
             >
               <FontAwesomeIcon icon={faCode} className="me-2" /> View All 9 Projects
             </Link>
-            
+
+            {/* Direct open resume — no request needed */}
             <a
               className={`btn btn-lg px-6 py-3 border border-gray-200 bg-white hover:border-purple-600 hover:text-purple-700 text-gray-800 font-semibold rounded-xl transition-all shadow-sm`}
-              href="mailto:veddhobi252@gmail.com?subject=Requesting%20Ved%20Dhobi's%20Resume"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faDownload} className="me-2 text-purple-600" /> Request Resume / CV
+              <FontAwesomeIcon icon={faFilePdf} className="me-2 text-red-500" /> View Resume
             </a>
           </div>
         </div>
