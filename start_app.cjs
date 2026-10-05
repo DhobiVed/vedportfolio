@@ -272,11 +272,15 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // ── Static file serving ──
+  // ── Static file serving (prefer dist/ build) ──
   let reqUrl = req.url.split('?')[0];
   if (reqUrl === '/') reqUrl = '/index.html';
 
-  const filePath = path.join(__dirname, reqUrl);
+  let filePath = path.join(__dirname, 'dist', reqUrl);
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(__dirname, reqUrl);
+  }
+
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
@@ -284,7 +288,7 @@ const server = http.createServer((req, res) => {
     if (err) {
       if (err.code === 'ENOENT') {
         res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end('<h1>404 Not Found</h1>');
+        res.end('<h1>404 Not Found - Please open http://localhost:5173</h1>');
       } else {
         res.writeHead(500);
         res.end(`Server Error: ${err.code}`);
