@@ -2,17 +2,72 @@ import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
+  faRobot,
+  faUser,
   faTrashAlt,
   faGraduationCap,
+  faCircleNotch,
 } from "@fortawesome/free-solid-svg-icons";
 
-// ── Nova Instant Knowledge Corpus (50+ Verified Entries) ──
+// ── Full System Knowledge Prompt for Groq Cloud Direct Execution ──
+const VED_SYSTEM_PROMPT = `You are Nova, an exceptionally intelligent personal AI assistant embedded in Ved Dhobi's developer portfolio. You represent Ved professionally, accurately, and with deep technical understanding.
+
+TODAY: ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+
+STYLE & GUIDELINES:
+- Natural, confident, professional, and helpful tone.
+- Format responses cleanly with Markdown: bold text, bullet points, headers, and code blocks.
+- Answer any question about Ved's 9 projects, 8.87 CGPA, skills, education, experience, and contact details with 100% verified accuracy.
+- For general questions (programming, computer science, Python, Java, JS, algorithms, system design, math, science, sports, and general knowledge): Use your FULL AI intelligence to provide detailed, brilliant, accurate, and structured answers!
+
+VERIFIED FACTS ABOUT VED DHOBI:
+- Full Name: Ved Dhobi
+- Role: Software Developer | Native Android Developer (Java + Firebase) | AI/ML Builder | Startup Founder
+- Location: Modasa, Aravalli District, Gujarat, India
+- Contact: veddhobi252@gmail.com | +91 70433 62186 | github.com/DhobiVed | linkedin.com/in/ved-dhobi-7b3a88376
+- Job Status: OPEN TO WORK — Entry-level Software Dev, Android Dev, AI/ML Engineer. Strongly prefers Remote / WFH.
+
+ACADEMIC RECORD:
+1. SSC (10th Grade) — Shri K N Shah Modasa High School (GSEB), 2022.
+2. Diploma in Information Technology — Govt. Polytechnic Himatnagar, GTU (2022–2025).
+   - Overall CGPA: 8.87 / 10.0
+   - Final Semester: 9.26 CGPA (⭐ Top Semester)
+   - Honors: 🏆 Best Performance Award Winner for the batch
+   - Sem Results: Sem 1 (7.16), Sem 2 (8.00), Sem 3 (8.86), Sem 4 (8.74), Sem 5 (8.65), Sem 6 (9.26)
+3. BE Computer Engineering — GEC Modasa (GTU), 2025–2028.
+   - D2D (Diploma-to-Degree) lateral entry, currently pursuing.
+
+ALL 9 PROJECTS:
+1. DDQuest Mobile App ⭐: Flagship startup app providing free organized study materials for GTU Diploma IT students in Gujarat. Built solo with Java (Android Studio), Firebase Auth, Firestore, Firebase Storage, FCM Push Notifications. Optimized with startAfter() cursor pagination (90% read cost reduction) and offline disk caching.
+2. Smart Attendance System: Native Android biometric attendance using Google ML Kit for on-device face recognition (~50ms speed). Privacy-first architecture — zero raw face images uploaded to cloud.
+3. Academix — Class Manager: Full-stack web application for classrooms, assignments, and grades. Built with Django Class-Based Views (CBV), Django Auth, PostgreSQL, deployed on Render cloud.
+4. Nova AI Chatbot: Production-ready high-speed AI chatbot deployed on Streamlit Cloud using Groq LPU API (~50ms latency) with multi-turn conversation memory.
+5. Advanced AI Chatbot Suite: Python AI suite with PDF Q&A using Retrieval-Augmented Generation (RAG) architecture and OpenAI embeddings to prevent hallucinations.
+6. QuickCommerce Delivery App: Native Android delivery app with real-time Firestore document snapshot listeners for instant order updates without polling.
+7. Smart Mall Billing System: Point of Sale (POS) and inventory management system backed by MySQL relational database, barcode scanning, and stock deduction.
+8. DDQuest Web Platform: Responsive companion web portal for the DDQuest startup ecosystem (HTML5, CSS3, JS, Firebase).
+9. Developer Portfolio Website: Full-stack portfolio built with React 19, Vite 6, Tailwind CSS v4, and NovaChat AI knowledge engine.
+
+TECHNICAL SKILLS:
+- Languages: Python, Java, JavaScript (ES6+), HTML5, CSS3, SQL, C
+- Mobile: Native Android (Java), Firebase (Auth, Firestore, Storage, FCM), Google ML Kit
+- AI/ML: Scikit-learn, Pandas, NumPy, Streamlit, Groq API (~50ms), OpenAI API, RAG Pipelines
+- Web/Backend: Django (CBV, Auth, ORM), Flask, Node.js, Express, REST APIs
+- Databases: Firestore (NoSQL), PostgreSQL, MySQL, MongoDB Atlas
+- Tools & Cloud: Git, GitHub, Netlify, Render, IBM Cloud, GCP
+
+EXPERIENCE:
+- DDQuest: Founder & Solo Lead Developer (2023–Present).
+- InfoLabz: Machine Learning Internship (August 2024) — Supervised ML classification pipelines.
+- Hackathon: Participated in college-level internal hackathon under the Smart India Hackathon (SIH) initiative.`;
+
+// ── Verified Instant Knowledge Corpus (50+ entries) ──
 const novaCorpus = [
   {
     intent: "greeting",
     keywords: ["hi", "hello", "hey", "sup", "greetings", "good morning", "good evening", "howdy"],
     answer:
-      "Hey! 👋 I'm **Nova** — Ved Dhobi's AI assistant. I have complete knowledge of his **9 projects**, **8.87 CGPA**, technical skills, and background.\n\nAsk me anything about him, or type **\"start interview\"** to test his profile in Mock Interview Mode! 🚀",
+      "Hey! 👋 I'm **Nova** — Ved Dhobi's personal AI assistant. I have complete knowledge of his **9 projects**, **8.87 CGPA**, technical skills, and background.\n\nYou can ask me:\n- \"Tell me about DDQuest\" (his startup)\n- \"What are his technical skills?\"\n- \"Explain the Smart Attendance System\"\n- \"What is his CGPA?\"\n\nOr ask any programming, AI, or general knowledge question!",
   },
   {
     intent: "profile",
@@ -72,66 +127,68 @@ const novaInterviewQuestions = [
   "Where do you see yourself in 3 years as a software engineer?",
 ];
 
-const novaStatusPhrases = [
-  "Nova is thinking...",
-  "Accessing Ved's local memory...",
-  "Analyzing project architecture...",
-  "Scanning 8.87 CGPA academic data...",
-  "Retrieving tech stack info...",
-  "Formatting intelligent answer...",
-];
+// ── Pronoun & Context Resolver ──
+function novaResolveContext(query, history) {
+  const q = (query || "").toLowerCase();
+  if (!Array.isArray(history) || history.length < 2) return query;
+
+  const pronouns = ["it", "that", "this", "its", "the project", "explain more", "tell me more", "continue", "more details", "what about"];
+  const hasPronoun = pronouns.some((p) => q.includes(p));
+  if (!hasPronoun) return query;
+
+  let lastUser = "";
+  let lastAI = "";
+  for (let i = history.length - 1; i >= 0; i--) {
+    if (history[i].role === "user" && !lastUser) lastUser = history[i].content || "";
+    if (history[i].role === "assistant" && !lastAI) lastAI = history[i].content || "";
+    if (lastUser && lastAI) break;
+  }
+  const combined = (lastUser + " " + lastAI).toLowerCase();
+
+  if (/ddquest|startup|study material/.test(combined)) return query + " [CONTEXT: DDQuest Mobile App project]";
+  if (/smart attendance|face recognition|ml kit/.test(combined)) return query + " [CONTEXT: Smart Attendance System project]";
+  if (/academix|django|class manager/.test(combined)) return query + " [CONTEXT: Academix project]";
+  if (/nova ai|groq|llama|streamlit/.test(combined)) return query + " [CONTEXT: Nova AI Chatbot project]";
+  if (/quickcommerce|delivery/.test(combined)) return query + " [CONTEXT: QuickCommerce Delivery App]";
+  if (/billing|mall|pos/.test(combined)) return query + " [CONTEXT: Smart Mall Billing System]";
+  if (/education|diploma|degree|cgpa|8.87/.test(combined)) return query + " [CONTEXT: Ved's academic education]";
+  if (/skill|language|tech stack/.test(combined)) return query + " [CONTEXT: Ved's technical skills]";
+
+  return query;
+}
 
 const NovaChat = () => {
   const [messages, setMessages] = useState([
     {
-      role: "ai",
+      role: "assistant",
       content:
-        "Hey! I'm **Nova** — Ved's AI assistant. I know all about his projects, skills, education, and background.\n\nAsk me anything about him, or just have a chat! 🚀",
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      badge: "LLaMA 3.3 70B",
+        "👋 Hello! I'm **Nova**, Ved Dhobi's AI Knowledge Engine.\n\nI can answer questions about his **9 projects**, **8.87 CGPA**, **technical skills**, or test you in **Mock Interview Mode**! Feel free to ask anything.",
+      badge: "✨ Nova AI Engine",
     },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [statusPhrase, setStatusPhrase] = useState(novaStatusPhrases[0]);
   const [interviewMode, setInterviewMode] = useState(false);
   const [interviewIdx, setInterviewIdx] = useState(0);
-  const messagesEndRef = useRef(null);
-  const textareaRef = useRef(null);
+  const chatEndRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  useEffect(() => {
-    let interval = null;
-    if (loading) {
-      let pIdx = 0;
-      interval = setInterval(() => {
-        pIdx = (pIdx + 1) % novaStatusPhrases.length;
-        setStatusPhrase(novaStatusPhrases[pIdx]);
-      }, 1400);
-    }
-    return () => clearInterval(interval);
-  }, [loading]);
-
-  const handleSend = async (customText) => {
-    const textToSend = (customText || input).trim();
-    if (!textToSend || loading) return;
+  const handleSend = async (textToSend) => {
+    const rawQuery = (textToSend || input).trim();
+    if (!rawQuery || loading) return;
 
     setInput("");
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-    }
-
-    const currentTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    const newMessages = [...messages, { role: "user", content: textToSend, time: currentTime }];
+    const resolvedQuery = novaResolveContext(rawQuery, messages);
+    const newMessages = [...messages, { role: "user", content: rawQuery }];
     setMessages(newMessages);
     setLoading(true);
 
-    const qLower = textToSend.toLowerCase();
+    const qLower = rawQuery.toLowerCase();
 
-    // ── Interview Mode Handling ──
+    // ── Check Mock Interview Mode ──
     if (/start interview|practice interview|mock interview|interview mode/.test(qLower)) {
       setInterviewMode(true);
       setInterviewIdx(1);
@@ -139,9 +196,8 @@ const NovaChat = () => {
         setMessages((prev) => [
           ...prev,
           {
-            role: "ai",
+            role: "assistant",
             content: `🎤 **Interview Mode Activated!** I will simulate a technical/HR interview about Ved's profile.\n\n---\n**Question 1**: *${novaInterviewQuestions[0]}*\n\n*(Type 'exit interview' to end mock interview)*`,
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
             badge: "🎤 Mock Interviewer",
           },
         ]);
@@ -156,10 +212,9 @@ const NovaChat = () => {
         setMessages((prev) => [
           ...prev,
           {
-            role: "ai",
+            role: "assistant",
             content: "✅ Exited Mock Interview Mode. Back to standard AI assistant mode!",
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            badge: "Nova",
+            badge: "✨ Nova AI Engine",
           },
         ]);
         setLoading(false);
@@ -174,9 +229,8 @@ const NovaChat = () => {
         setMessages((prev) => [
           ...prev,
           {
-            role: "ai",
-            content: `Great answer!\n\n---\n🎤 **Question ${interviewIdx + 1}**: *${nextQuestion}*`,
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            role: "assistant",
+            content: `Great response!\n\n---\n🎤 **Question ${interviewIdx + 1}**: *${nextQuestion}*`,
             badge: "🎤 Mock Interviewer",
           },
         ]);
@@ -185,68 +239,131 @@ const NovaChat = () => {
       return;
     }
 
-    // ── Request Netlify / Local AI / Fallback ──
-    let reply = "";
-    let badge = "LLaMA 3.3 70B";
+    // ── Powerful Multi-Tier AI Request Pipeline ──
+    let aiReply = "";
+    let replyBadge = "☁️ Groq Qwen 3.8 (27B)";
 
-    try {
-      const netlifyRes = await fetch("/.netlify/functions/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: textToSend,
-          history: newMessages.slice(-6).map((m) => ({ role: m.role, content: m.content })),
-        }),
-      });
+    const groqKey = import.meta.env.VITE_GROQ_API_KEY || "";
 
-      if (netlifyRes.ok) {
-        const data = await netlifyRes.json();
-        if (data && data.reply) {
-          reply = data.reply;
+    // Tier 1: Direct Groq Cloud API with Qwen 3.8 27B / GPT-OSS 120B
+    if (groqKey) {
+      try {
+        const groqMessages = [
+          { role: "system", content: VED_SYSTEM_PROMPT },
+          ...newMessages.slice(-6).map((m) => ({
+            role: m.role === "assistant" ? "assistant" : "user",
+            content: m.content,
+          })),
+        ];
+
+        // Try primary model
+        let groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${groqKey}`,
+          },
+          body: JSON.stringify({
+            model: "qwen/qwen3.8-27b",
+            messages: groqMessages,
+            max_tokens: 4096,
+            temperature: 0.3,
+          }),
+        });
+
+        if (!groqRes.ok) {
+          // Fallback to 120B model
+          groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${groqKey}`,
+            },
+            body: JSON.stringify({
+              model: "openai/gpt-oss-120b",
+              messages: groqMessages,
+              max_tokens: 4096,
+              temperature: 0.3,
+            }),
+          });
         }
+
+        if (groqRes.ok) {
+          const gData = await groqRes.json();
+          if (gData.choices && gData.choices[0] && gData.choices[0].message) {
+            let content = gData.choices[0].message.content || "";
+            content = content.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+            aiReply = content;
+            replyBadge = `⚡ Groq Cloud (${gData.model})`;
+          }
+        }
+      } catch (e) {
+        console.log("Direct Groq call note:", e.message);
       }
-    } catch (e) {
-      console.log("Netlify proxy note:", e.message);
     }
 
-    if (!reply && window.location.hostname === "localhost") {
+    // Tier 2: Production Netlify Serverless Function
+    if (!aiReply) {
+      try {
+        const netlifyRes = await fetch("/.netlify/functions/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: resolvedQuery,
+            history: newMessages.slice(-6).map((m) => ({ role: m.role, content: m.content })),
+          }),
+        });
+
+        if (netlifyRes.ok) {
+          const nData = await netlifyRes.json();
+          if (nData && nData.reply) {
+            aiReply = nData.reply;
+            replyBadge = `☁️ Serverless (${nData.source || "Groq Cloud"})`;
+          }
+        }
+      } catch (e) {
+        console.log("Netlify proxy note:", e.message);
+      }
+    }
+
+    // Tier 3: Local Server proxy (http://localhost:3000/api/chat)
+    if (!aiReply && window.location.hostname === "localhost") {
       try {
         const localRes = await fetch("http://localhost:3000/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: textToSend }),
+          body: JSON.stringify({
+            message: resolvedQuery,
+            history: newMessages.slice(-6).map((m) => ({ role: m.role, content: m.content })),
+          }),
         });
         if (localRes.ok) {
           const lData = await localRes.json();
           if (lData && lData.reply) {
-            reply = lData.reply;
-            badge = "Local Qwen 2.5";
+            aiReply = lData.reply;
+            replyBadge = "⚡ Local AI Server";
           }
         }
       } catch (e) {
-        console.log("Local server note:", e.message);
+        console.log("Local AI check note:", e.message);
       }
     }
 
-    if (!reply) {
-      const match = novaCorpus.find((c) => c.keywords.some((kw) => qLower.includes(kw)));
+    // Tier 4: Instant Knowledge Retrieval Corpus Fallback
+    if (!aiReply) {
+      const match = novaCorpus.find((item) => item.keywords.some((kw) => qLower.includes(kw)));
       if (match) {
-        reply = match.answer;
-        badge = "Instant KB";
+        aiReply = match.answer;
+        replyBadge = "⚡ Instant Knowledge Engine";
       } else {
-        reply = `I am Nova, Ved Dhobi's AI Assistant. Regarding **"${textToSend}"**:\n\n- **Ved's Profile**: Software Developer & AI Engineer (8.87 CGPA, Founder of DDQuest).\n- Feel free to ask about his **9 projects**, **technical skills**, **diploma results**, or start **Mock Interview Mode**!`;
-        badge = "Instant KB";
+        aiReply = `### **Information Overview**\nI am Nova, Ved Dhobi's AI Assistant. Regarding **"${rawQuery}"**:\n\n- **Ved's Profile**: Software Developer & AI Builder (8.87 CGPA, Founder of DDQuest).\n- **Ask Me**: Feel free to ask about his **9 projects**, **technical skills**, **diploma results**, or start **Mock Interview Mode**!`;
+        replyBadge = "⚡ Instant Knowledge Engine";
       }
     }
 
     setMessages((prev) => [
       ...prev,
-      {
-        role: "ai",
-        content: reply,
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        badge: badge,
-      },
+      { role: "assistant", content: aiReply, badge: replyBadge },
     ]);
     setLoading(false);
   };
@@ -254,322 +371,146 @@ const NovaChat = () => {
   const clearChat = () => {
     setMessages([
       {
-        role: "ai",
+        role: "assistant",
         content: "Chat history cleared. How can I assist you with Ved's portfolio?",
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        badge: "Nova",
+        badge: "✨ Nova AI Engine",
       },
     ]);
     setInterviewMode(false);
   };
 
-  const formatText = (text) => {
-    // Process **bold**
-    const parts = (text || "").split(/(\*\*.*?\*\*)/g);
-    return parts.map((part, i) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
-        return (
-          <strong key={i} className="text-[#E11D48] font-bold">
-            {part.slice(2, -2)}
-          </strong>
-        );
-      }
-      return part;
-    });
-  };
-
   return (
-    <div className="content py-12 px-4" id="nova-ai">
-      <div className="text-center max-w-2xl mx-auto mb-8">
-        <div className="inline-block px-3 py-1 rounded-md bg-pink-100 text-[#DB2777] font-mono text-xs font-semibold mb-2">
-          LIVE AI DEMO · CONNECTED
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-          Nova <span className="text-[#EC4899]">AI Chatbot</span>
-        </h2>
-        <p className="text-sm sm:text-base text-gray-500 mt-2">
-          A fully functional AI assistant built into this portfolio. Ask anything about Ved — or just chat!
-        </p>
-      </div>
-
-      {/* ════════ ELEGANT LIGHT PINK / ROSE GOLD NOVACHAT WRAPPER (EXACTLY AS MY PORTFOLIO) ════════ */}
-      <div
-        className="max-w-[880px] mx-auto rounded-[20px] overflow-hidden flex flex-col h-[650px] sm:h-[680px]"
-        style={{
-          background: "linear-gradient(135deg, #FFF0F5 0%, #FCE7F3 100%)",
-          border: "1.5px solid #FBCFE8",
-          boxShadow: "0 16px 40px rgba(244, 114, 182, 0.15)",
-        }}
-      >
-        {/* Nova Header */}
-        <div
-          className="px-5 py-3.5 flex items-center justify-between shrink-0"
-          style={{
-            background: "linear-gradient(135deg, #F472B6 0%, #EC4899 100%)",
-            borderBottom: "1px solid #F9A8D4",
-          }}
-        >
+    <div className="content py-16 px-4" id="nova-ai">
+      {/* ════════ PICTO TEMPLATE UI DESIGN ════════ */}
+      <div className="bg-gradient-to-br from-gray-900 via-purple-950 to-gray-900 rounded-3xl p-6 sm:p-10 text-white shadow-2xl border border-purple-800/40">
+        {/* Header */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6 mb-6">
           <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-sm"
-              style={{
-                background: "linear-gradient(135deg, #FFFFFF, #FCE7F3)",
-                color: "#DB2777",
-                border: "2px solid #FFFFFF",
-                boxShadow: "0 0 10px rgba(255, 255, 255, 0.6)",
-              }}
-            >
-              N
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-900/50">
+              <FontAwesomeIcon icon={faRobot} />
             </div>
             <div>
-              <div className="text-white font-bold text-base tracking-wider leading-none">NOVA</div>
-              <div className="text-[11px] font-mono text-pink-100 flex items-center gap-1.5 mt-0.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-300 inline-block shadow-sm animate-pulse"></span>
-                <span>LIVE</span>
-              </div>
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                NovaChat AI Knowledge Engine
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/30">
+                  v3.0 Live
+                </span>
+              </h2>
+              <p className="text-xs text-purple-200/70 font-mono mt-0.5">
+                Powered by Groq Cloud (Qwen 3.8 27B & 120B LLM) + Verified KB
+              </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span
-              className="text-[11px] font-mono px-3 py-1 rounded-full text-white font-semibold"
-              style={{
-                background: "rgba(255, 255, 255, 0.2)",
-                border: "1px solid rgba(255, 255, 255, 0.35)",
-              }}
-            >
-              ⚡ LLaMA 3.3 70B
-            </span>
             <button
               onClick={() => handleSend("start interview")}
-              className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono px-3 py-1 rounded-full text-white font-semibold hover:bg-white/30 transition-all cursor-pointer"
-              style={{
-                background: "rgba(255, 255, 255, 0.15)",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-              }}
+              className="px-4 py-2 rounded-xl bg-purple-600/40 hover:bg-purple-600 text-purple-200 text-xs font-semibold border border-purple-400/30 transition-all flex items-center gap-2 cursor-pointer"
             >
-              <FontAwesomeIcon icon={faGraduationCap} /> Interview Mode
+              <FontAwesomeIcon icon={faGraduationCap} /> Mock Interview Mode
             </button>
             <button
               onClick={clearChat}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all cursor-pointer"
-              title="Clear chat"
+              title="Clear Chat"
+              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all cursor-pointer"
             >
-              <FontAwesomeIcon icon={faTrashAlt} className="text-xs" />
+              <FontAwesomeIcon icon={faTrashAlt} className="text-sm" />
             </button>
           </div>
         </div>
 
-        {/* Messages Container */}
-        <div
-          className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 font-sans text-sm"
-          style={{ background: "#FFF5F8" }}
-        >
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex gap-2.5 items-start ${
-                msg.role === "user" ? "flex-row-reverse" : "flex-row"
-              }`}
-            >
-              {/* Avatar */}
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-sm"
-                style={
-                  msg.role === "ai"
-                    ? {
-                        background: "linear-gradient(135deg, #F472B6, #EC4899)",
-                        color: "#FFFFFF",
-                        border: "1.5px solid #F472B6",
-                      }
-                    : {
-                        background: "linear-gradient(135deg, #F9A8D4, #F472B6)",
-                        color: "#881337",
-                        border: "1.5px solid #F472B6",
-                      }
-                }
-              >
-                {msg.role === "ai" ? "N" : "U"}
-              </div>
-
-              {/* Message Bubble */}
-              <div
-                className={`max-w-[82%] sm:max-w-[78%] flex flex-col ${
-                  msg.role === "user" ? "items-end" : "items-start"
-                }`}
-              >
-                <div
-                  className="text-[11px] font-mono font-bold mb-1 px-1"
-                  style={{ color: msg.role === "ai" ? "#9F1239" : "#BE185D" }}
-                >
-                  {msg.role === "ai" ? "Nova" : "You"}
-                  {msg.badge && msg.role === "ai" && (
-                    <span
-                      className="ms-1.5 text-[9px] px-2 py-0.5 rounded-full font-bold"
-                      style={{
-                        background: "rgba(244, 114, 182, 0.15)",
-                        color: "#BE185D",
-                        border: "1px solid #FBCFE8",
-                      }}
-                    >
-                      {msg.badge}
-                    </span>
-                  )}
-                </div>
-
-                <div
-                  className="p-3.5 sm:p-4 text-[13.5px] sm:text-[14px] leading-relaxed shadow-sm whitespace-pre-line"
-                  style={
-                    msg.role === "ai"
-                      ? {
-                          background: "#FFFFFF",
-                          border: "1px solid #FBCFE8",
-                          color: "#1F2937",
-                          boxShadow: "0 4px 14px rgba(244, 114, 182, 0.1)",
-                          borderRadius: "14px",
-                          borderTopLeftRadius: "4px",
-                        }
-                      : {
-                          background: "linear-gradient(135deg, #EC4899 0%, #F43F5E 100%)",
-                          border: "1px solid #F43F5E",
-                          color: "#FFFFFF",
-                          boxShadow: "0 4px 14px rgba(236, 72, 153, 0.25)",
-                          borderRadius: "14px",
-                          borderTopRightRadius: "4px",
-                        }
-                  }
-                >
-                  {formatText(msg.content)}
-                </div>
-
-                <div
-                  className="text-[10px] font-mono mt-1 px-1 opacity-70"
-                  style={{ color: "#9F1239" }}
-                >
-                  {msg.time}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Typing Indicator */}
-          {loading && (
-            <div className="flex gap-2.5 items-start">
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 text-white"
-                style={{
-                  background: "linear-gradient(135deg, #F472B6, #EC4899)",
-                  border: "1.5px solid #F472B6",
-                }}
-              >
-                N
-              </div>
-              <div className="flex flex-col items-start">
-                <div className="text-[11px] font-mono font-bold text-[#9F1239] mb-1 px-1">
-                  Nova · <span className="text-[#E11D48]">Processing...</span>
-                </div>
-                <div
-                  className="px-4 py-3 rounded-2xl flex items-center gap-3 text-xs font-semibold text-[#9F1239]"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #FBCFE8",
-                    boxShadow: "0 4px 14px rgba(244, 114, 182, 0.1)",
-                  }}
-                >
-                  <div className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#EC4899] animate-bounce"></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#EC4899] animate-bounce [animation-delay:0.2s]"></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#EC4899] animate-bounce [animation-delay:0.4s]"></span>
-                  </div>
-                  <span>{statusPhrase}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-
         {/* Suggestion Chips */}
-        <div
-          className="px-4 py-2.5 flex gap-2 overflow-x-auto shrink-0"
-          style={{
-            background: "#FFF0F5",
-            borderTop: "1px solid #FBCFE8",
-          }}
-        >
+        <div className="flex flex-wrap gap-2 mb-6">
           {[
-            "What projects has Ved built?",
-            "What's his tech stack?",
-            "Is he open to work?",
             "Tell me about DDQuest",
+            "What is Ved's CGPA?",
+            "Explain Smart Attendance System",
+            "What are his technical skills?",
             "Start Mock Interview",
           ].map((chip, idx) => (
             <button
               key={idx}
               onClick={() => handleSend(chip)}
-              className="text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 transition-all hover:-translate-y-0.5 cursor-pointer"
-              style={{
-                background: "#FFFFFF",
-                border: "1px solid #F472B6",
-                color: "#BE185D",
-                boxShadow: "0 2px 6px rgba(244, 114, 182, 0.1)",
-              }}
+              className="px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-purple-600/30 border border-white/10 text-purple-200 text-xs font-medium transition-all cursor-pointer"
             >
               {chip}
             </button>
           ))}
         </div>
 
-        {/* Input Area */}
-        <div
-          className="p-3.5 sm:p-4 shrink-0"
-          style={{
-            background: "#FCE7F3",
-            borderTop: "1px solid #F9A8D4",
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <textarea
-              ref={textareaRef}
-              rows={1}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
-                }
-              }}
-              placeholder="Ask Nova anything about Ved..."
-              className="flex-1 px-4 py-2.5 rounded-xl text-sm outline-none resize-none transition-all"
-              style={{
-                background: "#FFFFFF",
-                border: "1.5px solid #F472B6",
-                color: "#881337",
-              }}
-            />
-
-            <button
-              onClick={() => handleSend()}
-              disabled={loading || !input.trim()}
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 cursor-pointer"
-              style={{
-                background: "linear-gradient(135deg, #EC4899, #F43F5E)",
-                boxShadow: "0 4px 12px rgba(236, 72, 153, 0.3)",
-              }}
+        {/* Chat Messages */}
+        <div className="h-[430px] overflow-y-auto pr-2 space-y-4 font-sans custom-scrollbar">
+          {messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={`flex gap-3 ${
+                msg.role === "user" ? "justify-end" : "justify-start"
+              }`}
             >
-              <FontAwesomeIcon icon={faPaperPlane} className="text-sm" />
-            </button>
-          </div>
+              {msg.role === "assistant" && (
+                <div className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center text-white text-xs shrink-0 mt-1 shadow">
+                  <FontAwesomeIcon icon={faRobot} />
+                </div>
+              )}
 
-          <div
-            className="text-[10px] font-mono text-center mt-2 opacity-70 tracking-wider"
-            style={{ color: "#9F1239" }}
-          >
-            ⚡ Press Enter to send · Connected to Meta LLaMA 3.3 70B & Localhost
-          </div>
+              <div
+                className={`max-w-[85%] md:max-w-[78%] rounded-2xl p-4 text-sm leading-relaxed ${
+                  msg.role === "user"
+                    ? "bg-purple-600 text-white rounded-tr-none shadow-md shadow-purple-900/40"
+                    : "bg-white/10 text-gray-100 backdrop-blur-md border border-white/10 rounded-tl-none shadow-md"
+                }`}
+              >
+                {msg.badge && (
+                  <div className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 w-fit mb-2 border border-purple-400/20">
+                    {msg.badge}
+                  </div>
+                )}
+                <div className="whitespace-pre-line font-sans">{msg.content}</div>
+              </div>
+
+              {msg.role === "user" && (
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xs shrink-0 mt-1 shadow">
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+              )}
+            </div>
+          ))}
+
+          {loading && (
+            <div className="flex gap-3 items-center text-purple-300 text-xs font-mono">
+              <div className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center text-white">
+                <FontAwesomeIcon icon={faCircleNotch} className="animate-spin" />
+              </div>
+              <span>Nova is thinking with high-performance LLM...</span>
+            </div>
+          )}
+          <div ref={chatEndRef} />
         </div>
+
+        {/* Input Bar */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSend();
+          }}
+          className="mt-6 flex items-center gap-3 bg-white/5 p-2 rounded-2xl border border-white/10"
+        >
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask Nova anything about Ved's projects, skills, CGPA, or general coding..."
+            className="w-full bg-transparent px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none"
+          />
+          <button
+            type="submit"
+            disabled={loading || !input.trim()}
+            className="btn btn-primary px-6 py-3 rounded-xl text-white font-semibold flex items-center gap-2 disabled:opacity-50 cursor-pointer shadow-lg shadow-purple-900/40"
+          >
+            <span>Send</span>
+            <FontAwesomeIcon icon={faPaperPlane} className="text-xs" />
+          </button>
+        </form>
       </div>
     </div>
   );

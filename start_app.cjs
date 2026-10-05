@@ -12,27 +12,25 @@ const fs = require('fs');
 const path = require('path');
 const { getSystemPrompt } = require('./knowledge_base/system_prompt.cjs');
 
+// Auto-load .env file for local development immediately
+if (fs.existsSync(path.join(__dirname, '.env'))) {
+  const envContent = fs.readFileSync(path.join(__dirname, '.env'), 'utf-8');
+  envContent.split('\n').forEach(line => {
+    const parts = line.split('=');
+    if (parts.length >= 2) process.env[parts[0].trim()] = parts.slice(1).join('=').trim();
+  });
+}
+
 const PORT = 3000;
 const OLLAMA_HOST = '127.0.0.1';
 const OLLAMA_PORT = 11434;
 const MODEL_NAME = 'qwen2.5:1.5b';
 
 // ─── Groq Cloud Config ─────────────────────────────────────────────────────
-// Get your FREE key at: https://console.groq.com  (no credit card needed)
-// Paste it below or set environment variable: GROQ_API_KEY=your_key
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const GROQ_MODEL = 'llama-3.3-70b-versatile'; // Free, fast (~300ms)
+const GROQ_MODEL = 'qwen/qwen3.8-27b'; // Active, ultra-fast (~400ms on Groq)
+const GROQ_FALLBACK_MODEL = 'openai/gpt-oss-120b'; // 120B parameter reasoning fallback
 // ──────────────────────────────────────────────────────────────────────────
-
-
-// Auto-load .env file for local development
-if (fs.existsSync(path.join(__dirname, '.env'))) {
-  const envContent = fs.readFileSync(path.join(__dirname, '.env'), 'utf-8');
-  envContent.split('\n').forEach(line => {
-    const parts = line.split('=');
-    if (parts.length === 2) process.env[parts[0].trim()] = parts[1].trim();
-  });
-}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
@@ -344,10 +342,10 @@ function callGroqFallback(messages, res, intent) {
           let raw = parsed.choices[0].message.content || '';
           raw = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
           res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ reply: raw, source: 'groq_cloud_qwen3.6', intent }));
+          res.end(JSON.stringify({ reply: raw, source: `groq_${GROQ_MODEL}`, intent }));
         } else {
           res.writeHead(502, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Groq empty response' }));
+          res.end(JSON.stringify({ error: 'Groq empty response', details: parsed }));
         }
       } catch (err) {
         res.writeHead(502, { 'Content-Type': 'application/json' });
