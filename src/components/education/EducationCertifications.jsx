@@ -1,101 +1,224 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGraduationCap,
+  faBriefcase,
+  faFilePdf,
+  faEye,
+  faUniversity,
+  faDatabase,
+  faBug,
+  faRobot,
+  faShoppingCart,
+  faLock,
+  faBrain,
+  faTrophy,
+  faCloud,
+} from "@fortawesome/free-solid-svg-icons";
+import { faJava } from "@fortawesome/free-brands-svg-icons";
+import PdfModal from "../common/PdfModal";
 
-const educationData = [
+// ── Real Semester Results with Google Drive Previews ──
+const semesterResults = [
   {
-    degree: "BE Computer Engineering",
-    institution: "GEC Modasa (Gujarat Technological University)",
-    duration: "2025 – 2028",
-    score: "Pursuing (D2D Lateral Admission)",
-    award: null,
-    details:
-      "Focusing on Advanced Data Structures, Operating Systems, Computer Networks, Artificial Intelligence, and Distributed Systems.",
+    sem: "Semester 1",
+    date: "Jul 2023",
+    sgpa: "7.16",
+    pdf: "https://drive.google.com/file/d/1JfVrS-yz-Mrn2bapsPXIAF71OX4eYnV1/preview?rm=minimal",
+    highlight: false,
   },
   {
-    degree: "Diploma in Information Technology",
-    institution: "Govt. Polytechnic Himatnagar (GTU)",
-    duration: "2022 – 2025",
-    score: "8.87 / 10.0 Overall CGPA",
-    semBreakdown: [
-      { sem: "Sem 1", sgpa: "8.22" },
-      { sem: "Sem 2", sgpa: "8.56" },
-      { sem: "Sem 3", sgpa: "8.80" },
-      { sem: "Sem 4", sgpa: "8.84" },
-      { sem: "Sem 5", sgpa: "9.03" },
-      { sem: "Sem 6", sgpa: "9.26" },
-    ],
-    award: "🏆 Best Performance Award Winner",
-    details:
-      "Top-ranking diploma student. Built DDQuest startup Android app as final year capstone project.",
+    sem: "Semester 2",
+    date: "May 2023",
+    sgpa: "8.00",
+    pdf: "https://drive.google.com/file/d/1F2nQ35em6oe3ISeXa4PwXfWALZyVDIJG/preview?rm=minimal",
+    highlight: false,
   },
   {
-    degree: "SSC 10th Grade",
-    institution: "Shri K N Shah Modasa High School (GSEB)",
-    duration: "2022",
-    score: "Completed",
-    award: null,
-    details: "Foundational mathematics, science, and computer fundamentals.",
+    sem: "Semester 3",
+    date: "Dec 2024",
+    sgpa: "8.86",
+    pdf: "https://drive.google.com/file/d/1rYt-L-geXFizEiYtpqo7AySZAF7/preview?rm=minimal",
+    highlight: false,
+  },
+  {
+    sem: "Semester 4",
+    date: "May 2024",
+    sgpa: "8.74",
+    pdf: "https://drive.google.com/file/d/1LPecuxFKA0W2Ctj28fPNhOWMThJsEHzC/preview?rm=minimal",
+    highlight: false,
+  },
+  {
+    sem: "Semester 5",
+    date: "Dec 2024",
+    sgpa: "8.65",
+    pdf: "https://drive.google.com/file/d/1KLLN21M5_evkDDAUs1t94Akv-t-WLyAR/preview?rm=minimal",
+    highlight: false,
+  },
+  {
+    sem: "Semester 6",
+    date: "May 2025",
+    sgpa: "9.26",
+    pdf: "https://drive.google.com/file/d/1z7QRQlNirl1qozroA7bFzT5D2AeSZAF7/preview?rm=minimal",
+    highlight: true,
   },
 ];
 
-const experienceData = [
+// ── Degree Certificate ──
+const degreeCert = {
+  name: "Diploma in Information Technology",
+  issuer: "Gujarat Technological University (GTU) · Govt. Polytechnic Himatnagar",
+  date: "2022 – 2025 · Overall CGPA: 8.87 / 10 · Best Performance Award",
+  pdf: "https://drive.google.com/file/d/1otFyHeff4gP9z0MN275cEb1hdFNCLJ81/preview",
+  icon: faGraduationCap,
+};
+
+// ── IBM Certificates ──
+const ibmCerts = [
   {
-    role: "Founder & Lead Android Engineer",
-    company: "DDQuest — Personal Startup",
-    period: "2023 – Present",
-    desc: "Designed, developed, and published the DDQuest Android app independently. Implemented Firestore startAfter() pagination cutting DB read costs by 90%. App used by GTU Diploma IT students across Gujarat.",
+    name: "IBM Cloud Computing Fundamentals",
+    issuer: "IBM Student Ambassador Program",
+    date: "Apr 2024",
+    pdf: "https://drive.google.com/file/d/1ZTUupOdGGdu_WPURDlf11xKFpIp6l_4e/preview",
+    icon: faCloud,
+    isBrand: false,
   },
   {
-    role: "Machine Learning Intern",
-    company: "InfoLabz IT Services",
-    period: "August 2024",
-    desc: "Hands-on experience with Scikit-learn, Pandas, model evaluation metrics, and supervised machine learning classification pipelines on real datasets.",
+    name: "IBM Certification — 2",
+    issuer: "IBM",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1vXDjs0WlBdeNGXGWe8_VMnfN4V82VqL5/preview",
+    icon: faRobot,
   },
   {
-    role: "Internal Hackathon Participant",
-    company: "Govt. Polytechnic Himatnagar",
-    period: "2024",
-    desc: "Participated in the college-level internal hackathon organized under the Smart India Hackathon (SIH) initiative. Built a problem-statement-based project within the team.",
+    name: "IBM Certification — 3",
+    issuer: "IBM",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1B9tZ8vjevA7xz6AMIkcq-69L0Mg63G3G/preview",
+    icon: faRobot,
   },
 ];
 
-const certificationsData = [
-  { name: "IBM Cloud Computing Fundamentals", issuer: "IBM / Cognitive Class", year: "2024" },
-  { name: "IBM Artificial Intelligence Essentials", issuer: "IBM / Cognitive Class", year: "2024" },
-  { name: "ETL & Data Integration", issuer: "Infosys Springboard", year: "2024" },
-  { name: "Malware Analysis & Cybersecurity", issuer: "Infosys Springboard", year: "2024" },
-  { name: "Core Java Programming", issuer: "IIT Bombay Spoken Tutorial", year: "2023" },
-  { name: "Advanced Java Programming", issuer: "IIT Bombay Spoken Tutorial", year: "2023" },
-  { name: "Cryptocurrency & Blockchain", issuer: "Saylor Academy", year: "2024", score: "82.5%" },
-  { name: "Machine Learning Fundamentals", issuer: "Saylor Academy", year: "2024" },
-  { name: "E-Commerce & Digital Business Systems", issuer: "Online Certification", year: "2024", score: "90%" },
-  { name: "Python Programming Mastery", issuer: "CodeChef / Online", year: "2024" },
-  { name: "Android Application Development (Java + Firebase)", issuer: "Self-Certified / Project-Based", year: "2023" },
-  { name: "Django Full-Stack Web Development", issuer: "Self-Certified / Project-Based", year: "2024" },
-  { name: "Database Management & SQL", issuer: "Online Certification", year: "2023" },
-  { name: "Git & Software Version Control", issuer: "Online Certification", year: "2023" },
-  { name: "Agile Software Development Fundamentals", issuer: "Online Certification", year: "2024" },
+// ── Infosys Springboard Certificates ──
+const infosysCerts = [
+  {
+    name: "ETL using Pentaho Data Integration",
+    issuer: "Infosys Springboard",
+    date: "Jan 2024",
+    pdf: "https://drive.google.com/file/d/1H5BXxQCGehTAnQYO7LxW1vR82Tu2u5rG/preview",
+    icon: faDatabase,
+  },
+  {
+    name: "Malware Removal: Identifying Malware Types",
+    issuer: "Infosys Springboard",
+    date: "Jan 2024",
+    pdf: "https://drive.google.com/file/d/1H7S-k283pdXhVD32jQNTrjMQsAOFKdD6/preview",
+    icon: faBug,
+  },
 ];
 
-const tabs = ["Education & Experience", "Diploma Results", "Certifications (15+)"];
+// ── Internship & Academic Certificates ──
+const internshipAcademicCerts = [
+  {
+    name: "Machine Learning Internship",
+    issuer: "InfoLabz",
+    date: "Aug 2024",
+    pdf: "https://drive.google.com/file/d/1XPYvFFEMx55eGkN1Ye0o39vbTddR_anL/preview",
+    icon: faBriefcase,
+  },
+  {
+    name: "Internship Certificate — 2",
+    issuer: "Internship",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1lssOJip7I9rttPdbngDf1eijnA0-oBKy/preview",
+    icon: faBriefcase,
+  },
+  {
+    name: "Java Training — Spoken Tutorial",
+    issuer: "IIT Bombay",
+    date: "Aug 2024",
+    pdf: "https://drive.google.com/file/d/1H81NwTtXHcX68drSWHelypHeGVuD8DsO/preview",
+    icon: faUniversity,
+  },
+  {
+    name: "E-Commerce Fundamentals",
+    issuer: "B-School (GTU) · Score: 90%",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1SL0tnkjAMqatMETdT7o8WiFzoyNL-cNs/preview",
+    icon: faShoppingCart,
+  },
+  {
+    name: "Advance Java",
+    issuer: "Jagrut Awaaz",
+    date: "Oct 2025",
+    pdf: "https://drive.google.com/file/d/1LSXHFOKES4Aq7IXBpWutcwFcgc-uvMAF/preview",
+    icon: faJava,
+    isBrand: true,
+  },
+  {
+    name: "Smart India Hackathon 2025",
+    issuer: "GEC Modasa · Participant",
+    date: "2025",
+    pdf: "https://drive.google.com/file/d/10zRaJtzWwwi7cPVOnh-CvZ8UJjiwWEzq/preview",
+    icon: faTrophy,
+  },
+];
+
+// ── Online Courses ──
+const onlineCourseCerts = [
+  {
+    name: "Introduction to Cryptography & Network Security",
+    issuer: "Saylor Academy · CS260 · Score: 82.5%",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1aJ6cfPBfSykJbOXZm3DSj5qBXIuyXic8/preview",
+    icon: faLock,
+  },
+  {
+    name: "Fundamentals of Machine Learning",
+    issuer: "Saylor Academy",
+    date: "2024",
+    pdf: "https://drive.google.com/file/d/1tnRjwXxG8K9L2vFxp-c375hp960m8RpU/preview",
+    icon: faBrain,
+  },
+];
+
+const tabs = ["Academic Results", "Certifications (15+)", "Education Timeline"];
 
 const EducationCertifications = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [modalState, setModalState] = useState({ isOpen: false, url: "", title: "" });
+
+  const openPdfViewer = (url, title) => {
+    setModalState({ isOpen: true, url, title });
+  };
+
+  const closePdfViewer = () => {
+    setModalState({ isOpen: false, url: "", title: "" });
+  };
 
   return (
     <div className="content py-16 lg:py-24 px-4" id="education">
+      {/* PDF Modal Viewer */}
+      <PdfModal
+        isOpen={modalState.isOpen}
+        onClose={closePdfViewer}
+        pdfUrl={modalState.url}
+        title={modalState.title}
+      />
+
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className="inline-block px-3 py-1 rounded-md bg-purple-100 text-purple-800 font-mono text-xs font-semibold mb-3">
-          ACADEMIC & PROFESSIONAL CREDENTIALS
+          VERIFIED DOCUMENTATION
         </div>
         <h2 className="section-title font-bold text-gray-900 tracking-tight">
-          Education, Results & Certifications
+          Results & Verified Certificates
         </h2>
         <p className="text-gray-600 text-base md:text-lg mt-4">
-          Verified academic track record, diploma semester-wise results, internship experience, and 15+ professional certifications.
+          Official semester results, degree documentation, and certified credentials with direct in-page verification.
         </p>
       </div>
 
-      {/* Tab Switcher */}
+      {/* Tabs */}
       <div className="flex flex-wrap justify-center gap-2 mb-10">
         {tabs.map((tab, idx) => (
           <button
@@ -112,144 +235,317 @@ const EducationCertifications = () => {
         ))}
       </div>
 
-      {/* ─── TAB 0: Education & Experience ─── */}
+      {/* ════════ TAB 0: ACADEMIC RESULTS (EXACTLY AS MY PORTFOLIO) ════════ */}
       {activeTab === 0 && (
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-md">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="p-2 rounded-xl bg-purple-100 text-purple-700 text-lg">🎓</span>
-              Academic Journey
-            </h3>
-            <div className="space-y-7">
-              {educationData.map((item, idx) => (
-                <div key={idx} className="relative pl-6 border-l-2 border-purple-200 pb-1">
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-600 border-2 border-white shadow"></div>
-                  <div className="flex flex-wrap justify-between items-baseline gap-2">
-                    <h4 className="text-base font-bold text-gray-900">{item.degree}</h4>
-                    <span className="text-[11px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">
-                      {item.duration}
-                    </span>
-                  </div>
-                  <p className="text-xs font-semibold text-gray-500 mt-1">{item.institution}</p>
-                  <div className="inline-block mt-2 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-semibold text-xs border border-emerald-200">
-                    {item.score}
-                  </div>
-                  {item.award && (
-                    <p className="text-xs font-bold text-amber-600 mt-1.5">{item.award}</p>
-                  )}
-                  <p className="text-gray-500 text-xs mt-2 leading-relaxed">{item.details}</p>
-                </div>
-              ))}
+        <div className="space-y-8">
+          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-3xl p-6 sm:p-8 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                Diploma in Information Technology
+              </p>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-1">
+                Govt. Polytechnic Himatnagar · GTU
+              </h3>
+              <p className="text-xs text-gray-500 font-mono mt-1">
+                2022 – 2025 · 🏆 Best Performance Award Winner
+              </p>
+            </div>
+            <div className="bg-white px-6 py-3.5 rounded-2xl shadow-sm border border-purple-100 text-right">
+              <p className="text-[11px] font-mono font-bold text-gray-400 uppercase">Overall CGPA</p>
+              <p className="text-3xl font-black text-purple-700">8.87 <span className="text-sm font-semibold text-gray-400">/ 10</span></p>
             </div>
           </div>
 
-          <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-md">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="p-2 rounded-xl bg-purple-100 text-purple-700 text-lg">💼</span>
-              Experience & Hackathon
-            </h3>
-            <div className="space-y-7">
-              {experienceData.map((item, idx) => (
-                <div key={idx} className="relative pl-6 border-l-2 border-indigo-200 pb-1">
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white shadow"></div>
-                  <div className="flex flex-wrap justify-between items-baseline gap-2">
-                    <h4 className="text-base font-bold text-gray-900">{item.role}</h4>
-                    <span className="text-[11px] font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">
-                      {item.period}
-                    </span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {semesterResults.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-between gap-4"
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-12 h-12 rounded-xl bg-red-50 text-red-500 border border-red-100 flex items-center justify-center text-xl shrink-0">
+                    <FontAwesomeIcon icon={faFilePdf} />
                   </div>
-                  <p className="text-xs font-semibold text-gray-500 mt-1">{item.company}</p>
-                  <p className="text-gray-500 text-xs mt-2 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ─── TAB 1: Diploma Results ─── */}
-      {activeTab === 1 && (
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-md">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="p-2 rounded-xl bg-purple-100 text-purple-700 text-lg">📊</span>
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900">Diploma IT — Semester Results</h3>
-                <p className="text-xs text-gray-500 font-mono">Govt. Polytechnic Himatnagar · GTU · 2022–2025</p>
-              </div>
-            </div>
-
-            <div className="mt-6 mb-4 flex items-center justify-between bg-purple-50 border border-purple-100 rounded-2xl px-5 py-4">
-              <div>
-                <p className="text-xs text-purple-600 font-mono font-bold uppercase tracking-wider">Overall CGPA</p>
-                <p className="text-4xl font-black text-purple-700 mt-1">8.87 <span className="text-base font-semibold text-purple-400">/ 10.0</span></p>
-              </div>
-              <div className="text-right">
-                <p className="text-xs text-amber-600 font-bold">🏆 Best Performance Award</p>
-                <p className="text-xs text-gray-500 mt-1">Graduation: May 2025</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
-              {educationData[1].semBreakdown.map((sem, idx) => (
-                <div
-                  key={idx}
-                  className={`rounded-2xl border p-4 text-center transition-all ${
-                    idx === 5
-                      ? "bg-purple-600 border-purple-600 text-white"
-                      : "bg-gray-50 border-gray-100"
-                  }`}
-                >
-                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${idx === 5 ? "text-purple-200" : "text-gray-500"}`}>
-                    {sem.sem}
-                  </p>
-                  <p className={`text-3xl font-black mt-1 ${idx === 5 ? "text-white" : "text-gray-900"}`}>
-                    {sem.sgpa}
-                  </p>
-                  <p className={`text-[10px] mt-1 ${idx === 5 ? "text-purple-200" : "text-gray-400"}`}>
-                    {idx === 5 ? "⭐ Best Sem" : "SGPA"}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-xs text-gray-400 text-center mt-5 font-mono">
-              Consistently improved every semester · Final Sem SGPA 9.26
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* ─── TAB 2: Certifications ─── */}
-      {activeTab === 2 && (
-        <div>
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 text-white p-8 rounded-3xl shadow-xl">
-            <h3 className="text-xl font-bold mb-2 flex items-center gap-2 text-purple-100">
-              📜 Verified Certifications — 15 Total
-            </h3>
-            <p className="text-purple-300 text-xs font-mono mb-6">IBM · Infosys · IIT Bombay · Saylor Academy · CodeChef & more</p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {certificationsData.map((cert, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white/8 hover:bg-white/15 backdrop-blur-md rounded-2xl border border-white/10 p-4 transition-all cursor-default"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-white text-xs font-semibold leading-snug">
-                      ✓ {cert.name}
-                    </p>
-                    {cert.score && (
-                      <span className="shrink-0 text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-md font-mono font-bold">
-                        {cert.score}
+                  <div className="min-w-0">
+                    <h4 className="text-base font-bold text-gray-900 truncate">{item.sem}</h4>
+                    <p className="text-xs text-gray-500 font-mono">{item.date}</p>
+                    <div className="mt-1">
+                      <span
+                        className={`text-2xl font-black font-mono tracking-tight ${
+                          item.highlight ? "text-emerald-600" : "text-purple-700"
+                        }`}
+                      >
+                        {item.sgpa}
                       </span>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between mt-2">
-                    <p className="text-purple-300 text-[10px] font-mono">{cert.issuer}</p>
-                    <p className="text-purple-400 text-[10px] font-mono">{cert.year}</p>
+                      <span className="text-[11px] text-gray-400 font-mono ms-1">
+                        {item.highlight ? "⭐ Top Sem" : "SGPA"}
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                <button
+                  onClick={() => openPdfViewer(item.pdf, `${item.sem} Result (${item.sgpa} SGPA)`)}
+                  className="px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 text-xs font-semibold border border-purple-100 transition-all flex items-center gap-1.5 shrink-0"
+                >
+                  <FontAwesomeIcon icon={faEye} />
+                  <span>View</span>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ════════ TAB 1: CERTIFICATIONS (EACH WITH OPEN VIEW) ════════ */}
+      {activeTab === 1 && (
+        <div className="space-y-10">
+          {/* Degree Certificate */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-4 h-0.5 bg-purple-600"></span>
+              <h4 className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                Degree Certificate
+              </h4>
+            </div>
+            <div className="bg-white p-6 rounded-3xl border border-purple-100 shadow-md hover:shadow-xl transition-all flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center text-2xl shrink-0">
+                  <FontAwesomeIcon icon={degreeCert.icon} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">{degreeCert.name}</h3>
+                  <p className="text-xs text-gray-600 mt-0.5">{degreeCert.issuer}</p>
+                  <p className="text-xs font-mono text-purple-700 font-semibold mt-1">{degreeCert.date}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => openPdfViewer(degreeCert.pdf, degreeCert.name)}
+                className="btn btn-primary btn-sm px-5 rounded-xl text-white font-semibold flex items-center gap-2 shrink-0"
+              >
+                <FontAwesomeIcon icon={faEye} /> View Certificate
+              </button>
+            </div>
+          </div>
+
+          {/* IBM Certifications */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-4 h-0.5 bg-purple-600"></span>
+              <h4 className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                IBM Certifications
+              </h4>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {ibmCerts.map((c, i) => (
+                <div key={i} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center text-lg shrink-0">
+                      <FontAwesomeIcon icon={c.icon} />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-bold text-gray-900 leading-snug">{c.name}</h4>
+                      <p className="text-xs text-gray-500 mt-1">{c.issuer}</p>
+                      <p className="text-[11px] font-mono text-purple-600 font-semibold mt-0.5">{c.date}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => openPdfViewer(c.pdf, c.name)}
+                    className="mt-4 w-full py-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 text-xs font-semibold border border-purple-100 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <FontAwesomeIcon icon={faEye} /> View
+                  </button>
+                </div>
               ))}
+            </div>
+          </div>
+
+          {/* Infosys Springboard */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-4 h-0.5 bg-purple-600"></span>
+              <h4 className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                Infosys Springboard
+              </h4>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {infosysCerts.map((c, i) => (
+                <div key={i} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center text-lg shrink-0">
+                      <FontAwesomeIcon icon={c.icon} />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-bold text-gray-900 leading-snug">{c.name}</h4>
+                      <p className="text-xs text-gray-500 mt-1">{c.issuer}</p>
+                      <p className="text-[11px] font-mono text-purple-600 font-semibold mt-0.5">{c.date}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => openPdfViewer(c.pdf, c.name)}
+                    className="mt-4 w-full py-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 text-xs font-semibold border border-purple-100 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <FontAwesomeIcon icon={faEye} /> View
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Internship, Academic & Skill */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-4 h-0.5 bg-purple-600"></span>
+              <h4 className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                Internship, Academic & Skill Certificates
+              </h4>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {internshipAcademicCerts.map((c, i) => (
+                <div key={i} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center text-lg shrink-0">
+                      <FontAwesomeIcon icon={c.icon} />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-bold text-gray-900 leading-snug">{c.name}</h4>
+                      <p className="text-xs text-gray-500 mt-1">{c.issuer}</p>
+                      <p className="text-[11px] font-mono text-purple-600 font-semibold mt-0.5">{c.date}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => openPdfViewer(c.pdf, c.name)}
+                    className="mt-4 w-full py-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 text-xs font-semibold border border-purple-100 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <FontAwesomeIcon icon={faEye} /> View
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Online Courses */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-4 h-0.5 bg-purple-600"></span>
+              <h4 className="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">
+                Online Courses (Saylor Academy)
+              </h4>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {onlineCourseCerts.map((c, i) => (
+                <div key={i} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-lg shrink-0">
+                      <FontAwesomeIcon icon={c.icon} />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-bold text-gray-900 leading-snug">{c.name}</h4>
+                      <p className="text-xs text-gray-500 mt-1">{c.issuer}</p>
+                      <p className="text-[11px] font-mono text-purple-600 font-semibold mt-0.5">{c.date}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => openPdfViewer(c.pdf, c.name)}
+                    className="mt-4 w-full py-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 text-xs font-semibold border border-purple-100 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <FontAwesomeIcon icon={faEye} /> View
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════ TAB 2: EDUCATION TIMELINE ════════ */}
+      {activeTab === 2 && (
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-md">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2.5">
+              <span className="p-2 rounded-xl bg-purple-100 text-purple-700 text-base">🎓</span> Academic Timeline
+            </h3>
+            <div className="space-y-6">
+              <div className="relative pl-6 border-l-2 border-purple-300 pb-2">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">BE Computer Engineering</h4>
+                  <span className="text-[11px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">2025–2028</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">GEC Modasa (GTU)</p>
+                <span className="inline-block mt-2 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-semibold text-xs border border-emerald-200">
+                  Pursuing (D2D Lateral Entry)
+                </span>
+              </div>
+
+              <div className="relative pl-6 border-l-2 border-purple-300 pb-2">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">Diploma in Information Technology</h4>
+                  <span className="text-[11px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">2022–2025</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Govt. Polytechnic Himatnagar (GTU)</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-semibold text-xs border border-emerald-200">
+                    8.87 / 10.0 Overall CGPA
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-semibold text-xs border border-amber-200">
+                    🏆 Best Performance Award
+                  </span>
+                </div>
+              </div>
+
+              <div className="relative pl-6 border-l-2 border-purple-300">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">SSC 10th Grade</h4>
+                  <span className="text-[11px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">2022</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Shri K N Shah Modasa High School (GSEB)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-md">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2.5">
+              <span className="p-2 rounded-xl bg-purple-100 text-purple-700 text-base">💼</span> Experience & Hackathon
+            </h3>
+            <div className="space-y-6">
+              <div className="relative pl-6 border-l-2 border-indigo-300 pb-2">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">Founder & Lead Developer</h4>
+                  <span className="text-[11px] font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">2023 – Present</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">DDQuest — Personal EdTech Startup</p>
+                <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+                  Published native Android app for GTU diploma students with Firestore pagination and offline PDF storage.
+                </p>
+              </div>
+
+              <div className="relative pl-6 border-l-2 border-indigo-300 pb-2">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">Machine Learning Intern</h4>
+                  <span className="text-[11px] font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">Aug 2024</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">InfoLabz IT Services</p>
+                <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+                  Supervised ML algorithms, data preprocessing, and model evaluation metrics using Scikit-learn and Pandas.
+                </p>
+              </div>
+
+              <div className="relative pl-6 border-l-2 border-indigo-300">
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white shadow"></div>
+                <div className="flex justify-between items-baseline">
+                  <h4 className="text-base font-bold text-gray-900">Internal Hackathon Participant</h4>
+                  <span className="text-[11px] font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">2024 / 2025</span>
+                </div>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Govt. Polytechnic Himatnagar (SIH Initiative)</p>
+                <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+                  College-level internal team hackathon building software solutions to address practical challenges.
+                </p>
+              </div>
             </div>
           </div>
         </div>
