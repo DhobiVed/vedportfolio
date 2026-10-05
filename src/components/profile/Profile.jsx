@@ -1,4 +1,4 @@
-import person from "../../assets/images/person2.png";
+import vedFace from "../../assets/images/ved_face.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faCode } from "@fortawesome/free-solid-svg-icons";
 import SocialMedia from "../common/socialMedia/SocialMedia";
@@ -13,11 +13,11 @@ const Profile = () => {
       <div className="flex max-md:flex-col justify-between items-center gap-10">
         {/* Profile image */}
         <div className="xxl:max-w-106 w-full md:w-auto h-auto">
-          <div className="max-w-96 h-108 object-cover overflow-hidden rounded-2xl shadow-lg border-4 border-white relative mx-auto">
+          <div className="max-w-96 h-108 object-cover overflow-hidden rounded-2xl shadow-lg border-4 border-white relative mx-auto bg-gradient-to-b from-gray-50 to-purple-50 flex items-center justify-center">
             <img
-              className="bg-soft-white w-full h-full object-cover"
-              src={person}
-              alt="Ved Dhobi Profile"
+              className="w-full h-full object-cover object-top"
+              src={vedFace}
+              alt="Ved Dhobi Face Profile"
             />
           </div>
           {/* Social media pill */}
