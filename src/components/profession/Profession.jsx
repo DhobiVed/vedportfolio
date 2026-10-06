@@ -25,7 +25,7 @@ const skillCategories = [
 
 const Profession = () => {
   return (
-    <div className="content py-16 lg:py-24 px-4" id="services">
+    <div className="content py-16 lg:py-24 px-4" id="skills">
       <div className="text-center max-w-2xl mx-auto mb-14">
         <div className="inline-block px-3 py-1 rounded-md bg-purple-100 text-purple-800 font-mono text-xs font-semibold mb-3">
           TECHNICAL EXPERTISE

@@ -5,7 +5,7 @@ const navItems = [
   { id: 2, name: "About", url: "profile" },
   { id: 3, name: "Process", url: "work-process" },
   { id: 4, name: "Projects", url: "portfolio" },
-  { id: 5, name: "Skills", url: "services" },
+  { id: 5, name: "Skills", url: "skills" },
   { id: 6, name: "Education", url: "education" },
   { id: 7, name: "Nova AI", url: "nova-ai" },
   { id: 8, name: "Contact", url: "contact" },
