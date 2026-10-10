@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-scroll";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 const navItems = [
   { id: 1, name: "Home", url: "introduction" },
@@ -40,6 +42,25 @@ const menu = navItems.map((item) => (
 
 const NavBar = () => {
   const [position, setPosition] = useState(0);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "dark";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark-mode");
+      root.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark-mode");
+      root.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,7 +74,7 @@ const NavBar = () => {
 
   return (
     <div
-      className={`sticky top-0 ${
+      className={`navbar-wrapper sticky top-0 ${
         position > 50
           ? "bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm"
           : "bg-white border-white"
@@ -106,13 +127,30 @@ const NavBar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <ul className="hidden lg:flex menu menu-horizontal text-[15px] font-medium md:shrink-0">
             {menu}
           </ul>
-          
+
+          {/* Dark / Light Theme Toggle Button */}
+          <button
+            onClick={() => setIsDark((prev) => !prev)}
+            aria-label="Toggle Dark Mode"
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 cursor-pointer shadow-sm ${
+              isDark
+                ? "bg-slate-800 border-purple-500/40 text-amber-400 hover:bg-slate-700"
+                : "bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100"
+            }`}
+          >
+            <FontAwesomeIcon
+              icon={isDark ? faSun : faMoon}
+              className="text-base transition-transform duration-300 hover:rotate-12"
+            />
+          </button>
+
           <Link
-            className="btn btn-sm sm:btn-md btn-primary px-5 text-white font-semibold rounded-xl shadow-md hover:shadow-purple-200 cursor-pointer"
+            className="btn btn-sm sm:btn-md btn-primary px-4 sm:px-5 text-white font-semibold rounded-xl shadow-md hover:shadow-purple-200 cursor-pointer"
             to={`nova-ai`}
             smooth={true}
             duration={900}

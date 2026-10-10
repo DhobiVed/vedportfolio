@@ -1,4 +1,4 @@
-import vedFace from "../../assets/images/ved_face.jpg";
+import vedAbout from "../../assets/images/ved_about.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faCode } from "@fortawesome/free-solid-svg-icons";
 import SocialMedia from "../common/socialMedia/SocialMedia";
@@ -7,23 +7,34 @@ import { Link } from "react-scroll";
 const Profile = () => {
   return (
     <div
-      className={`relative mx-4 xxl:mx-0.5 -bottom-20 lg:-bottom-28 z-10 rounded-3xl bg-white drop-shadow-2xl max-xl:mb-5 shadow-purple-100/50 border border-purple-50 xl:p-20 lg:p-16 md:p-12 sm:p-8 p-5`}
+      className={`relative mx-4 xxl:mx-0.5 -bottom-20 lg:-bottom-28 z-10 rounded-3xl bg-white drop-shadow-2xl max-xl:mb-5 shadow-purple-100/50 border border-purple-100 xl:p-20 lg:p-16 md:p-12 sm:p-8 p-5`}
       id="profile"
     >
-      <div className="flex max-md:flex-col justify-between items-center gap-10">
-        {/* Profile image */}
-        <div className="xxl:max-w-106 w-full md:w-auto h-auto">
-          <div className="max-w-96 h-108 object-cover overflow-hidden rounded-2xl shadow-lg border-4 border-white relative mx-auto bg-gradient-to-b from-gray-50 to-purple-50 flex items-center justify-center">
-            <img
-              className="w-full h-full object-cover object-top"
-              src={vedFace}
-              alt="Ved Dhobi Face Profile"
-            />
+      <div className="flex max-md:flex-col justify-between items-center gap-12">
+        {/* Profile image with visible background card */}
+        <div className="xxl:max-w-110 w-full md:w-auto h-auto flex flex-col items-center">
+          <div className="relative mx-auto w-full max-w-96 sm:max-w-104">
+            {/* Back tilted accent card */}
+            <div className="absolute -inset-2.5 bg-gradient-to-tr from-purple-600 via-indigo-500 to-purple-400 rounded-3xl transform -rotate-3 shadow-xl opacity-90"></div>
+            {/* Second subtle offset card */}
+            <div className="absolute -inset-1.5 bg-gradient-to-bl from-indigo-200 via-purple-100 to-pink-100 rounded-3xl transform rotate-2 border border-purple-300/60 shadow-md"></div>
+
+            {/* Main visible card container */}
+            <div className="relative z-10 p-3.5 sm:p-4 rounded-3xl bg-gradient-to-b from-purple-50 via-white to-indigo-50 border-2 border-purple-200 shadow-2xl">
+              <div className="w-full h-96 sm:h-104 overflow-hidden rounded-2xl shadow-inner border border-purple-100 bg-purple-950/5">
+                <img
+                  className="w-full h-full object-cover object-[28%_center] hover:scale-105 transition-transform duration-500"
+                  src={vedAbout}
+                  alt="Ved Dhobi Profile"
+                />
+              </div>
+            </div>
           </div>
+
           {/* Social media pill */}
-          <div className="relative bottom-6">
+          <div className="relative -top-6 z-20">
             <div className="flex justify-center">
-              <div className="px-6 py-3.5 z-20 text-center bg-white rounded-2xl border border-purple-100 shadow-xl">
+              <div className="px-6 py-3.5 text-center bg-white rounded-2xl border-2 border-purple-200 shadow-xl">
                 <SocialMedia />
               </div>
             </div>
